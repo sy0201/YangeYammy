@@ -9,13 +9,13 @@
 /* Begin PBXBuildFile section */
 		186F8CA72BC7E20100741FF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F8CA62BC7E20100741FF1 /* AppDelegate.swift */; };
 		186F8CA92BC7E20100741FF1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F8CA82BC7E20100741FF1 /* SceneDelegate.swift */; };
-		186F8CAB2BC7E20100741FF1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F8CAA2BC7E20100741FF1 /* ViewController.swift */; };
-		186F8CAE2BC7E20100741FF1 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 186F8CAD2BC7E20100741FF1 /* Base */; };
 		186F8CB02BC7E20200741FF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 186F8CAF2BC7E20200741FF1 /* Assets.xcassets */; };
 		186F8CB32BC7E20200741FF1 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 186F8CB22BC7E20200741FF1 /* Base */; };
 		186F8CBE2BC7E20200741FF1 /* YangeYammyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F8CBD2BC7E20200741FF1 /* YangeYammyTests.swift */; };
 		186F8CC82BC7E20200741FF1 /* YangeYammyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F8CC72BC7E20200741FF1 /* YangeYammyUITests.swift */; };
 		186F8CCA2BC7E20200741FF1 /* YangeYammyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F8CC92BC7E20200741FF1 /* YangeYammyUITestsLaunchTests.swift */; };
+		186F8CD82BC8A6E600741FF1 /* RootTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F8CD72BC8A6E600741FF1 /* RootTabBarViewController.swift */; };
+		186F8CDC2BC8A8F200741FF1 /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F8CDB2BC8A8F200741FF1 /* AlarmViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,8 +39,6 @@
 		186F8CA32BC7E20100741FF1 /* YangeYammy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YangeYammy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		186F8CA62BC7E20100741FF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		186F8CA82BC7E20100741FF1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		186F8CAA2BC7E20100741FF1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		186F8CAD2BC7E20100741FF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		186F8CAF2BC7E20200741FF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		186F8CB22BC7E20200741FF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		186F8CB42BC7E20200741FF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,6 +47,8 @@
 		186F8CC32BC7E20200741FF1 /* YangeYammyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YangeYammyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		186F8CC72BC7E20200741FF1 /* YangeYammyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YangeYammyUITests.swift; sourceTree = "<group>"; };
 		186F8CC92BC7E20200741FF1 /* YangeYammyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YangeYammyUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		186F8CD72BC8A6E600741FF1 /* RootTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarViewController.swift; sourceTree = "<group>"; };
+		186F8CDB2BC8A8F200741FF1 /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,8 +101,7 @@
 			children = (
 				186F8CA62BC7E20100741FF1 /* AppDelegate.swift */,
 				186F8CA82BC7E20100741FF1 /* SceneDelegate.swift */,
-				186F8CAA2BC7E20100741FF1 /* ViewController.swift */,
-				186F8CAC2BC7E20100741FF1 /* Main.storyboard */,
+				186F8CD62BC7E2DF00741FF1 /* Screen */,
 				186F8CAF2BC7E20200741FF1 /* Assets.xcassets */,
 				186F8CB12BC7E20200741FF1 /* LaunchScreen.storyboard */,
 				186F8CB42BC7E20200741FF1 /* Info.plist */,
@@ -125,6 +124,23 @@
 				186F8CC92BC7E20200741FF1 /* YangeYammyUITestsLaunchTests.swift */,
 			);
 			path = YangeYammyUITests;
+			sourceTree = "<group>";
+		};
+		186F8CD62BC7E2DF00741FF1 /* Screen */ = {
+			isa = PBXGroup;
+			children = (
+				186F8CD72BC8A6E600741FF1 /* RootTabBarViewController.swift */,
+				186F8CDD2BC8AA3E00741FF1 /* Alarm */,
+			);
+			path = Screen;
+			sourceTree = "<group>";
+		};
+		186F8CDD2BC8AA3E00741FF1 /* Alarm */ = {
+			isa = PBXGroup;
+			children = (
+				186F8CDB2BC8A8F200741FF1 /* AlarmViewController.swift */,
+			);
+			path = Alarm;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,7 +249,6 @@
 			files = (
 				186F8CB02BC7E20200741FF1 /* Assets.xcassets in Resources */,
 				186F8CB32BC7E20200741FF1 /* Base in Resources */,
-				186F8CAE2BC7E20100741FF1 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,7 +273,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				186F8CAB2BC7E20100741FF1 /* ViewController.swift in Sources */,
+				186F8CDC2BC8A8F200741FF1 /* AlarmViewController.swift in Sources */,
+				186F8CD82BC8A6E600741FF1 /* RootTabBarViewController.swift in Sources */,
 				186F8CA72BC7E20100741FF1 /* AppDelegate.swift in Sources */,
 				186F8CA92BC7E20100741FF1 /* SceneDelegate.swift in Sources */,
 			);
@@ -297,14 +313,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		186F8CAC2BC7E20100741FF1 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				186F8CAD2BC7E20100741FF1 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		186F8CB12BC7E20200741FF1 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -447,7 +455,6 @@
 				INFOPLIST_FILE = YangeYammy/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -475,7 +482,6 @@
 				INFOPLIST_FILE = YangeYammy/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
