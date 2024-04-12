@@ -19,26 +19,32 @@ final class AlarmViewController: UIViewController {
         super.viewDidLoad()
         setupNavigationBar()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        alarmView.alarmList = getAlarmList()
+    }
 }
+
+// MARK: - Private Methods
 
 private extension AlarmViewController {
     func setupNavigationBar() {
         self.title = "알람"
         
-        let leftBarButton = UIBarButtonItem(title: "편집",
+        let editBarButton = UIBarButtonItem(title: "편집",
                                             style: .plain,
                                             target: self,
-                                            action: #selector(leftBarButtonTapped))
-        let rightBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(rightBarButtonTapped))
+                                            action: #selector(editBarButtonTapped))
+        let addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addtBarButtonTapped))
         
-        leftBarButton.tintColor = .systemOrange
-        rightBarButton.tintColor = .systemOrange
+        editBarButton.tintColor = .systemOrange
+        addBarButton.tintColor = .systemOrange
         
-        self.navigationItem.rightBarButtonItem = rightBarButton
-        self.navigationItem.leftBarButtonItem = leftBarButton
+        self.navigationItem.leftBarButtonItem = editBarButton
+        self.navigationItem.rightBarButtonItem = addBarButton
     }
     
-    @objc func leftBarButtonTapped() {
+    @objc func editBarButtonTapped() {
         if #available(iOS 14.0, *) {
             setEditing(alarmView.collectionView.isEditing, animated: true)
         } else {
@@ -46,7 +52,27 @@ private extension AlarmViewController {
         }
     }
     
-    @objc func rightBarButtonTapped() {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "AlarmNavigationController") as? AlarmNavigationController
+    @objc func addtBarButtonTapped() {
+        let createAlarmViewController = CreateAlarmViewController()
+        let navigationController = UINavigationController(rootViewController: createAlarmViewController)
+        createAlarmViewController.pickedDate = { [weak self] date in guard let self = self else { return }
+            
+            var alarmList = self.getAlarmList()
+            let newAlert = AlarmModel(date: date, isOn: true)
+            
+            alarmList.append(newAlert)
+            alarmList.sort { $0.date < $1.date }
+            
+            alarmView.alarmList = alarmList
+            UserDefaults.standard.set(try? PropertyListEncoder().encode(alarmView.alarmList), forKey: "alarms")
+            alarmView.collectionView.reloadData()
+        }
+        present(navigationController, animated: true, completion: nil)
+    }
+    
+    func getAlarmList() -> [AlarmModel] {
+        guard let data = UserDefaults.standard.value(forKey: "alarms") as? Data,
+              let alerts = try? PropertyListDecoder().decode([AlarmModel].self, from: data) else { return [] }
+        return alerts
     }
 }
