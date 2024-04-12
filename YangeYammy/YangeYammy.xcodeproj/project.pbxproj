@@ -19,6 +19,8 @@
 		18E5F4D52BC8AB36004E0E27 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4D42BC8AB36004E0E27 /* BaseView.swift */; };
 		18E5F4D82BC8B193004E0E27 /* AlarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4D72BC8B193004E0E27 /* AlarmCollectionViewCell.swift */; };
 		18E5F4DA2BC8B72C004E0E27 /* AlarmNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4D92BC8B72C004E0E27 /* AlarmNavigationController.swift */; };
+		18E5F4DD2BC8C48B004E0E27 /* ReuseIdentifying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4DC2BC8C48B004E0E27 /* ReuseIdentifying.swift */; };
+		18E5F4DF2BC8C661004E0E27 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4DE2BC8C661004E0E27 /* UIView.swift */; };
 		18F300CD2BC8ABD20065D852 /* AlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F300CC2BC8ABD20065D852 /* AlarmView.swift */; };
 		18F300D02BC8AD7F0065D852 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 18F300CF2BC8AD7F0065D852 /* SnapKit */; };
 /* End PBXBuildFile section */
@@ -57,6 +59,8 @@
 		18E5F4D42BC8AB36004E0E27 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		18E5F4D72BC8B193004E0E27 /* AlarmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCollectionViewCell.swift; sourceTree = "<group>"; };
 		18E5F4D92BC8B72C004E0E27 /* AlarmNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmNavigationController.swift; sourceTree = "<group>"; };
+		18E5F4DC2BC8C48B004E0E27 /* ReuseIdentifying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifying.swift; sourceTree = "<group>"; };
+		18E5F4DE2BC8C661004E0E27 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		18F300CC2BC8ABD20065D852 /* AlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,6 +115,7 @@
 			children = (
 				186F8CA62BC7E20100741FF1 /* AppDelegate.swift */,
 				186F8CA82BC7E20100741FF1 /* SceneDelegate.swift */,
+				18E5F4DB2BC8C47B004E0E27 /* Extension */,
 				186F8CD62BC7E2DF00741FF1 /* Screen */,
 				186F8CAF2BC7E20200741FF1 /* Assets.xcassets */,
 				186F8CB12BC7E20200741FF1 /* LaunchScreen.storyboard */,
@@ -151,8 +156,8 @@
 			children = (
 				18F300CB2BC8ABC60065D852 /* View */,
 				18E5F4D62BC8B165004E0E27 /* Cell */,
-				186F8CDB2BC8A8F200741FF1 /* AlarmViewController.swift */,
 				18E5F4D92BC8B72C004E0E27 /* AlarmNavigationController.swift */,
+				186F8CDB2BC8A8F200741FF1 /* AlarmViewController.swift */,
 			);
 			path = Alarm;
 			sourceTree = "<group>";
@@ -171,6 +176,15 @@
 				18E5F4D72BC8B193004E0E27 /* AlarmCollectionViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		18E5F4DB2BC8C47B004E0E27 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				18E5F4DC2BC8C48B004E0E27 /* ReuseIdentifying.swift */,
+				18E5F4DE2BC8C661004E0E27 /* UIView.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		18F300CB2BC8ABC60065D852 /* View */ = {
@@ -317,7 +331,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18E5F4DF2BC8C661004E0E27 /* UIView.swift in Sources */,
 				186F8CDC2BC8A8F200741FF1 /* AlarmViewController.swift in Sources */,
+				18E5F4DD2BC8C48B004E0E27 /* ReuseIdentifying.swift in Sources */,
 				186F8CD82BC8A6E600741FF1 /* RootTabBarViewController.swift in Sources */,
 				18E5F4D52BC8AB36004E0E27 /* BaseView.swift in Sources */,
 				18E5F4DA2BC8B72C004E0E27 /* AlarmNavigationController.swift in Sources */,

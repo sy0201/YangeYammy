@@ -50,7 +50,7 @@ private extension AlarmView {
         collectionView.delegate = self
         collectionView.dataSource = self
 
-        //collectionView.register(AlarmCollectionViewCell.self, forCellWithReuseIdentifier: AlarmCollectionViewCell.reuseIdentifier)
+        collectionView.register(AlarmCollectionViewCell.self, forCellWithReuseIdentifier: AlarmCollectionViewCell.reuseIdentifier)
     }
 }
 
@@ -62,10 +62,13 @@ extension AlarmView: UICollectionViewDelegateFlowLayout, UICollectionViewDelegat
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlarmCollectionViewCell.reuseIdentifier, for: indexPath) as? AlarmCollectionViewCell else {
+            return UICollectionViewCell() }
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: 50)
+        
+        return CGSize(width: collectionView.bounds.width, height: 70)
     }
 }
