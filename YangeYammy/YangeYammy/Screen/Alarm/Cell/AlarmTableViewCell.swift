@@ -1,5 +1,5 @@
 //
-//  AlarmCollectionViewCell.swift
+//  AlarmTableViewCell.swift
 //  YangeYammy
 //
 //  Created by siyeon park on 4/12/24.
@@ -8,7 +8,8 @@
 import UIKit
 import SnapKit
 
-final class AlarmCollectionViewCell: UICollectionViewCell, ReuseIdentifying {
+final class AlarmTableViewCell: UITableViewCell, ReuseIdentifying {
+
     private let containerView = UIView()
 
     let meridiemLabel: UILabel = {
@@ -32,8 +33,8 @@ final class AlarmCollectionViewCell: UICollectionViewCell, ReuseIdentifying {
         return switchButton
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
         setupConstraint()
     }
@@ -43,12 +44,15 @@ final class AlarmCollectionViewCell: UICollectionViewCell, ReuseIdentifying {
     }
 }
 
-private extension AlarmCollectionViewCell {
+// MARK: - Private Methods
+
+private extension AlarmTableViewCell {
     func setupUI() {
         addSubview(containerView)
         containerView.addSubviews([meridiemLabel,
                                    timeLabel,
                                    setSwitchButton])
+        setSwitchButton.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
     }
     
     func setupConstraint() {
@@ -70,5 +74,13 @@ private extension AlarmCollectionViewCell {
             make.trailing.equalTo(containerView.snp.trailing).offset(-20)
             make.centerY.equalTo(containerView.snp.centerY)
         }
+    }
+    
+    @objc func switchValueChanged(_ sender: UISwitch) {
+        guard let data = UserDefaults.standard.value(forKey: "alarms") as? Data,
+              var alerts = try? PropertyListDecoder().decode([AlarmModel].self, from: data) else { return }
+        
+        alerts[sender.tag].isOn = sender.isOn
+        UserDefaults.standard.set(try? PropertyListEncoder().encode(alerts), forKey: "alarms")
     }
 }

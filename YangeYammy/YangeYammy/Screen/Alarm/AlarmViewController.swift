@@ -8,7 +8,7 @@
 import UIKit
 
 final class AlarmViewController: UIViewController {
-    let alarmView = AlarmView()
+    let alarmView = AlarmTableView()
     
     override func loadView() {
         super.loadView()
@@ -31,28 +31,33 @@ private extension AlarmViewController {
     func setupNavigationBar() {
         self.title = "알람"
         
+        /**
         let editBarButton = UIBarButtonItem(title: "편집",
                                             style: .plain,
                                             target: self,
                                             action: #selector(editBarButtonTapped))
-        let addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addtBarButtonTapped))
+         */
+        let addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addBarButtonTapped))
         
-        editBarButton.tintColor = .systemOrange
+        //editBarButton.tintColor = .systemOrange
         addBarButton.tintColor = .systemOrange
         
-        self.navigationItem.leftBarButtonItem = editBarButton
+        //self.navigationItem.leftBarButtonItem = editBarButton
         self.navigationItem.rightBarButtonItem = addBarButton
     }
     
+    /**
     @objc func editBarButtonTapped() {
         if #available(iOS 14.0, *) {
-            setEditing(alarmView.collectionView.isEditing, animated: true)
+            setEditing(alarmTableView.collectionView.isEditing, animated: true)
         } else {
             // Fallback on earlier versions
         }
+     
     }
+     */
     
-    @objc func addtBarButtonTapped() {
+    @objc func addBarButtonTapped() {
         let createAlarmViewController = CreateAlarmViewController()
         let navigationController = UINavigationController(rootViewController: createAlarmViewController)
         createAlarmViewController.pickedDate = { [weak self] date in guard let self = self else { return }
@@ -65,14 +70,15 @@ private extension AlarmViewController {
             
             alarmView.alarmList = alarmList
             UserDefaults.standard.set(try? PropertyListEncoder().encode(alarmView.alarmList), forKey: "alarms")
-            alarmView.collectionView.reloadData()
+            alarmView.tableView.reloadData()
         }
         present(navigationController, animated: true, completion: nil)
     }
     
     func getAlarmList() -> [AlarmModel] {
         guard let data = UserDefaults.standard.value(forKey: "alarms") as? Data,
-              let alerts = try? PropertyListDecoder().decode([AlarmModel].self, from: data) else { return [] }
+              let alerts = try? PropertyListDecoder().decode([AlarmModel].self, from: data) else { 
+            return [] }
         return alerts
     }
 }
