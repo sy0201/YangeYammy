@@ -31,7 +31,7 @@ private extension RootTabBarViewController {
                                                       image: UIImage(systemName: "alarm"),
                                                       selectedImage: UIImage(systemName: "alarm.fill"))
         
-        let profileViewController = ProfileViewController()
+        let profileViewController = ProfileContentViewController()
         let profileNavigationController = ProfileNavigationController(rootViewController: profileViewController)
         profileViewController.tabBarItem = UITabBarItem(title: "설정",
                                                       image: UIImage(systemName: "person.circle"),
