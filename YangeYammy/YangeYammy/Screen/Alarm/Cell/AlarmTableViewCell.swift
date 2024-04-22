@@ -7,8 +7,10 @@
 
 import UIKit
 import SnapKit
+import UserNotifications
 
 final class AlarmTableViewCell: UITableViewCell, ReuseIdentifying {
+    let userNotificationCenter = UNUserNotificationCenter.current()
 
     private let containerView = UIView()
 
@@ -82,5 +84,12 @@ private extension AlarmTableViewCell {
         
         alerts[sender.tag].isOn = sender.isOn
         UserDefaults.standard.set(try? PropertyListEncoder().encode(alerts), forKey: "alarms")
+        
+        // 알람을 껐다가 다시 켠 경우 추가시
+        if sender.isOn {
+            userNotificationCenter.addNotificationRequest(by: alerts[sender.tag])
+        } else {
+            userNotificationCenter.removePendingNotificationRequests(withIdentifiers: [alerts[sender.tag].id])
+        }
     }
 }

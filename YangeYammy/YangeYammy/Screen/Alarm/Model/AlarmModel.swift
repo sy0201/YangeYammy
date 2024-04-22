@@ -13,9 +13,9 @@ struct AlarmModel: Codable {
     var isOn: Bool
     
     var time: String {
-        let timeFormmatter = DateFormatter()
-        timeFormmatter.dateFormat = "hh:mm"
-        return timeFormmatter.string(from: date)
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "hh:mm"
+        return timeFormatter.string(from: date)
     }
     
     var meridiem: String {

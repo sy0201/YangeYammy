@@ -26,6 +26,7 @@
 		18E5F4E82BC8EA69004E0E27 /* CreateAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4E72BC8EA69004E0E27 /* CreateAlarmView.swift */; };
 		18E5F4EA2BC94152004E0E27 /* AlarmTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4E92BC94152004E0E27 /* AlarmTableView.swift */; };
 		18E5F4EC2BC945BD004E0E27 /* AlarmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4EB2BC945BD004E0E27 /* AlarmTableViewCell.swift */; };
+		18E5F4EE2BCCBE48004E0E27 /* UNNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4ED2BCCBE48004E0E27 /* UNNotificationCenter.swift */; };
 		18F300D02BC8AD7F0065D852 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 18F300CF2BC8AD7F0065D852 /* SnapKit */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,7 @@
 		18E5F4E72BC8EA69004E0E27 /* CreateAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAlarmView.swift; sourceTree = "<group>"; };
 		18E5F4E92BC94152004E0E27 /* AlarmTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableView.swift; sourceTree = "<group>"; };
 		18E5F4EB2BC945BD004E0E27 /* AlarmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableViewCell.swift; sourceTree = "<group>"; };
+		18E5F4ED2BCCBE48004E0E27 /* UNNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNNotificationCenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +196,7 @@
 			children = (
 				18E5F4DC2BC8C48B004E0E27 /* ReuseIdentifying.swift */,
 				18E5F4DE2BC8C661004E0E27 /* UIView.swift */,
+				18E5F4ED2BCCBE48004E0E27 /* UNNotificationCenter.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 				18E5F4DD2BC8C48B004E0E27 /* ReuseIdentifying.swift in Sources */,
 				186F8CD82BC8A6E600741FF1 /* RootTabBarViewController.swift in Sources */,
 				18E5F4D52BC8AB36004E0E27 /* BaseView.swift in Sources */,
+				18E5F4EE2BCCBE48004E0E27 /* UNNotificationCenter.swift in Sources */,
 				18E5F4EA2BC94152004E0E27 /* AlarmTableView.swift in Sources */,
 				18E5F4DA2BC8B72C004E0E27 /* AlarmNavigationController.swift in Sources */,
 				186F8CA72BC7E20100741FF1 /* AppDelegate.swift in Sources */,

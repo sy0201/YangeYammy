@@ -7,10 +7,12 @@
 
 import UIKit
 import SnapKit
+import UserNotifications
 
 final class AlarmTableView: BaseView {
     var alarmList: [AlarmModel] = []
-    
+    let userNotificationCenter = UNUserNotificationCenter.current()
+
     private let containerView = UIView()
     lazy var tableView: UITableView = UITableView()
     
@@ -79,6 +81,8 @@ extension AlarmTableView: UITableViewDataSource, UITableViewDelegate {
         case .delete:
             self.alarmList.remove(at: indexPath.row)
             UserDefaults.standard.set(try? PropertyListEncoder().encode(self.alarmList), forKey: "alarms")
+            // 셀 삭제시 알람도 삭제
+            userNotificationCenter.removePendingNotificationRequests(withIdentifiers: [alarmList[indexPath.row].id])
             self.tableView.reloadData()
         default:
             break

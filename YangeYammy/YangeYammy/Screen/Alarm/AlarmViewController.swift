@@ -9,7 +9,7 @@ import UIKit
 
 final class AlarmViewController: UIViewController {
     let alarmView = AlarmTableView()
-    
+
     override func loadView() {
         super.loadView()
         view = alarmView
@@ -60,6 +60,7 @@ private extension AlarmViewController {
     @objc func addBarButtonTapped() {
         let createAlarmViewController = CreateAlarmViewController()
         let navigationController = UINavigationController(rootViewController: createAlarmViewController)
+        
         createAlarmViewController.pickedDate = { [weak self] date in guard let self = self else { return }
             
             var alarmList = self.getAlarmList()
@@ -70,6 +71,8 @@ private extension AlarmViewController {
             
             alarmView.alarmList = alarmList
             UserDefaults.standard.set(try? PropertyListEncoder().encode(alarmView.alarmList), forKey: "alarms")
+            // 물마시기 알람 NotificationCenter에 저장
+            alarmView.userNotificationCenter.addNotificationRequest(by: newAlert)
             alarmView.tableView.reloadData()
         }
         present(navigationController, animated: true, completion: nil)
