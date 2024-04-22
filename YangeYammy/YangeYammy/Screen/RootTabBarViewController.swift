@@ -27,9 +27,17 @@ private extension RootTabBarViewController {
     func setupTabBarItem() {
         let alarmViewController = AlarmViewController()
         let alarmNavigationController = AlarmNavigationController(rootViewController: alarmViewController)
-        alarmViewController.tabBarItem = UITabBarItem(title: "alarm",
+        alarmViewController.tabBarItem = UITabBarItem(title: "알람",
                                                       image: UIImage(systemName: "alarm"),
                                                       selectedImage: UIImage(systemName: "alarm.fill"))
-        viewControllers = [alarmNavigationController]
+        
+        let profileViewController = ProfileViewController()
+        let profileNavigationController = ProfileNavigationController(rootViewController: profileViewController)
+        profileViewController.tabBarItem = UITabBarItem(title: "설정",
+                                                      image: UIImage(systemName: "person.circle"),
+                                                      selectedImage: UIImage(systemName: "person.circle.fill"))
+        
+        viewControllers = [alarmNavigationController,
+                           profileViewController]
     }
 }
