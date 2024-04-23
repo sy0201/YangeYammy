@@ -8,9 +8,14 @@
 import UIKit
 
 final class ProfileAViewController: UIViewController {
-
+    let profileAView = ProfileAView()
+    
+    override func loadView() {
+        super.loadView()
+        view = profileAView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
     }
 }
