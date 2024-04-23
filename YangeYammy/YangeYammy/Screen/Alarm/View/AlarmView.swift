@@ -1,5 +1,5 @@
 //
-//  AlarmTableView.swift
+//  AlarmView.swift
 //  YangeYammy
 //
 //  Created by siyeon park on 4/12/24.
@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import UserNotifications
 
-final class AlarmTableView: BaseView {
+final class AlarmView: BaseView {
     var alarmList: [AlarmModel] = []
     let userNotificationCenter = UNUserNotificationCenter.current()
 
@@ -44,7 +44,7 @@ final class AlarmTableView: BaseView {
 
 // MARK: - Private Methods
 
-private extension AlarmTableView {
+private extension AlarmView {
     func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
@@ -55,7 +55,7 @@ private extension AlarmTableView {
 
 // MARK: - UITableViewController Protocol
 
-extension AlarmTableView: UITableViewDataSource, UITableViewDelegate {
+extension AlarmView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         alarmList.count
     }
@@ -63,15 +63,14 @@ extension AlarmTableView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AlarmTableViewCell.reuseIdentifier, for: indexPath) as? AlarmTableViewCell else {
             return UITableViewCell() }
-        
-        cell.setSwitchButton.isOn = alarmList[indexPath.row].isOn
-        cell.timeLabel.text = alarmList[indexPath.row].time
-        cell.meridiemLabel.text = alarmList[indexPath.row].meridiem
-        
+        cell.selectionStyle = .none
         cell.setSwitchButton.tag = indexPath.row
+        let alarm = alarmList[indexPath.row]
+        cell.configure(with: alarm)
         
         return cell
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }

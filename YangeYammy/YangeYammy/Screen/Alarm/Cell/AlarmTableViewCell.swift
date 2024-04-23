@@ -12,8 +12,6 @@ import UserNotifications
 final class AlarmTableViewCell: UITableViewCell, ReuseIdentifying {
     let userNotificationCenter = UNUserNotificationCenter.current()
 
-    private let containerView = UIView()
-
     let meridiemLabel: UILabel = {
         let meridiemLabel = UILabel()
         meridiemLabel.font = UIFont.systemFont(ofSize: 24, weight: .medium)
@@ -29,9 +27,11 @@ final class AlarmTableViewCell: UITableViewCell, ReuseIdentifying {
         return timeLabel
     }()
     
-    let setSwitchButton: UISwitch = {
+    lazy var setSwitchButton: UISwitch = {
        let switchButton = UISwitch()
         switchButton.isOn = true
+        switchButton.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
+
         return switchButton
     }()
     
@@ -46,35 +46,43 @@ final class AlarmTableViewCell: UITableViewCell, ReuseIdentifying {
     }
 }
 
+// MARK: - Internal Methods
+
+extension AlarmTableViewCell {
+    func configure(with alarm: AlarmModel) {
+        meridiemLabel.text = alarm.meridiem
+        timeLabel.text = alarm.time
+        setSwitchButton.isOn = alarm.isOn
+    }
+}
+
 // MARK: - Private Methods
 
 private extension AlarmTableViewCell {
     func setupUI() {
-        addSubview(containerView)
-        containerView.addSubviews([meridiemLabel,
-                                   timeLabel,
-                                   setSwitchButton])
-        setSwitchButton.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
+        for subview in contentView.subviews {
+            subview.isHidden = true
+        }
+        
+        addSubviews([meridiemLabel,
+                                 timeLabel,
+                                 setSwitchButton])
     }
     
     func setupConstraint() {
-        containerView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
         meridiemLabel.snp.makeConstraints { make in
-            make.leading.equalTo(containerView.snp.leading).offset(20)
-            make.centerY.equalTo(containerView.snp.centerY)
+            make.leading.equalToSuperview().offset(20)
+            make.centerY.equalToSuperview()
         }
         
         timeLabel.snp.makeConstraints { make in
-            make.leading.equalTo(meridiemLabel.snp.trailing).offset(0)
-            make.centerY.equalTo(containerView.snp.centerY)
+            make.leading.equalTo(meridiemLabel.snp.trailing).offset(5)
+            make.centerY.equalTo(meridiemLabel.snp.centerY)
         }
         
         setSwitchButton.snp.makeConstraints { make in
-            make.trailing.equalTo(containerView.snp.trailing).offset(-20)
-            make.centerY.equalTo(containerView.snp.centerY)
+            make.trailing.equalToSuperview().offset(-20)
+            make.centerY.equalTo(timeLabel.snp.centerY)
         }
     }
     
