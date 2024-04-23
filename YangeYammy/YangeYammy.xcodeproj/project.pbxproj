@@ -24,7 +24,7 @@
 		18E5F4E42BC8D484004E0E27 /* CreateAlarmNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4E32BC8D484004E0E27 /* CreateAlarmNavigationController.swift */; };
 		18E5F4E62BC8E7B9004E0E27 /* CreateAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4E52BC8E7B9004E0E27 /* CreateAlarmViewController.swift */; };
 		18E5F4E82BC8EA69004E0E27 /* CreateAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4E72BC8EA69004E0E27 /* CreateAlarmView.swift */; };
-		18E5F4EA2BC94152004E0E27 /* AlarmTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4E92BC94152004E0E27 /* AlarmTableView.swift */; };
+		18E5F4EA2BC94152004E0E27 /* AlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4E92BC94152004E0E27 /* AlarmView.swift */; };
 		18E5F4EC2BC945BD004E0E27 /* AlarmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4EB2BC945BD004E0E27 /* AlarmTableViewCell.swift */; };
 		18E5F4EE2BCCBE48004E0E27 /* UNNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4ED2BCCBE48004E0E27 /* UNNotificationCenter.swift */; };
 		18E5F4F12BD62215004E0E27 /* ProfileNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4F02BD62215004E0E27 /* ProfileNavigationController.swift */; };
@@ -32,7 +32,7 @@
 		18E5F4F52BD639A4004E0E27 /* ProfileAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4F42BD639A4004E0E27 /* ProfileAViewController.swift */; };
 		18E5F4F72BD63AAC004E0E27 /* ProfileBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4F62BD63AAC004E0E27 /* ProfileBViewController.swift */; };
 		18E5F4F92BD63AE5004E0E27 /* ProfileCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4F82BD63AE5004E0E27 /* ProfileCViewController.swift */; };
-		18E5F4FC2BD63B33004E0E27 /* ProfileContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4FB2BD63B33004E0E27 /* ProfileContentView.swift */; };
+		18E5F4FC2BD63B33004E0E27 /* ProfileAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4FB2BD63B33004E0E27 /* ProfileAView.swift */; };
 		18E5F4FE2BD64765004E0E27 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18E5F4FD2BD64765004E0E27 /* GoogleService-Info.plist */; };
 		18E5F4FF2BD64765004E0E27 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18E5F4FD2BD64765004E0E27 /* GoogleService-Info.plist */; };
 		18E5F5002BD64765004E0E27 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18E5F4FD2BD64765004E0E27 /* GoogleService-Info.plist */; };
@@ -80,7 +80,7 @@
 		18E5F4E32BC8D484004E0E27 /* CreateAlarmNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAlarmNavigationController.swift; sourceTree = "<group>"; };
 		18E5F4E52BC8E7B9004E0E27 /* CreateAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAlarmViewController.swift; sourceTree = "<group>"; };
 		18E5F4E72BC8EA69004E0E27 /* CreateAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAlarmView.swift; sourceTree = "<group>"; };
-		18E5F4E92BC94152004E0E27 /* AlarmTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableView.swift; sourceTree = "<group>"; };
+		18E5F4E92BC94152004E0E27 /* AlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmView.swift; sourceTree = "<group>"; };
 		18E5F4EB2BC945BD004E0E27 /* AlarmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableViewCell.swift; sourceTree = "<group>"; };
 		18E5F4ED2BCCBE48004E0E27 /* UNNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNNotificationCenter.swift; sourceTree = "<group>"; };
 		18E5F4F02BD62215004E0E27 /* ProfileNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNavigationController.swift; sourceTree = "<group>"; };
@@ -88,7 +88,7 @@
 		18E5F4F42BD639A4004E0E27 /* ProfileAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAViewController.swift; sourceTree = "<group>"; };
 		18E5F4F62BD63AAC004E0E27 /* ProfileBViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBViewController.swift; sourceTree = "<group>"; };
 		18E5F4F82BD63AE5004E0E27 /* ProfileCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCViewController.swift; sourceTree = "<group>"; };
-		18E5F4FB2BD63B33004E0E27 /* ProfileContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileContentView.swift; sourceTree = "<group>"; };
+		18E5F4FB2BD63B33004E0E27 /* ProfileAView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAView.swift; sourceTree = "<group>"; };
 		18E5F4FD2BD64765004E0E27 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -247,7 +247,7 @@
 		18E5F4FA2BD63B1E004E0E27 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				18E5F4FB2BD63B33004E0E27 /* ProfileContentView.swift */,
+				18E5F4FB2BD63B33004E0E27 /* ProfileAView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -255,7 +255,7 @@
 		18F300CB2BC8ABC60065D852 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				18E5F4E92BC94152004E0E27 /* AlarmTableView.swift */,
+				18E5F4E92BC94152004E0E27 /* AlarmView.swift */,
 				18E5F4E72BC8EA69004E0E27 /* CreateAlarmView.swift */,
 			);
 			path = View;
@@ -409,11 +409,11 @@
 				18E5F4F12BD62215004E0E27 /* ProfileNavigationController.swift in Sources */,
 				186F8CD82BC8A6E600741FF1 /* RootTabBarViewController.swift in Sources */,
 				18E5F4D52BC8AB36004E0E27 /* BaseView.swift in Sources */,
-				18E5F4FC2BD63B33004E0E27 /* ProfileContentView.swift in Sources */,
+				18E5F4FC2BD63B33004E0E27 /* ProfileAView.swift in Sources */,
 				18E5F4F92BD63AE5004E0E27 /* ProfileCViewController.swift in Sources */,
 				18E5F4EE2BCCBE48004E0E27 /* UNNotificationCenter.swift in Sources */,
 				18E5F4F32BD62275004E0E27 /* ProfileContentViewController.swift in Sources */,
-				18E5F4EA2BC94152004E0E27 /* AlarmTableView.swift in Sources */,
+				18E5F4EA2BC94152004E0E27 /* AlarmView.swift in Sources */,
 				18E5F4DA2BC8B72C004E0E27 /* AlarmNavigationController.swift in Sources */,
 				18E5F4F52BD639A4004E0E27 /* ProfileAViewController.swift in Sources */,
 				186F8CA72BC7E20100741FF1 /* AppDelegate.swift in Sources */,
