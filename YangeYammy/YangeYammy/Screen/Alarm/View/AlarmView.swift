@@ -78,11 +78,12 @@ extension AlarmView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
-            self.alarmList.remove(at: indexPath.row)
+            let deletedAlarm = alarmList.remove(at: indexPath.row)
             UserDefaults.standard.set(try? PropertyListEncoder().encode(self.alarmList), forKey: "alarms")
-            // 셀 삭제시 알람도 삭제
-            userNotificationCenter.removePendingNotificationRequests(withIdentifiers: [alarmList[indexPath.row].id])
-            self.tableView.reloadData()
+            userNotificationCenter.removePendingNotificationRequests(withIdentifiers: [deletedAlarm.id])
+            
+            // tableView.reloadData()를 호출하기 전에 테이블 뷰에서 해당 셀을 삭제
+            tableView.deleteRows(at: [indexPath], with: .automatic)
         default:
             break
         }
