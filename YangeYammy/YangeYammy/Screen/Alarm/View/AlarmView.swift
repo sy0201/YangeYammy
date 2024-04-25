@@ -63,7 +63,6 @@ extension AlarmView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AlarmTableViewCell.reuseIdentifier, for: indexPath) as? AlarmTableViewCell else {
             return UITableViewCell() }
-        cell.selectionStyle = .none
         cell.setSwitchButton.tag = indexPath.row
         let alarm = alarmList[indexPath.row]
         cell.configure(with: alarm)
