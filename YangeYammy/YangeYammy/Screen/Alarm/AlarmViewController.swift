@@ -61,7 +61,7 @@ private extension AlarmViewController {
         createAlarmViewController.pickedDate = { [weak self] date in guard let self = self else { return }
             
             var alarmList = self.getAlarmList()
-            let newAlert = AlarmModel(date: date, isOn: true)
+            let newAlert = AlarmModel(date: date, isOn: true, repeatedDays: [])
             
             alarmList.append(newAlert)
             alarmList.sort { $0.date < $1.date }

@@ -11,6 +11,7 @@ struct AlarmModel: Codable {
     var id: String = UUID().uuidString
     let date: Date
     var isOn: Bool
+    var repeatedDays: [String]
     
     var time: String {
         let timeFormatter = DateFormatter()
