@@ -16,14 +16,13 @@ final class AlarmTableViewCell: UITableViewCell, ReuseIdentifying {
         let meridiemLabel = UILabel()
         meridiemLabel.font = UIFont.systemFont(ofSize: 24, weight: .medium)
         meridiemLabel.textColor = .black
-        meridiemLabel.text = "오전"
         return meridiemLabel
     }()
+    
     let timeLabel: UILabel = {
         let timeLabel = UILabel()
         timeLabel.font = UIFont.systemFont(ofSize: 40, weight: .light)
         timeLabel.textColor = .black
-        timeLabel.text = "00:00"
         return timeLabel
     }()
     
@@ -31,12 +30,12 @@ final class AlarmTableViewCell: UITableViewCell, ReuseIdentifying {
        let switchButton = UISwitch()
         switchButton.isOn = true
         switchButton.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
-
         return switchButton
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .none
         setupUI()
         setupConstraint()
     }
@@ -60,13 +59,9 @@ extension AlarmTableViewCell {
 
 private extension AlarmTableViewCell {
     func setupUI() {
-        for subview in contentView.subviews {
-            subview.isHidden = true
-        }
-        
-        addSubviews([meridiemLabel,
-                                 timeLabel,
-                                 setSwitchButton])
+        contentView.addSubviews([meridiemLabel,
+                     timeLabel,
+                     setSwitchButton])
     }
     
     func setupConstraint() {
