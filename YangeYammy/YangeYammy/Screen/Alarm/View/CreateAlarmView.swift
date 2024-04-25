@@ -9,6 +9,8 @@ import UIKit
 import SnapKit
 
 final class CreateAlarmView: BaseView {
+    weak var delegate: RepeatedDateViewCellDelegate?
+
     private let containerView = UIView()
     var datePickerView: UIDatePicker = {
         let datePickerView = UIDatePicker()
@@ -47,17 +49,19 @@ final class CreateAlarmView: BaseView {
         containerView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        
         datePickerView.snp.makeConstraints { make in
             make.top.equalTo(containerView).offset(56)
             make.leading.equalTo(containerView).offset(10)
             make.trailing.equalTo(containerView).offset(-10)
             make.height.equalTo(200)
         }
+        
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(datePickerView.snp.bottom).offset(10)
-            make.leading.equalTo(containerView).offset(10)
-            make.trailing.equalTo(containerView).offset(-10)
-            make.bottom.equalTo(containerView).offset(-10)
+            make.top.equalTo(datePickerView.snp.bottom).offset(20)
+            make.leading.equalTo(containerView).offset(20)
+            make.trailing.equalTo(containerView).offset(-20)
+            make.bottom.equalTo(containerView).offset(-20)
         }
     }
 }
@@ -69,7 +73,7 @@ private extension CreateAlarmView {
         tableView.dataSource = self
         tableView.delegate = self
         
-        tableView.register(AlarmTableViewCell.self, forCellReuseIdentifier: AlarmTableViewCell.reuseIdentifier)
+        tableView.register(RepeatedDateViewTableViewCell.self, forCellReuseIdentifier: RepeatedDateViewTableViewCell.reuseIdentifier)
     }
 }
 
@@ -77,11 +81,15 @@ private extension CreateAlarmView {
 
 extension CreateAlarmView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+        1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: RepeatedDateViewTableViewCell.reuseIdentifier, for: indexPath) as? RepeatedDateViewTableViewCell else {
+            return UITableViewCell() }
+        cell.delegate = delegate
+        
+        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

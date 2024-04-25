@@ -19,6 +19,12 @@ final class CreateAlarmViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
+        createAlarmView.delegate = self
+    }
+    
+    func presentAlarmRepeatDetailViewController() {
+        let repeatDetailVC = AlarmRepeatDetailViewController()
+        navigationController?.pushViewController(repeatDetailVC, animated: true)
     }
 }
 
@@ -49,5 +55,13 @@ private extension CreateAlarmViewController {
     @objc func rightBarButtonTapped() {
         pickedDate?(createAlarmView.datePickerView.date)
         self.dismiss(animated: true)
+    }
+}
+
+// MARK: - RepeatedDateViewCellDelegate
+
+extension CreateAlarmViewController: RepeatedDateViewCellDelegate {
+    func repeatedDateViewCellDidTapSetDateButton() {
+        presentAlarmRepeatDetailViewController()
     }
 }
