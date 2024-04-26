@@ -10,6 +10,7 @@ import UIKit
 final class CreateAlarmViewController: UIViewController {
     let createAlarmView = CreateAlarmView()
     var pickedDate: ((_ date: Date) -> Void)?
+    let alarmManager = AlarmManager.shared
     
     override func loadView() {
         super.loadView()
@@ -23,10 +24,12 @@ final class CreateAlarmViewController: UIViewController {
     }
     
     func presentAlarmRepeatDetailViewController() {
-        let repeatDetailVC = AlarmRepeatDetailViewController()
-        navigationController?.pushViewController(repeatDetailVC, animated: true)
+        let selectDayVC = SelectDayViewController()
+        navigationController?.pushViewController(selectDayVC, animated: true)
     }
 }
+
+// MARK: - Private Methods
 
 private extension CreateAlarmViewController {
     func setupNavigationBar() {
@@ -35,11 +38,11 @@ private extension CreateAlarmViewController {
         let cancelBarButton = UIBarButtonItem(title: "취소",
                                             style: .plain,
                                             target: self,
-                                            action: #selector(leftBarButtonTapped))
+                                            action: #selector(cancelBarButtonTapped))
         let saveBarButton = UIBarButtonItem(title: "저장",
                                             style: .plain,
                                             target: self,
-                                            action: #selector(rightBarButtonTapped))
+                                            action: #selector(saveBarButtonTapped))
 
         cancelBarButton.tintColor = .systemOrange
         saveBarButton.tintColor = .systemOrange
@@ -48,12 +51,14 @@ private extension CreateAlarmViewController {
         self.navigationItem.rightBarButtonItem = saveBarButton
     }
     
-    @objc func leftBarButtonTapped() {
+    @objc func cancelBarButtonTapped() {
         self.dismiss(animated: true)
     }
     
-    @objc func rightBarButtonTapped() {
+    @objc func saveBarButtonTapped() {
         pickedDate?(createAlarmView.datePickerView.date)
+        
+        alarmManager.saveAlarm(date: createAlarmView.datePickerView.date, isOn: true, repeatedDays: [])
         self.dismiss(animated: true)
     }
 }
