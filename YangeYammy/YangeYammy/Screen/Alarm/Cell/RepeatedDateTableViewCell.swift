@@ -23,7 +23,6 @@ final class RepeatedDateTableViewCell: UITableViewCell, ReuseIdentifying {
         let dateLabel = UILabel()
         dateLabel.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         dateLabel.textColor = .black
-        dateLabel.text = "안함"
         return dateLabel
     }()
     
@@ -45,6 +44,10 @@ final class RepeatedDateTableViewCell: UITableViewCell, ReuseIdentifying {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(with day: Day) {
+        dateLabel.text = day.rawValue
     }
 }
 

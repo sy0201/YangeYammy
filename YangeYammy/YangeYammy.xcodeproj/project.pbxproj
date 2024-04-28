@@ -13,6 +13,9 @@
 		180216A52BD9F3680033AE92 /* SelectDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180216A42BD9F3680033AE92 /* SelectDayView.swift */; };
 		180216A72BDA24370033AE92 /* DayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180216A62BDA24370033AE92 /* DayTableViewCell.swift */; };
 		180216AA2BDA59030033AE92 /* AlarmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180216A92BDA59030033AE92 /* AlarmManager.swift */; };
+		180216B62BDDBC300033AE92 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 180216B52BDDBC300033AE92 /* SnapKit */; };
+		180216BA2BDDBC4F0033AE92 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 180216B92BDDBC4F0033AE92 /* FirebaseAnalytics */; };
+		180216BC2BDDBC4F0033AE92 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 180216BB2BDDBC4F0033AE92 /* FirebaseDatabase */; };
 		186F8CA72BC7E20100741FF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F8CA62BC7E20100741FF1 /* AppDelegate.swift */; };
 		186F8CA92BC7E20100741FF1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F8CA82BC7E20100741FF1 /* SceneDelegate.swift */; };
 		186F8CB02BC7E20200741FF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 186F8CAF2BC7E20200741FF1 /* Assets.xcassets */; };
@@ -42,10 +45,7 @@
 		18E5F4FE2BD64765004E0E27 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18E5F4FD2BD64765004E0E27 /* GoogleService-Info.plist */; };
 		18E5F4FF2BD64765004E0E27 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18E5F4FD2BD64765004E0E27 /* GoogleService-Info.plist */; };
 		18E5F5002BD64765004E0E27 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18E5F4FD2BD64765004E0E27 /* GoogleService-Info.plist */; };
-		18E5F5032BD6491F004E0E27 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 18E5F5022BD6491F004E0E27 /* FirebaseDatabase */; };
-		18E5F5052BD64949004E0E27 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 18E5F5042BD64949004E0E27 /* FirebaseAnalytics */; };
 		18E5F5112BD9B7C3004E0E27 /* RepeatedDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F5102BD9B7C3004E0E27 /* RepeatedDateTableViewCell.swift */; };
-		18F300D02BC8AD7F0065D852 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 18F300CF2BC8AD7F0065D852 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,9 +111,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18E5F5032BD6491F004E0E27 /* FirebaseDatabase in Frameworks */,
-				18F300D02BC8AD7F0065D852 /* SnapKit in Frameworks */,
-				18E5F5052BD64949004E0E27 /* FirebaseAnalytics in Frameworks */,
+				180216BC2BDDBC4F0033AE92 /* FirebaseDatabase in Frameworks */,
+				180216BA2BDDBC4F0033AE92 /* FirebaseAnalytics in Frameworks */,
+				180216B62BDDBC300033AE92 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,9 +339,9 @@
 			);
 			name = YangeYammy;
 			packageProductDependencies = (
-				18F300CF2BC8AD7F0065D852 /* SnapKit */,
-				18E5F5022BD6491F004E0E27 /* FirebaseDatabase */,
-				18E5F5042BD64949004E0E27 /* FirebaseAnalytics */,
+				180216B52BDDBC300033AE92 /* SnapKit */,
+				180216B92BDDBC4F0033AE92 /* FirebaseAnalytics */,
+				180216BB2BDDBC4F0033AE92 /* FirebaseDatabase */,
 			);
 			productName = YangeYammy;
 			productReference = 186F8CA32BC7E20100741FF1 /* YangeYammy.app */;
@@ -849,20 +849,20 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		18E5F5022BD6491F004E0E27 /* FirebaseDatabase */ = {
+		180216B52BDDBC300033AE92 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 18E5F5012BD6491F004E0E27 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseDatabase;
+			package = 18F300CE2BC8AD7F0065D852 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
-		18E5F5042BD64949004E0E27 /* FirebaseAnalytics */ = {
+		180216B92BDDBC4F0033AE92 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 18E5F5012BD6491F004E0E27 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalytics;
 		};
-		18F300CF2BC8AD7F0065D852 /* SnapKit */ = {
+		180216BB2BDDBC4F0033AE92 /* FirebaseDatabase */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 18F300CE2BC8AD7F0065D852 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
+			package = 18E5F5012BD6491F004E0E27 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

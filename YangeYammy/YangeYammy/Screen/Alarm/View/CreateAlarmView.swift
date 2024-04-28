@@ -87,8 +87,9 @@ extension CreateAlarmView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RepeatedDateTableViewCell.reuseIdentifier, for: indexPath) as? RepeatedDateTableViewCell else {
             return UITableViewCell() }
-        cell.delegate = delegate
         
+        cell.delegate = delegate
+
         return cell
     }
     

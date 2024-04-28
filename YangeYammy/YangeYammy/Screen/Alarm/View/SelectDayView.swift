@@ -11,6 +11,7 @@ import SnapKit
 final class SelectDayView: BaseView {
     private let containerView = UIView()
     var tableView: UITableView = UITableView()
+    private var days: [Day] = Day.allCases
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,6 +41,11 @@ final class SelectDayView: BaseView {
             make.bottom.trailing.equalTo(containerView).offset(-20)
         }
     }
+    
+    func configure(with days: [Day]) {
+        self.days = days
+        tableView.reloadData()
+    }
 }
 
 // MARK: - Private Methods
@@ -57,13 +63,16 @@ private extension SelectDayView {
 
 extension SelectDayView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        7
+        days.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DayTableViewCell.reuseIdentifier, for: indexPath) as? DayTableViewCell else {
             return UITableViewCell() }
         
+        let day = days[indexPath.row]
+        cell.configure(with: day)
+
         return cell
     }
     

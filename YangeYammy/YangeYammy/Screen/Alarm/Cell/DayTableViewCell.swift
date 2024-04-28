@@ -9,11 +9,11 @@ import UIKit
 import SnapKit
 
 final class DayTableViewCell: UITableViewCell, ReuseIdentifying {
+    
     let dayLabel: UILabel = {
         let dayLabel = UILabel()
         dayLabel.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         dayLabel.textColor = .black
-        dayLabel.text = "일요일마다"
         return dayLabel
     }()
     
@@ -33,6 +33,10 @@ final class DayTableViewCell: UITableViewCell, ReuseIdentifying {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(with day: Day) {
+        dayLabel.text = day.rawValue
     }
 }
 
