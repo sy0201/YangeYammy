@@ -12,7 +12,6 @@ final class AlarmViewController: UIViewController {
     let alarmView = AlarmView()
 
     override func loadView() {
-        super.loadView()
         view = alarmView
     }
     

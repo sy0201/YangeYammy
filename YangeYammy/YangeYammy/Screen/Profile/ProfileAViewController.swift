@@ -11,7 +11,6 @@ final class ProfileAViewController: UIViewController {
     let profileAView = ProfileAView()
     
     override func loadView() {
-        super.loadView()
         view = profileAView
     }
     

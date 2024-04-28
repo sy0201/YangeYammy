@@ -11,7 +11,6 @@ final class SelectDayViewController: UIViewController {
     let selectDayView = SelectDayView()
     
     override func loadView() {
-        super.loadView()
         view = selectDayView
     }
     

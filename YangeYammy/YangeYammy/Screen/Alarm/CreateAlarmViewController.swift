@@ -13,7 +13,6 @@ final class CreateAlarmViewController: UIViewController {
     let alarmManager = AlarmManager.shared
     
     override func loadView() {
-        super.loadView()
         view = createAlarmView
     }
     
