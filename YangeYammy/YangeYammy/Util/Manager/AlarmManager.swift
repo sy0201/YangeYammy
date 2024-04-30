@@ -7,6 +7,11 @@
 
 import Foundation
 
+protocol AlarmDelegate: AnyObject {
+    func addNewAlarm(_ alarm: AlarmManager)
+    func updateAlarm(_ alarm: AlarmManager)
+}
+
 final class AlarmManager {
     static let shared = AlarmManager()
     
@@ -15,8 +20,8 @@ final class AlarmManager {
     let userDefaults = UserDefaults.standard
     let modelName = "AlarmData"
     
-    // 1. UserDefault에서 저장된 알람정보 가져오기
-    func getSaveAlarm() -> [AlarmModel] {
+    // UserDefault에서 저장된 알람정보 가져오기
+    func getAlarmList() -> [AlarmModel] {
         guard let savedData = userDefaults.data(forKey: modelName),
               let alarms = try? JSONDecoder().decode([AlarmModel].self, from: savedData) else {
             return []
@@ -24,9 +29,9 @@ final class AlarmManager {
         return alarms
     }
     
-    // 2. UserDefault에 알람정보 저장하기
+    // UserDefault에 알람정보 저장하기
     func saveAlarm(date: Date, isOn: Bool, repeatedDays: [String]) {
-        var alarms = getSaveAlarm()
+        var alarms = getAlarmList()
         let newAlarm = AlarmModel(id: UUID().uuidString, date: date, isOn: isOn, repeatedDays: repeatedDays)
         alarms.append(newAlarm)
         
@@ -37,9 +42,9 @@ final class AlarmManager {
         }
     }
     
-    // 3. UserDefault에서 알람정보 삭제하기
+    // UserDefault에서 알람정보 삭제하기
     func removeAlarm(deleteTarget: AlarmModel) {
-        var alarms = getSaveAlarm()
+        var alarms = getAlarmList()
         alarms.removeAll() { $0.id == deleteTarget.id }
         
         if let encodedData = try? JSONEncoder().encode(alarms) {
@@ -47,9 +52,9 @@ final class AlarmManager {
         }
     }
     
-    // 4. UserDefault에 저장된 알람데이터 수정하기
+    // UserDefault에 저장된 알람데이터 수정하기
     func updateAlarm(targetId: String, newData: AlarmModel) {
-        var alarms = getSaveAlarm()
+        var alarms = getAlarmList()
         if let index = alarms.firstIndex(where: { $0.id == targetId }) {
             alarms[index] = newData
             

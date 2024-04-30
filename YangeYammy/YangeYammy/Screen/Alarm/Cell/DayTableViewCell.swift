@@ -9,7 +9,6 @@ import UIKit
 import SnapKit
 
 final class DayTableViewCell: UITableViewCell, ReuseIdentifying {
-    
     let dayLabel: UILabel = {
         let dayLabel = UILabel()
         dayLabel.font = UIFont.systemFont(ofSize: 14, weight: .medium)

@@ -10,7 +10,7 @@ import SnapKit
 import UserNotifications
 
 final class AlarmView: BaseView {
-    var alarmList: [AlarmModel] = []
+    var alarmManager = AlarmManager.shared
     let userNotificationCenter = UNUserNotificationCenter.current()
 
     private let containerView = UIView()
@@ -40,6 +40,7 @@ final class AlarmView: BaseView {
             make.edges.equalTo(containerView)
         }
     }
+
 }
 
 // MARK: - Private Methods
@@ -57,14 +58,14 @@ private extension AlarmView {
 
 extension AlarmView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        alarmList.count
+        alarmManager.getAlarmList().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AlarmTableViewCell.reuseIdentifier, for: indexPath) as? AlarmTableViewCell else {
             return UITableViewCell() }
         cell.setSwitchButton.tag = indexPath.row
-        let alarm = alarmList[indexPath.row]
+        let alarm = alarmManager.getAlarmList()[indexPath.row]
         cell.configure(with: alarm)
         
         return cell
@@ -77,11 +78,8 @@ extension AlarmView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
-            let deletedAlarm = alarmList.remove(at: indexPath.row)
-            UserDefaults.standard.set(try? PropertyListEncoder().encode(self.alarmList), forKey: "alarms")
-            userNotificationCenter.removePendingNotificationRequests(withIdentifiers: [deletedAlarm.id])
-            
-            // tableView.reloadData()를 호출하기 전에 테이블 뷰에서 해당 셀을 삭제
+            let removeAlarm = alarmManager.getAlarmList()[indexPath.row]
+            alarmManager.removeAlarm(deleteTarget: removeAlarm)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         default:
             break

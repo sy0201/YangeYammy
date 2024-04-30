@@ -9,6 +9,8 @@ import UIKit
 import SnapKit
 
 final class AlarmViewController: UIViewController {
+    var alarmManager = AlarmManager.shared
+    
     let alarmView = AlarmView()
 
     override func loadView() {
@@ -17,17 +19,18 @@ final class AlarmViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupData()
         setupNavigationBar()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        alarmView.alarmList = getAlarmList()
     }
 }
 
 // MARK: - Private Methods
 
 private extension AlarmViewController {
+    func setupData() {
+        alarmView.alarmManager = alarmManager
+    }
+    
     func setupNavigationBar() {
         self.title = "알람"
         
@@ -55,29 +58,29 @@ private extension AlarmViewController {
     
     @objc func addBarButtonTapped() {
         let createAlarmViewController = CreateAlarmViewController()
+        createAlarmViewController.delegate = self
+                
         let navigationController = UINavigationController(rootViewController: createAlarmViewController)
         
         createAlarmViewController.pickedDate = { [weak self] date in guard let self = self else { return }
             
-            var alarmList = self.getAlarmList()
             let newAlert = AlarmModel(date: date, isOn: true, repeatedDays: [])
+
+            self.alarmManager.saveAlarm(date: newAlert.date, isOn: newAlert.isOn, repeatedDays: newAlert.repeatedDays)
+            self.alarmView.tableView.reloadData()
             
-            alarmList.append(newAlert)
-            alarmList.sort { $0.date < $1.date }
-            
-            alarmView.alarmList = alarmList
-            UserDefaults.standard.set(try? PropertyListEncoder().encode(alarmView.alarmList), forKey: "alarms")
-            // 물마시기 알람 NotificationCenter에 저장
-            alarmView.userNotificationCenter.addNotificationRequest(by: newAlert)
             alarmView.tableView.reloadData()
         }
         present(navigationController, animated: true, completion: nil)
     }
+}
+
+extension AlarmViewController: AlarmDelegate {
+    func addNewAlarm(_ alarm: AlarmManager) {
+        alarmView.tableView.reloadData()
+    }
     
-    func getAlarmList() -> [AlarmModel] {
-        guard let data = UserDefaults.standard.value(forKey: "alarms") as? Data,
-              let alerts = try? PropertyListDecoder().decode([AlarmModel].self, from: data) else { 
-            return [] }
-        return alerts
+    func updateAlarm(_ alarm: AlarmManager) {
+        alarmView.tableView.reloadData()
     }
 }

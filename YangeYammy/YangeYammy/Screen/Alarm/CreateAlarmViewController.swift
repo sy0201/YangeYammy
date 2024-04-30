@@ -11,6 +11,7 @@ final class CreateAlarmViewController: UIViewController {
     let createAlarmView = CreateAlarmView()
     var pickedDate: ((_ date: Date) -> Void)?
     let alarmManager = AlarmManager.shared
+    weak var delegate: AlarmDelegate?
     
     override func loadView() {
         view = createAlarmView
@@ -56,8 +57,7 @@ private extension CreateAlarmViewController {
     
     @objc func saveBarButtonTapped() {
         pickedDate?(createAlarmView.datePickerView.date)
-        
-        alarmManager.saveAlarm(date: createAlarmView.datePickerView.date, isOn: true, repeatedDays: [])
+        delegate?.addNewAlarm(alarmManager)
         self.dismiss(animated: true)
     }
 }
