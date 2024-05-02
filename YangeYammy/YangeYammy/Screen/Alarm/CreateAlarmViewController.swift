@@ -9,7 +9,6 @@ import UIKit
 
 final class CreateAlarmViewController: UIViewController {
     let createAlarmView = CreateAlarmView()
-    var pickedDate: ((_ date: Date) -> Void)?
     let alarmManager = AlarmManager.shared
     weak var delegate: AlarmDelegate?
     
@@ -56,8 +55,13 @@ private extension CreateAlarmViewController {
     }
     
     @objc func saveBarButtonTapped() {
-        pickedDate?(createAlarmView.datePickerView.date)
-        delegate?.addNewAlarm(alarmManager)
+        let newAlarm = AlarmModel(date: createAlarmView.datePickerView.date, isOn: true, repeatedDays: [])
+        
+        alarmManager.saveAlarm(date: newAlarm.date, isOn: newAlarm.isOn, repeatedDays: newAlarm.repeatedDays)
+
+        delegate?.addNewAlarm(newAlarm)
+        delegate?.reloadAlarmView()
+        
         self.dismiss(animated: true)
     }
 }

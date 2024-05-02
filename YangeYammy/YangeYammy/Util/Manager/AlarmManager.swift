@@ -8,8 +8,9 @@
 import Foundation
 
 protocol AlarmDelegate: AnyObject {
-    func addNewAlarm(_ alarm: AlarmManager)
-    func updateAlarm(_ alarm: AlarmManager)
+    func addNewAlarm(_ alarm: AlarmModel)
+    func updateAlarm(_ alarm: AlarmModel)
+    func reloadAlarmView()
 }
 
 final class AlarmManager {

@@ -19,8 +19,8 @@ final class AlarmViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupData()
         setupNavigationBar()
+        setupData()
     }
 }
 
@@ -28,7 +28,8 @@ final class AlarmViewController: UIViewController {
 
 private extension AlarmViewController {
     func setupData() {
-        alarmView.alarmManager = alarmManager
+        alarmManager.getAlarmList()
+        alarmView.tableView.reloadData()
     }
     
     func setupNavigationBar() {
@@ -59,28 +60,25 @@ private extension AlarmViewController {
     @objc func addBarButtonTapped() {
         let createAlarmViewController = CreateAlarmViewController()
         createAlarmViewController.delegate = self
-                
         let navigationController = UINavigationController(rootViewController: createAlarmViewController)
-        
-        createAlarmViewController.pickedDate = { [weak self] date in guard let self = self else { return }
-            
-            let newAlert = AlarmModel(date: date, isOn: true, repeatedDays: [])
-            
-            self.alarmView.userNotificationCenter.addNotificationRequest(by: newAlert)
-            self.alarmManager.saveAlarm(date: newAlert.date, isOn: newAlert.isOn, repeatedDays: newAlert.repeatedDays)
-            
-            alarmView.tableView.reloadData()
-        }
+
         present(navigationController, animated: true, completion: nil)
     }
 }
 
 extension AlarmViewController: AlarmDelegate {
-    func addNewAlarm(_ alarm: AlarmManager) {
+    func addNewAlarm(_ alarm: AlarmModel) {
+        //TODO: 전체 테이블 뷰를 새로고침하기때문에 다른 방법 찾기
+        //alarmManager.saveAlarm(date: alarm.date, isOn: alarm.isOn, repeatedDays: alarm.repeatedDays)
         alarmView.tableView.reloadData()
     }
     
-    func updateAlarm(_ alarm: AlarmManager) {
+    func updateAlarm(_ alarm: AlarmModel) {
+        alarmManager.getAlarmList()
+        alarmView.tableView.reloadData()
+    }
+    
+    func reloadAlarmView() {
         alarmView.tableView.reloadData()
     }
 }

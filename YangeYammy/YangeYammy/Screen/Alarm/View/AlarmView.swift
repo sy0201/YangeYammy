@@ -40,7 +40,6 @@ final class AlarmView: BaseView {
             make.edges.equalTo(containerView)
         }
     }
-
 }
 
 // MARK: - Private Methods
@@ -64,9 +63,11 @@ extension AlarmView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AlarmTableViewCell.reuseIdentifier, for: indexPath) as? AlarmTableViewCell else {
             return UITableViewCell() }
-        cell.setSwitchButton.tag = indexPath.row
-        let alarm = alarmManager.getAlarmList()[indexPath.row]
-        cell.configure(with: alarm)
+        let alarmList = alarmManager.getAlarmList()
+        let alarm = alarmList[indexPath.row]
+
+        cell.alarmData = alarm
+        cell.configure()
         
         return cell
     }

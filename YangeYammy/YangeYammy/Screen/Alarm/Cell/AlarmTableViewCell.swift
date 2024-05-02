@@ -11,7 +11,12 @@ import UserNotifications
 
 final class AlarmTableViewCell: UITableViewCell, ReuseIdentifying {
     let userNotificationCenter = UNUserNotificationCenter.current()
-
+    var alarmData: AlarmModel? {
+        didSet {
+            configure()
+        }
+    }
+    
     let meridiemLabel: UILabel = {
         let meridiemLabel = UILabel()
         meridiemLabel.font = UIFont.systemFont(ofSize: 24, weight: .medium)
@@ -48,10 +53,10 @@ final class AlarmTableViewCell: UITableViewCell, ReuseIdentifying {
 // MARK: - Internal Methods
 
 extension AlarmTableViewCell {
-    func configure(with alarm: AlarmModel) {
-        meridiemLabel.text = alarm.meridiem
-        timeLabel.text = alarm.time
-        setSwitchButton.isOn = alarm.isOn
+    func configure() {
+        meridiemLabel.text = alarmData?.meridiem
+        timeLabel.text = alarmData?.time
+        setSwitchButton.isOn = ((alarmData?.isOn) != nil)
     }
 }
 
