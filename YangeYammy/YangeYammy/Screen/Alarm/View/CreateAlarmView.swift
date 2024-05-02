@@ -10,6 +10,7 @@ import SnapKit
 
 final class CreateAlarmView: BaseView {
     weak var delegate: RepeatedDateViewCellDelegate?
+    let userNotificationCenter = UNUserNotificationCenter.current()
 
     private let containerView = UIView()
     var datePickerView: UIDatePicker = {

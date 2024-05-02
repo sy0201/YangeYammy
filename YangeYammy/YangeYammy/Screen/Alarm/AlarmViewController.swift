@@ -65,9 +65,9 @@ private extension AlarmViewController {
         createAlarmViewController.pickedDate = { [weak self] date in guard let self = self else { return }
             
             let newAlert = AlarmModel(date: date, isOn: true, repeatedDays: [])
-
+            
+            self.alarmView.userNotificationCenter.addNotificationRequest(by: newAlert)
             self.alarmManager.saveAlarm(date: newAlert.date, isOn: newAlert.isOn, repeatedDays: newAlert.repeatedDays)
-            self.alarmView.tableView.reloadData()
             
             alarmView.tableView.reloadData()
         }
