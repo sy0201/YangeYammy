@@ -5,12 +5,11 @@
 //  Created by siyeon park on 4/25/24.
 //
 
-import Foundation
+import CoreData
+import UIKit
 
 protocol AlarmDelegate: AnyObject {
-    func addNewAlarm(_ alarm: AlarmModel)
-    func updateAlarm(_ alarm: AlarmModel)
-    func reloadAlarmView()
+    func updateAlarm()
 }
 
 final class AlarmManager {
@@ -18,50 +17,154 @@ final class AlarmManager {
     
     private init() {}
 
-    let userDefaults = UserDefaults.standard
-    let modelName = "AlarmData"
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
     
-    // UserDefault에서 저장된 알람정보 가져오기
-    func getAlarmList() -> [AlarmModel] {
-        guard let savedData = userDefaults.data(forKey: modelName),
-              let alarms = try? JSONDecoder().decode([AlarmModel].self, from: savedData) else {
+    lazy var context = appDelegate?.persistentContainer.viewContext
+    
+    let modelName = "AlarmEntity"
+
+    // CoreData에 저장된 알람정보 가져오기
+    func getAlarmList() -> [AlarmEntity] {
+        var data: [AlarmEntity] = []
+        guard let context = context else {
+            print("getSavedAlarm: context load error")
             return []
         }
-        return alarms
-    }
-    
-    // UserDefault에 알람정보 저장하기
-    func saveAlarm(date: Date, isOn: Bool, repeatedDays: [String]) {
-        var alarms = getAlarmList()
-        let newAlarm = AlarmModel(id: UUID().uuidString, date: date, isOn: isOn, repeatedDays: repeatedDays)
-        alarms.append(newAlarm)
         
-        UserDefaults.standard.set(try? PropertyListEncoder().encode(alarms), forKey: modelName)
-
-        if let encodedData = try? JSONEncoder().encode(alarms) {
-            userDefaults.set(encodedData, forKey: modelName)
-        }
-    }
-    
-    // UserDefault에서 알람정보 삭제하기
-    func removeAlarm(deleteTarget: AlarmModel) {
-        var alarms = getAlarmList()
-        alarms.removeAll() { $0.id == deleteTarget.id }
+        let request = NSFetchRequest<NSManagedObject>(entityName: self.modelName)
+        // 리스트를 time 기준으로 가져오기
+        let descriptor = NSSortDescriptor(key: "time", ascending: true)
         
-        if let encodedData = try? JSONEncoder().encode(alarms) {
-            userDefaults.set(encodedData, forKey: modelName)
-        }
-    }
-    
-    // UserDefault에 저장된 알람데이터 수정하기
-    func updateAlarm(targetId: String, newData: AlarmModel) {
-        var alarms = getAlarmList()
-        if let index = alarms.firstIndex(where: { $0.id == targetId }) {
-            alarms[index] = newData
-            
-            if let encodedData = try? JSONEncoder().encode(alarms) {
-                userDefaults.set(encodedData, forKey: modelName)
+        request.sortDescriptors = [descriptor]
+        
+        do {
+            guard let fetchedAlarmList = try context.fetch(request) as? [AlarmEntity] else {
+                return data
             }
+            data = fetchedAlarmList
+        } catch {
+            print("error")
+        }
+        return data
+    }
+    
+    // CoreData에 알람정보 저장하기
+    func saveAlarm(isOn: Bool, time: Date, label: String, isAgain: Bool, repeatDays: String, completion: @escaping () -> Void) {
+        guard let context = context else {
+            print("saveAlarm: context load error")
+            return
+        }
+        
+        guard let entity = NSEntityDescription.entity(forEntityName: self.modelName, in: context) else {
+            return
+        }
+        
+        guard let newAlarm = NSManagedObject(entity: entity, insertInto: context) as? AlarmEntity else {
+            print("saveAlarm: entity insert error")
+            return
+        }
+        
+        newAlarm.isOn = isOn
+        newAlarm.time = time
+        newAlarm.label = label
+        newAlarm.isAgain = isAgain
+        newAlarm.repeatDays = repeatDays
+        
+        if context.hasChanges {
+            do {
+                try context.save()
+                completion()
+            } catch {
+                print("saveAlarm: context save error")
+                completion()
+            }
+        }
+    }
+    
+    // CoreData에 알람정보 삭제하기
+    func removeAlarm(deletaTarget: AlarmEntity, completion: @escaping () -> Void) {
+        guard let context = context else {
+            print("removeAlarm: context load error")
+            completion()
+            return
+        }
+        guard let targetId = deletaTarget.time else {
+            print("removeAlarm: remove target id error")
+            completion()
+            return
+        }
+        
+        let request = NSFetchRequest<NSManagedObject>(entityName: self.modelName)
+        request.predicate = NSPredicate(format: "time = %@", targetId as CVarArg)
+        
+        do {
+            guard let fetchData = try context.fetch(request) as? [AlarmEntity] else {
+                print("removeAlarm: fetch error")
+                completion()
+                return
+            }
+            
+            guard let data = fetchData.first else {
+                print("removeAlarm: data indexing error")
+                completion()
+                return
+            }
+            context.delete(data)
+            
+            do {
+                try context.save()
+                completion()
+                
+            } catch {
+                print("removeAlarm: context save error")
+                completion()
+            }
+        } catch {
+            print("removeAlarm: some error")
+        }
+    }
+    
+    // CoreData에 알람정보 업데이트하기
+    func updateAlarm(targetId: Date, newData: AlarmEntity, completion: @escaping () -> Void) {
+        guard let context = context else {
+            print("removeAlarm: context load error")
+            completion()
+            return
+        }
+        
+        let request = NSFetchRequest<NSManagedObject>(entityName: self.modelName)
+        request.predicate = NSPredicate(format: "time = %@", targetId as CVarArg)
+        
+        do {
+            guard let fetchedAlarms = try context.fetch(request) as? [AlarmEntity] else {
+                print("updateAlarm: fetch error")
+                completion()
+                return
+            }
+            
+            guard let targetAlarm = fetchedAlarms.first else {
+                print("updateAlarm: indexing error")
+                completion()
+                return
+            }
+            
+            targetAlarm.isOn = newData.isOn
+            targetAlarm.time = newData.time
+            targetAlarm.label = newData.label
+            targetAlarm.isAgain = newData.isAgain
+            targetAlarm.repeatDays = newData.repeatDays
+            
+            if context.hasChanges {
+                do {
+                    try context.save()
+                } catch {
+                    print("updateAlarm: context save error")
+                }
+            }
+            completion()
+        } catch {
+            print("updateAlarm: error")
+            completion()
         }
     }
 }

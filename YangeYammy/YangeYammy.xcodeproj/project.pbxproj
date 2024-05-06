@@ -25,17 +25,18 @@
 		186F8CCA2BC7E20200741FF1 /* YangeYammyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F8CC92BC7E20200741FF1 /* YangeYammyUITestsLaunchTests.swift */; };
 		186F8CD82BC8A6E600741FF1 /* RootTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F8CD72BC8A6E600741FF1 /* RootTabBarViewController.swift */; };
 		186F8CDC2BC8A8F200741FF1 /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F8CDB2BC8A8F200741FF1 /* AlarmViewController.swift */; };
+		188423C32BE6F2AD00956EEE /* YangeYammy.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 188423C12BE6F2AD00956EEE /* YangeYammy.xcdatamodeld */; };
+		188423C92BE8B3F000956EEE /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188423C82BE8B3F000956EEE /* NotificationService.swift */; };
+		188423CB2BE8BB3300956EEE /* getCurrentDateFromSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188423CA2BE8BB3300956EEE /* getCurrentDateFromSimulator.swift */; };
 		18E5F4D52BC8AB36004E0E27 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4D42BC8AB36004E0E27 /* BaseView.swift */; };
 		18E5F4DA2BC8B72C004E0E27 /* AlarmNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4D92BC8B72C004E0E27 /* AlarmNavigationController.swift */; };
 		18E5F4DD2BC8C48B004E0E27 /* ReuseIdentifying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4DC2BC8C48B004E0E27 /* ReuseIdentifying.swift */; };
 		18E5F4DF2BC8C661004E0E27 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4DE2BC8C661004E0E27 /* UIView.swift */; };
-		18E5F4E12BC8CC39004E0E27 /* AlarmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4E02BC8CC39004E0E27 /* AlarmModel.swift */; };
 		18E5F4E42BC8D484004E0E27 /* CreateAlarmNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4E32BC8D484004E0E27 /* CreateAlarmNavigationController.swift */; };
 		18E5F4E62BC8E7B9004E0E27 /* CreateAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4E52BC8E7B9004E0E27 /* CreateAlarmViewController.swift */; };
 		18E5F4E82BC8EA69004E0E27 /* CreateAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4E72BC8EA69004E0E27 /* CreateAlarmView.swift */; };
 		18E5F4EA2BC94152004E0E27 /* AlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4E92BC94152004E0E27 /* AlarmView.swift */; };
 		18E5F4EC2BC945BD004E0E27 /* AlarmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4EB2BC945BD004E0E27 /* AlarmTableViewCell.swift */; };
-		18E5F4EE2BCCBE48004E0E27 /* UNNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4ED2BCCBE48004E0E27 /* UNNotificationCenter.swift */; };
 		18E5F4F12BD62215004E0E27 /* ProfileNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4F02BD62215004E0E27 /* ProfileNavigationController.swift */; };
 		18E5F4F32BD62275004E0E27 /* ProfileContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4F22BD62275004E0E27 /* ProfileContentViewController.swift */; };
 		18E5F4F52BD639A4004E0E27 /* ProfileAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4F42BD639A4004E0E27 /* ProfileAViewController.swift */; };
@@ -85,17 +86,18 @@
 		186F8CC92BC7E20200741FF1 /* YangeYammyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YangeYammyUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		186F8CD72BC8A6E600741FF1 /* RootTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarViewController.swift; sourceTree = "<group>"; };
 		186F8CDB2BC8A8F200741FF1 /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
+		188423C22BE6F2AD00956EEE /* YangeYammy.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = YangeYammy.xcdatamodel; sourceTree = "<group>"; };
+		188423C82BE8B3F000956EEE /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		188423CA2BE8BB3300956EEE /* getCurrentDateFromSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getCurrentDateFromSimulator.swift; sourceTree = "<group>"; };
 		18E5F4D42BC8AB36004E0E27 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		18E5F4D92BC8B72C004E0E27 /* AlarmNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmNavigationController.swift; sourceTree = "<group>"; };
 		18E5F4DC2BC8C48B004E0E27 /* ReuseIdentifying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifying.swift; sourceTree = "<group>"; };
 		18E5F4DE2BC8C661004E0E27 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
-		18E5F4E02BC8CC39004E0E27 /* AlarmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmModel.swift; sourceTree = "<group>"; };
 		18E5F4E32BC8D484004E0E27 /* CreateAlarmNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAlarmNavigationController.swift; sourceTree = "<group>"; };
 		18E5F4E52BC8E7B9004E0E27 /* CreateAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAlarmViewController.swift; sourceTree = "<group>"; };
 		18E5F4E72BC8EA69004E0E27 /* CreateAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAlarmView.swift; sourceTree = "<group>"; };
 		18E5F4E92BC94152004E0E27 /* AlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmView.swift; sourceTree = "<group>"; };
 		18E5F4EB2BC945BD004E0E27 /* AlarmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableViewCell.swift; sourceTree = "<group>"; };
-		18E5F4ED2BCCBE48004E0E27 /* UNNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNNotificationCenter.swift; sourceTree = "<group>"; };
 		18E5F4F02BD62215004E0E27 /* ProfileNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNavigationController.swift; sourceTree = "<group>"; };
 		18E5F4F22BD62275004E0E27 /* ProfileContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileContentViewController.swift; sourceTree = "<group>"; };
 		18E5F4F42BD639A4004E0E27 /* ProfileAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAViewController.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 		180216A82BDA58D10033AE92 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				188423C82BE8B3F000956EEE /* NotificationService.swift */,
 				180216A92BDA59030033AE92 /* AlarmManager.swift */,
 			);
 			path = Manager;
@@ -202,6 +205,7 @@
 		186F8CA52BC7E20100741FF1 /* YangeYammy */ = {
 			isa = PBXGroup;
 			children = (
+				188423C12BE6F2AD00956EEE /* YangeYammy.xcdatamodeld */,
 				1802169C2BD9E1DC0033AE92 /* Support */,
 				180216AB2BDA592D0033AE92 /* Util */,
 				186F8CD62BC7E2DF00741FF1 /* Screen */,
@@ -243,7 +247,6 @@
 		186F8CDD2BC8AA3E00741FF1 /* Alarm */ = {
 			isa = PBXGroup;
 			children = (
-				18E5F4E22BC8D1CB004E0E27 /* Model */,
 				18F300CB2BC8ABC60065D852 /* View */,
 				18E5F4D62BC8B165004E0E27 /* Cell */,
 				18E5F4D92BC8B72C004E0E27 /* AlarmNavigationController.swift */,
@@ -278,17 +281,9 @@
 			children = (
 				18E5F4DC2BC8C48B004E0E27 /* ReuseIdentifying.swift */,
 				18E5F4DE2BC8C661004E0E27 /* UIView.swift */,
-				18E5F4ED2BCCBE48004E0E27 /* UNNotificationCenter.swift */,
+				188423CA2BE8BB3300956EEE /* getCurrentDateFromSimulator.swift */,
 			);
 			path = Extension;
-			sourceTree = "<group>";
-		};
-		18E5F4E22BC8D1CB004E0E27 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				18E5F4E02BC8CC39004E0E27 /* AlarmModel.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		18E5F4EF2BD62193004E0E27 /* Profile */ = {
@@ -468,12 +463,13 @@
 				186F8CDC2BC8A8F200741FF1 /* AlarmViewController.swift in Sources */,
 				18E5F4DD2BC8C48B004E0E27 /* ReuseIdentifying.swift in Sources */,
 				18E5F4F12BD62215004E0E27 /* ProfileNavigationController.swift in Sources */,
+				188423C32BE6F2AD00956EEE /* YangeYammy.xcdatamodeld in Sources */,
 				186F8CD82BC8A6E600741FF1 /* RootTabBarViewController.swift in Sources */,
 				18E5F4D52BC8AB36004E0E27 /* BaseView.swift in Sources */,
 				18E5F4FC2BD63B33004E0E27 /* ProfileAView.swift in Sources */,
 				18E5F4F92BD63AE5004E0E27 /* ProfileCViewController.swift in Sources */,
+				188423CB2BE8BB3300956EEE /* getCurrentDateFromSimulator.swift in Sources */,
 				1802169E2BD9E1FE0033AE92 /* Enum.swift in Sources */,
-				18E5F4EE2BCCBE48004E0E27 /* UNNotificationCenter.swift in Sources */,
 				180216A72BDA24370033AE92 /* DayTableViewCell.swift in Sources */,
 				18E5F4F32BD62275004E0E27 /* ProfileContentViewController.swift in Sources */,
 				18E5F4EA2BC94152004E0E27 /* AlarmView.swift in Sources */,
@@ -487,10 +483,10 @@
 				18E5F5112BD9B7C3004E0E27 /* RepeatedDateTableViewCell.swift in Sources */,
 				180216AA2BDA59030033AE92 /* AlarmManager.swift in Sources */,
 				186F8CA92BC7E20100741FF1 /* SceneDelegate.swift in Sources */,
-				18E5F4E12BC8CC39004E0E27 /* AlarmModel.swift in Sources */,
 				180216A52BD9F3680033AE92 /* SelectDayView.swift in Sources */,
 				18E5F4EC2BC945BD004E0E27 /* AlarmTableViewCell.swift in Sources */,
 				18E5F4E82BC8EA69004E0E27 /* CreateAlarmView.swift in Sources */,
+				188423C92BE8B3F000956EEE /* NotificationService.swift in Sources */,
 				18E5F4E62BC8E7B9004E0E27 /* CreateAlarmViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -865,6 +861,19 @@
 			productName = FirebaseDatabase;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		188423C12BE6F2AD00956EEE /* YangeYammy.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				188423C22BE6F2AD00956EEE /* YangeYammy.xcdatamodel */,
+			);
+			currentVersion = 188423C22BE6F2AD00956EEE /* YangeYammy.xcdatamodel */;
+			path = YangeYammy.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 186F8C9B2BC7E20100741FF1 /* Project object */;
 }
