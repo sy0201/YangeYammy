@@ -10,6 +10,11 @@ import SnapKit
 
 final class AlarmViewController: UIViewController {
     var alarmManager = AlarmManager.shared
+    var alarmData: [AlarmEntity] {
+        get {
+            return sortAlarmData()
+        }
+    }
     
     let alarmView = AlarmView()
 
@@ -20,18 +25,48 @@ final class AlarmViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
-        setupData()
+    }
+    
+    func sortAlarmData() -> [AlarmEntity] {
+        let sortedArray = alarmManager.getAlarmList().sorted { (prev, next) -> Bool in
+            var prevTime = "\(prev.time!)"
+            var nextTime = "\(next.time!)"
+            
+            let prevTimeArray = prevTime.split(separator: " ")
+            let nextTimeArray = nextTime.split(separator: " ")
+            
+            prevTime = "\(prevTimeArray[1])"
+            nextTime = "\(nextTimeArray[1])"
+            
+            let prevTimeHourAndMinute = prevTime.split(separator: ":")
+            let nextTimeHourAndMinute = nextTime.split(separator: ":")
+            
+            let prevTimeInt = prevTimeHourAndMinute.map { str in
+                return Int(str)!
+            }
+            
+            let nextTimeInt = nextTimeHourAndMinute.map { str in
+                return Int(str)!
+            }
+            
+            if(prevTimeInt[0] < nextTimeInt[0]){
+                return true
+            }else if(prevTimeInt[0] > nextTimeInt[0]){
+                return false
+            }else if(prevTimeInt[0] == nextTimeInt[0] && prevTimeInt[1] < nextTimeInt[1]){
+                return true
+            }else{
+                return false
+            }
+        }
+        
+        return sortedArray
     }
 }
 
 // MARK: - Private Methods
 
 private extension AlarmViewController {
-    func setupData() {
-        alarmManager.getAlarmList()
-        alarmView.tableView.reloadData()
-    }
-    
     func setupNavigationBar() {
         self.title = "알람"
         
@@ -66,19 +101,10 @@ private extension AlarmViewController {
     }
 }
 
+// MARK: - AlarmDelegate
+
 extension AlarmViewController: AlarmDelegate {
-    func addNewAlarm(_ alarm: AlarmModel) {
-        //TODO: 전체 테이블 뷰를 새로고침하기때문에 다른 방법 찾기
-        //alarmManager.saveAlarm(date: alarm.date, isOn: alarm.isOn, repeatedDays: alarm.repeatedDays)
-        alarmView.tableView.reloadData()
-    }
-    
-    func updateAlarm(_ alarm: AlarmModel) {
-        alarmManager.getAlarmList()
-        alarmView.tableView.reloadData()
-    }
-    
-    func reloadAlarmView() {
+    func updateAlarm() {
         alarmView.tableView.reloadData()
     }
 }

@@ -80,7 +80,8 @@ extension AlarmView: UITableViewDataSource, UITableViewDelegate {
         switch editingStyle {
         case .delete:
             let removeAlarm = alarmManager.getAlarmList()[indexPath.row]
-            alarmManager.removeAlarm(deleteTarget: removeAlarm)
+            alarmManager.removeAlarm(deletaTarget: removeAlarm) {
+            }
             tableView.deleteRows(at: [indexPath], with: .automatic)
         default:
             break

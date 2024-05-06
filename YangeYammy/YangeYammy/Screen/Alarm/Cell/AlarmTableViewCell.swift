@@ -11,7 +11,7 @@ import UserNotifications
 
 final class AlarmTableViewCell: UITableViewCell, ReuseIdentifying {
     let userNotificationCenter = UNUserNotificationCenter.current()
-    var alarmData: AlarmModel? {
+    var alarmData: AlarmEntity? {
         didSet {
             configure()
         }
@@ -54,9 +54,45 @@ final class AlarmTableViewCell: UITableViewCell, ReuseIdentifying {
 
 extension AlarmTableViewCell {
     func configure() {
-        meridiemLabel.text = alarmData?.meridiem
-        timeLabel.text = alarmData?.time
-        setSwitchButton.isOn = ((alarmData?.isOn) != nil)
+        guard let alarmData = alarmData else {
+            return
+        }
+        
+        guard let time = alarmData.time else {
+            return
+        }
+        timeLabel.text = "\(setupTimeString(time: time).0)"
+    
+        meridiemLabel.text = setupTimeString(time: time).1
+        setSwitchButton.isOn = alarmData.isOn
+    }
+    
+    func setupTimeString(time: Date) -> (String, String){
+        var isNoon = false
+        
+        // 코어데이터에 저장된 UTC를 KST로 변환하는 로직
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.dateFormat = "HH:mm"
+        
+        // timeString 반환 로직
+        var timeString = dateFormatter.string(from: time)
+        
+        if(timeString.first == "0"){
+            timeString.remove(at: timeString.startIndex)
+        }
+        
+        var timeArray = timeString.split(separator: ":").map { str in
+            String(str)
+        }
+        
+        if(Int(timeArray[0])! > 12){
+            timeArray[0] = String(Int(timeArray[0])! - 12)
+            isNoon = true
+        }
+        
+        return (timeArray.joined(separator: ":"), isNoon ? "오후" : "오전")
     }
 }
 
@@ -87,17 +123,5 @@ private extension AlarmTableViewCell {
     }
     
     @objc func switchValueChanged(_ sender: UISwitch) {
-        guard let data = UserDefaults.standard.value(forKey: "alarms") as? Data,
-              var alerts = try? PropertyListDecoder().decode([AlarmModel].self, from: data) else { return }
-        
-        alerts[sender.tag].isOn = sender.isOn
-        UserDefaults.standard.set(try? PropertyListEncoder().encode(alerts), forKey: "alarms")
-        
-        // 알람을 껐다가 다시 켠 경우 추가시
-        if sender.isOn {
-            userNotificationCenter.addNotificationRequest(by: alerts[sender.tag])
-        } else {
-            userNotificationCenter.removePendingNotificationRequests(withIdentifiers: [alerts[sender.tag].id])
-        }
     }
 }
