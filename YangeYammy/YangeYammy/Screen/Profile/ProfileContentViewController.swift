@@ -12,7 +12,7 @@ final class ProfileContentViewController: UIViewController {
 
     lazy var navigationView: UIView = {
        let view = UIView()
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .systemBackground
         
         return view
     }()
@@ -35,19 +35,13 @@ final class ProfileContentViewController: UIViewController {
         return vc2
     }()
     
-    lazy var vc3: ProfileCViewController = {
-        let vc3 = ProfileCViewController()
-        
-        return vc3
-    }()
-    
     lazy var dataViewControllers: [UIViewController] = {
-       return [vc1, vc2, vc3]
+        return [vc1, vc2]
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupNavigationBar()
         setupDelegate()
         setConstraint()
         
@@ -61,18 +55,45 @@ final class ProfileContentViewController: UIViewController {
 }
 
 extension ProfileContentViewController {
+    func setupNavigationBar() {
+        self.title = "Profile"
+        
+        let editBarButton = UIBarButtonItem(title: "수정",
+                                            style: .plain,
+                                            target: self,
+                                            action: #selector(editBarButtonTapped))
+        
+        let profileSaveBarButton = UIBarButtonItem(title: "저장",
+                                            style: .plain,
+                                            target: self,
+                                            action: #selector(saveBarButtonTapped))
+        
+        editBarButton.tintColor = .systemGreen
+        profileSaveBarButton.tintColor = .systemGreen
+        
+        self.navigationItem.leftBarButtonItem = editBarButton
+        self.navigationItem.rightBarButtonItem = profileSaveBarButton
+    }
+    
+    @objc func editBarButtonTapped() {
+        self.dismiss(animated: true)
+    }
+    
+    @objc func saveBarButtonTapped() {
+        self.dismiss(animated: true)
+    }
+    
     func setConstraint() {
         view.addSubview(navigationView)
         addChild(pageViewController)
         view.addSubview(pageViewController.view)
         
         navigationView.snp.makeConstraints { make in
-            make.width.top.equalToSuperview()
-            make.height.equalTo(72)
+            make.edges.equalToSuperview()
         }
         
         pageViewController.view.snp.makeConstraints { make in
-            make.top.equalTo(navigationView.snp.bottom)
+            make.top.equalToSuperview().offset(72)
             make.leading.trailing.bottom.equalToSuperview()
         }
         

@@ -21,7 +21,7 @@ final class RootTabBarViewController: UITabBarController {
 private extension RootTabBarViewController {
     func setupTabBar() {
         tabBar.barTintColor = .systemBackground
-        tabBar.tintColor = .black
+        tabBar.tintColor = UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0)
     }
     
     func setupTabBarItem() {
@@ -38,6 +38,6 @@ private extension RootTabBarViewController {
                                                       selectedImage: UIImage(systemName: "person.circle.fill"))
         
         viewControllers = [alarmNavigationController,
-                           profileViewController]
+                           profileNavigationController]
     }
 }
