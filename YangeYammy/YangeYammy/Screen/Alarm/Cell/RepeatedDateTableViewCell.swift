@@ -46,7 +46,7 @@ final class RepeatedDateTableViewCell: UITableViewCell, ReuseIdentifying {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with day: Day) {
+    func configure(with day: Enum.Day) {
         dateLabel.text = day.rawValue
     }
 }
