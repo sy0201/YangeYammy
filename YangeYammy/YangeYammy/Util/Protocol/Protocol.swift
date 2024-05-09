@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol RepeatedDateViewCellDelegate: AnyObject {
-    func repeatedDateViewCellDidTapSetDateButton()
+protocol PresentVCDelegate: AnyObject {
+    func presentViewController()
 }

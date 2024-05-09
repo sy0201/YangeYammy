@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 final class CreateAlarmView: BaseView {
-    weak var delegate: RepeatedDateViewCellDelegate?
+    weak var delegate: PresentVCDelegate?
     let userNotificationCenter = UNUserNotificationCenter.current()
 
     private let containerView = UIView()

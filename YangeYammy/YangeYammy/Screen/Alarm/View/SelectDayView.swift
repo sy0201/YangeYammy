@@ -11,8 +11,8 @@ import SnapKit
 final class SelectDayView: BaseView {
     private let containerView = UIView()
     var tableView: UITableView = UITableView()
-    private var dayList: [Enum.Day]?
-    
+    private var dayList: [Enum.Day] = [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday, .none]
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -63,15 +63,15 @@ private extension SelectDayView {
 
 extension SelectDayView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        dayList?.count ?? 0
+        dayList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DayTableViewCell.reuseIdentifier, for: indexPath) as? DayTableViewCell else {
             return UITableViewCell() }
         
-        let day = dayList?[indexPath.row]
-        cell.configure(with: day!)
+        let day = dayList[indexPath.row]
+        cell.configure(with: day)
 
         return cell
     }

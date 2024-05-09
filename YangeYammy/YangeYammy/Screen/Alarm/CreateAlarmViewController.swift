@@ -76,7 +76,7 @@ private extension CreateAlarmViewController {
             newData?.time = createAlarmView.datePickerView.date
             newData?.label = ""
             newData?.isAgain = getIsAgain()
-            //newData?.repeatDays = getRepeatDays()
+            newData?.repeatDays = getRepeatDays()
             
             alarmManager.updateAlarm(targetId: alarmData!.time!, newData: newData!) {
                 self.setupData()
@@ -116,10 +116,10 @@ private extension CreateAlarmViewController {
     }
 }
 
-// MARK: - RepeatedDateViewCellDelegate
+// MARK: - PresentVCDelegate
 
-extension CreateAlarmViewController: RepeatedDateViewCellDelegate {
-    func repeatedDateViewCellDidTapSetDateButton() {
+extension CreateAlarmViewController: PresentVCDelegate {
+    func presentViewController() {
         presentAlarmRepeatDetailViewController()
     }
 }
