@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UserNotifications
 import UIKit
 
 final class NotificationService: NSObject {
@@ -102,6 +101,10 @@ final class NotificationService: NSObject {
         let category = UNNotificationCategory(identifier: categoryIdentifier, actions: [customAction], intentIdentifiers: [])
         
         self.UNCurrentCenter.setNotificationCategories([category])
+    }
+    
+    func removeNotification(withIdentifier identifier: String) {
+        UNCurrentCenter.removePendingNotificationRequests(withIdentifiers: [identifier])
     }
 }
 

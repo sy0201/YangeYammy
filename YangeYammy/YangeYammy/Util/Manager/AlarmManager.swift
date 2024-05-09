@@ -82,13 +82,13 @@ final class AlarmManager {
     }
     
     // CoreData에 알람정보 삭제하기
-    func removeAlarm(deletaTarget: AlarmEntity, completion: @escaping () -> Void) {
+    func removeAlarm(deleteTarget: AlarmEntity, completion: @escaping () -> Void) {
         guard let context = context else {
             print("removeAlarm: context load error")
             completion()
             return
         }
-        guard let targetId = deletaTarget.time else {
+        guard let targetId = deleteTarget.time else {
             print("removeAlarm: remove target id error")
             completion()
             return

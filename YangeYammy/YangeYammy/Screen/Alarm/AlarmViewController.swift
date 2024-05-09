@@ -51,11 +51,11 @@ final class AlarmViewController: UIViewController {
             
             if(prevTimeInt[0] < nextTimeInt[0]){
                 return true
-            }else if(prevTimeInt[0] > nextTimeInt[0]){
+            } else if(prevTimeInt[0] > nextTimeInt[0]){
                 return false
-            }else if(prevTimeInt[0] == nextTimeInt[0] && prevTimeInt[1] < nextTimeInt[1]){
+            } else if(prevTimeInt[0] == nextTimeInt[0] && prevTimeInt[1] < nextTimeInt[1]){
                 return true
-            }else{
+            } else {
                 return false
             }
         }
