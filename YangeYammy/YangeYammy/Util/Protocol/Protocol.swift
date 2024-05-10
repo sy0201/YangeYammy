@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol PresentVCDelegate: AnyObject {
-    func presentViewController()
+protocol DayTableViewCellDelegate: AnyObject {
+    func didSelectDay(_ day: Day)
 }
