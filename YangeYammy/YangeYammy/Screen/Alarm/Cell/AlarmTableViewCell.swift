@@ -10,7 +10,6 @@ import SnapKit
 import UserNotifications
 
 final class AlarmTableViewCell: UITableViewCell, ReuseIdentifying {
-    let userNotificationCenter = UNUserNotificationCenter.current()
     var alarmData: AlarmEntity? {
         didSet {
             configure()
@@ -123,5 +122,6 @@ private extension AlarmTableViewCell {
     }
     
     @objc func switchValueChanged(_ sender: UISwitch) {
+        
     }
 }
