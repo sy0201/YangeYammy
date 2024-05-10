@@ -8,5 +8,5 @@
 import Foundation
 
 protocol DayTableViewCellDelegate: AnyObject {
-    func didSelectDay(_ day: Day)
+    func didSelectDay(_ day: [Day])
 }

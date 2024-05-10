@@ -10,7 +10,7 @@ import UIKit
 final class SelectDayViewController: UIViewController {
     weak var selectDayDelegate: DayTableViewCellDelegate?
     var day: [Day] = []
-    var selectedDay: Day?
+    var selectedDays: [Bool] = []
     
     let selectDayView = SelectDayView()
     
@@ -22,6 +22,7 @@ final class SelectDayViewController: UIViewController {
         super.viewDidLoad()
         setupTableView()
         day = Day.allCases
+        selectedDays = Array(repeating: false, count: day.count)
     }
 }
 
@@ -48,7 +49,8 @@ extension SelectDayViewController: UITableViewDataSource, UITableViewDelegate {
             return UITableViewCell() }
         
         let currentDay = day[indexPath.row]
-        cell.configure(with: currentDay, isSelected: currentDay == selectedDay)
+        cell.configure(with: currentDay, isSelected: selectedDays[indexPath.row])
+        
         cell.delegate = selectDayDelegate
         
         return cell
@@ -59,8 +61,10 @@ extension SelectDayViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        let selectedDay = day[indexPath.row]
-        selectDayDelegate?.didSelectDay(selectedDay)
+        selectedDays[indexPath.row].toggle()
+        tableView.reloadRows(at: [indexPath], with: .none)
+        
+        let selectedDaysArray = day.enumerated().filter { selectedDays[$0.offset] }.map { $0.element }
+        selectDayDelegate?.didSelectDay(selectedDaysArray)
     }
 }

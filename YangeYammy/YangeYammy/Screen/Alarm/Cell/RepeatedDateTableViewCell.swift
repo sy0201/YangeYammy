@@ -38,9 +38,10 @@ final class RepeatedDateTableViewCell: UITableViewCell, ReuseIdentifying {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with day: Day?) {
-        if let selectedDay = day {
-            dateLabel.text = selectedDay.rawValue
+    func configure(with day: [Day]) {
+        if !day.isEmpty {
+            let selectedDayStrings = day.map { $0.rawValue }
+            dateLabel.text = selectedDayStrings.joined(separator: ", ")
         } else {
             dateLabel.text = "안함"
         }

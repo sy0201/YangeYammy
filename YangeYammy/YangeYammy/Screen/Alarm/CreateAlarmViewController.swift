@@ -10,9 +10,10 @@ import UIKit
 final class CreateAlarmViewController: UIViewController {
     let alarmManager = AlarmManager.shared
     weak var delegate: AlarmDelegate?
-    var selectedDay: Day?
+    var selectedDays: [Day] = []
     var alarmData: AlarmEntity?
     var notificationId: String = ""
+    
     let createAlarmView = CreateAlarmView()
 
     override func loadView() {
@@ -65,6 +66,7 @@ private extension CreateAlarmViewController {
     
     @objc func saveBarButtonTapped() {
         delegate?.updateAlarm()
+        let repeatDaysString = selectedDays.map { $0.rawValue }.joined(separator: ", ")
 
         if alarmData != nil {
             let newData = alarmData
@@ -72,14 +74,14 @@ private extension CreateAlarmViewController {
             newData?.time = createAlarmView.datePickerView.date
             newData?.label = ""
             newData?.isAgain = getIsAgain()
-            //newData?.repeatDays = getRepeatDays()
+            newData?.repeatDays = repeatDaysString
             
             alarmManager.updateAlarm(targetId: alarmData!.time!, newData: newData!) {
                 self.setupData()
                 self.delegate?.updateAlarm()
             }
         } else {
-            alarmManager.saveAlarm(isOn: true, time: createAlarmView.datePickerView.date, label: "", isAgain: getIsAgain(), repeatDays: "") {
+            alarmManager.saveAlarm(isOn: true, time: createAlarmView.datePickerView.date, label: "", isAgain: getIsAgain(), repeatDays: repeatDaysString) {
                 self.setupData()
                 self.delegate?.updateAlarm()
             }
@@ -87,29 +89,21 @@ private extension CreateAlarmViewController {
             notificationId = "\(createAlarmView.datePickerView.date)"
         }
         
-        NotificationService.shared.requestAlarmNotification(date: createAlarmView.datePickerView.date, title: "냥이야미", subTitle: "오늘도 맛있는 밥을 먹을게요", notificationId: notificationId, dataIndex: alarmManager.getAlarmList().count == 0 ? nil : alarmManager.getAlarmList().count, needToReloadTableView: createAlarmView.tableView, updateTarget: alarmData?.time)
+        for selectedDay in selectedDays {
+            NotificationService.shared.requestAlarmNotification(date: createAlarmView.datePickerView.date, title: "냥이야미", subTitle: "오늘도 맛있는 밥을 먹을게요", notificationId: notificationId, dataIndex: alarmManager.getAlarmList().count == 0 ? nil : alarmManager.getAlarmList().count, needToReloadTableView: createAlarmView.tableView, updateTarget: alarmData?.time)
+        }
         
         self.dismiss(animated: true)
     }
     
     // TODO: 다시 알림 Cell 추가
-    func getIsAgain() -> Bool{
+    func getIsAgain() -> Bool {
         guard let cell = createAlarmView.tableView.visibleCells.first as? RepeatedDateTableViewCell else {
             // 배열이 비어 있는 경우
             return false
         }
         return true
     }
-    
-//    func getRepeatDays() -> String {
-//        let repeatCell = createAlarmView.tableView.visibleCells[0] as! DayTableViewCell
-//        
-//        if let text = repeatCell.dayLabel.text, text != "안 함"{
-//            return text
-//        }
-//        
-//        return ""
-//    }
 }
 
 // MARK: - private Methods
@@ -135,8 +129,8 @@ extension CreateAlarmViewController: UITableViewDataSource, UITableViewDelegate 
             return UITableViewCell() }
         
         cell.dayDelegate = self
-        cell.configure(with: selectedDay)
-
+        cell.configure(with: selectedDays)
+        
         return cell
     }
     
@@ -154,8 +148,8 @@ extension CreateAlarmViewController: UITableViewDataSource, UITableViewDelegate 
 // MARK: - DayTableViewCellDelegate
 
 extension CreateAlarmViewController: DayTableViewCellDelegate {
-    func didSelectDay(_ day: Day) {
-        selectedDay = day
+    func didSelectDay(_ day: [Day]) {
+        selectedDays = day
         createAlarmView.tableView.reloadData()
     }
 }

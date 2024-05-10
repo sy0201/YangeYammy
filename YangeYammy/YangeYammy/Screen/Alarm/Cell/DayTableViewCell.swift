@@ -27,6 +27,7 @@ final class DayTableViewCell: UITableViewCell, ReuseIdentifying {
     let selectImg: UIImageView = {
         let selectImg = UIImageView()
         selectImg.image = UIImage(systemName: "checkmark")
+        selectImg.tintColor = UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0)
         selectImg.bounds.size.height = 24
         return selectImg
     }()
