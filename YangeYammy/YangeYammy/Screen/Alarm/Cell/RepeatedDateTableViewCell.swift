@@ -9,7 +9,8 @@ import UIKit
 import SnapKit
 
 final class RepeatedDateTableViewCell: UITableViewCell, ReuseIdentifying {
-    weak var delegate: PresentVCDelegate?
+    weak var dayDelegate: DayTableViewCellDelegate?
+    var selectedDay: Day?
     
     let repeatLabel: UILabel = {
         let repeatLabel = UILabel()
@@ -26,15 +27,6 @@ final class RepeatedDateTableViewCell: UITableViewCell, ReuseIdentifying {
         return dateLabel
     }()
     
-    let setRepeatDayButton: UIButton = {
-        let setRepeatDayButton = UIButton()
-        setRepeatDayButton.setImage(UIImage(systemName: "chevron.right"), for: .normal)
-        setRepeatDayButton.tintColor = .black
-        setRepeatDayButton.contentHorizontalAlignment = .trailing
-        setRepeatDayButton.addTarget(self, action: #selector(setRepeatDayButtonTapped), for: .touchUpInside)
-        return setRepeatDayButton
-    }()
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
@@ -46,16 +38,12 @@ final class RepeatedDateTableViewCell: UITableViewCell, ReuseIdentifying {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupActions() {
-        setRepeatDayButton.addTarget(self, action: #selector(setRepeatDayButtonTapped), for: .touchUpInside)
-    }
-    
-    @objc func setRepeatDayButtonTapped() {
-        delegate?.presentViewController()
-    }
-    
-    func configure(with day: Enum.Day) {
-        dateLabel.text = day.rawValue
+    func configure(with day: Day?) {
+        if let selectedDay = day {
+            dateLabel.text = selectedDay.rawValue
+        } else {
+            dateLabel.text = "안함"
+        }
     }
 }
 
@@ -64,8 +52,7 @@ final class RepeatedDateTableViewCell: UITableViewCell, ReuseIdentifying {
 private extension RepeatedDateTableViewCell {
     func setupUI() {
         contentView.addSubviews([repeatLabel,
-                                 dateLabel,
-                                 setRepeatDayButton])
+                                 dateLabel])
     }
     
     func setupConstraint() {
@@ -77,10 +64,6 @@ private extension RepeatedDateTableViewCell {
         dateLabel.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-20)
             make.centerY.equalToSuperview()
-        }
-        
-        setRepeatDayButton.snp.makeConstraints { make in
-            make.top.bottom.leading.trailing.equalToSuperview()
         }
     }
 }

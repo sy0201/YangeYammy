@@ -10,6 +10,7 @@ import UIKit
 final class CreateAlarmViewController: UIViewController {
     let alarmManager = AlarmManager.shared
     weak var delegate: AlarmDelegate?
+    var selectedDay: Day?
     var alarmData: AlarmEntity?
     var notificationId: String = ""
     let createAlarmView = CreateAlarmView()
@@ -22,12 +23,7 @@ final class CreateAlarmViewController: UIViewController {
         super.viewDidLoad()
         setupData()
         setupNavigationBar()
-        createAlarmView.delegate = self
-    }
-    
-    func presentAlarmRepeatDetailViewController() {
-        let selectDayVC = SelectDayViewController()
-        navigationController?.pushViewController(selectDayVC, animated: true)
+        setupTableView()
     }
 }
 
@@ -76,7 +72,7 @@ private extension CreateAlarmViewController {
             newData?.time = createAlarmView.datePickerView.date
             newData?.label = ""
             newData?.isAgain = getIsAgain()
-            newData?.repeatDays = getRepeatDays()
+            //newData?.repeatDays = getRepeatDays()
             
             alarmManager.updateAlarm(targetId: alarmData!.time!, newData: newData!) {
                 self.setupData()
@@ -105,21 +101,61 @@ private extension CreateAlarmViewController {
         return true
     }
     
-    func getRepeatDays() -> String{
-        let repeatCell = createAlarmView.tableView.visibleCells[0] as! DayTableViewCell
+//    func getRepeatDays() -> String {
+//        let repeatCell = createAlarmView.tableView.visibleCells[0] as! DayTableViewCell
+//        
+//        if let text = repeatCell.dayLabel.text, text != "안 함"{
+//            return text
+//        }
+//        
+//        return ""
+//    }
+}
+
+// MARK: - private Methods
+
+private extension CreateAlarmViewController {
+    func setupTableView() {
+        createAlarmView.tableView.dataSource = self
+        createAlarmView.tableView.delegate = self
         
-        if let text = repeatCell.dayLabel.text, text != "안 함"{
-            return text
-        }
-        
-        return ""
+        createAlarmView.tableView.register(RepeatedDateTableViewCell.self, forCellReuseIdentifier: RepeatedDateTableViewCell.reuseIdentifier)
     }
 }
 
-// MARK: - PresentVCDelegate
+// MARK: - UITableViewController Protocol
 
-extension CreateAlarmViewController: PresentVCDelegate {
-    func presentViewController() {
-        presentAlarmRepeatDetailViewController()
+extension CreateAlarmViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: RepeatedDateTableViewCell.reuseIdentifier, for: indexPath) as? RepeatedDateTableViewCell else {
+            return UITableViewCell() }
+        
+        cell.dayDelegate = self
+        cell.configure(with: selectedDay)
+
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        44
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectDayVC = SelectDayViewController()
+        selectDayVC.selectDayDelegate = self
+        navigationController?.pushViewController(selectDayVC, animated: true)
+    }
+}
+
+// MARK: - DayTableViewCellDelegate
+
+extension CreateAlarmViewController: DayTableViewCellDelegate {
+    func didSelectDay(_ day: Day) {
+        selectedDay = day
+        createAlarmView.tableView.reloadData()
     }
 }

@@ -9,6 +9,14 @@ import UIKit
 import SnapKit
 
 final class DayTableViewCell: UITableViewCell, ReuseIdentifying {
+    weak var delegate: DayTableViewCellDelegate?
+
+    var isSelectDay: Bool = false {
+        didSet {
+            self.changeState()
+        }
+    }
+    
     let dayLabel: UILabel = {
         let dayLabel = UILabel()
         dayLabel.font = UIFont.systemFont(ofSize: 14, weight: .medium)
@@ -16,11 +24,11 @@ final class DayTableViewCell: UITableViewCell, ReuseIdentifying {
         return dayLabel
     }()
     
-    lazy var selectDayButton: UIButton = {
-        let selectDayButton = UIButton()
-        selectDayButton.contentHorizontalAlignment = .trailing
-        selectDayButton.addTarget(self, action: #selector(selectDateButtonTapped), for: .touchUpInside)
-        return selectDayButton
+    let selectImg: UIImageView = {
+        let selectImg = UIImageView()
+        selectImg.image = UIImage(systemName: "checkmark")
+        selectImg.bounds.size.height = 24
+        return selectImg
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -34,8 +42,9 @@ final class DayTableViewCell: UITableViewCell, ReuseIdentifying {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with day: Enum.Day) {
+    func configure(with day: Day, isSelected: Bool) {
         dayLabel.text = day.rawValue
+        isSelectDay = isSelected
     }
 }
 
@@ -43,8 +52,7 @@ final class DayTableViewCell: UITableViewCell, ReuseIdentifying {
 
 private extension DayTableViewCell {
     func setupUI() {
-        contentView.addSubviews([dayLabel,
-                                 selectDayButton])
+        contentView.addSubviews([dayLabel, selectImg])
     }
     
     func setupConstraint() {
@@ -53,17 +61,13 @@ private extension DayTableViewCell {
             make.centerY.equalToSuperview()
         }
         
-        selectDayButton.snp.makeConstraints { make in
-            make.top.bottom.leading.trailing.equalToSuperview()
+        selectImg.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset(-20)
+            make.centerY.equalToSuperview()
         }
     }
     
-    @objc func selectDateButtonTapped() {
-        if selectDayButton.imageView?.isHidden == false {
-            selectDayButton.setImage(nil, for: .normal)
-        } else {
-            selectDayButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
-            selectDayButton.tintColor = .systemOrange
-        }
+    func changeState() {
+        selectImg.image = isSelectDay ? UIImage(systemName: "checkmark") : nil
     }
 }

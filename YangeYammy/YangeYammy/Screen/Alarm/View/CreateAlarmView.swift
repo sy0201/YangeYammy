@@ -9,9 +9,6 @@ import UIKit
 import SnapKit
 
 final class CreateAlarmView: BaseView {
-    weak var delegate: PresentVCDelegate?
-    let userNotificationCenter = UNUserNotificationCenter.current()
-
     private let containerView = UIView()
     var datePickerView: UIDatePicker = {
         let datePickerView = UIDatePicker()
@@ -32,7 +29,6 @@ final class CreateAlarmView: BaseView {
         super.init(frame: frame)
         setupUI()
         setupConstraint()
-        setupTableView()
     }
     
     required init?(coder: NSCoder) {
@@ -64,37 +60,5 @@ final class CreateAlarmView: BaseView {
             make.trailing.equalTo(containerView).offset(-20)
             make.bottom.equalTo(containerView).offset(-20)
         }
-    }
-}
-
-// MARK: - Private Methods
-
-private extension CreateAlarmView {
-    func setupTableView() {
-        tableView.dataSource = self
-        tableView.delegate = self
-        
-        tableView.register(RepeatedDateTableViewCell.self, forCellReuseIdentifier: RepeatedDateTableViewCell.reuseIdentifier)
-    }
-}
-
-// MARK: - UITableViewController Protocol
-
-extension CreateAlarmView: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: RepeatedDateTableViewCell.reuseIdentifier, for: indexPath) as? RepeatedDateTableViewCell else {
-            return UITableViewCell() }
-        
-        cell.delegate = delegate
-
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        44
     }
 }

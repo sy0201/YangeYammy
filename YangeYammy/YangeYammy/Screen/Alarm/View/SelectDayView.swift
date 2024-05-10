@@ -11,13 +11,11 @@ import SnapKit
 final class SelectDayView: BaseView {
     private let containerView = UIView()
     var tableView: UITableView = UITableView()
-    private var dayList: [Enum.Day] = [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday, .none]
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
         setupConstraint()
-        setupTableView()
     }
     
     required init?(coder: NSCoder) {
@@ -40,43 +38,5 @@ final class SelectDayView: BaseView {
             make.leading.equalTo(containerView.snp.leading).offset(20)
             make.bottom.trailing.equalTo(containerView).offset(-20)
         }
-    }
-    
-    func configure(with days: [Enum.Day]) {
-        self.dayList = days
-        tableView.reloadData()
-    }
-}
-
-// MARK: - Private Methods
-
-private extension SelectDayView {
-    func setupTableView() {
-        tableView.dataSource = self
-        tableView.delegate = self
-        
-        tableView.register(DayTableViewCell.self, forCellReuseIdentifier: DayTableViewCell.reuseIdentifier)
-    }
-}
-
-// MARK: - UITableViewController Protocol
-
-extension SelectDayView: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        dayList.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: DayTableViewCell.reuseIdentifier, for: indexPath) as? DayTableViewCell else {
-            return UITableViewCell() }
-        
-        let day = dayList[indexPath.row]
-        cell.configure(with: day)
-
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        44
     }
 }
