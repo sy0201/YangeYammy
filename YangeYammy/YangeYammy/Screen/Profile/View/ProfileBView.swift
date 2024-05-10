@@ -141,7 +141,7 @@ final class ProfileBView: BaseView {
         noView.clipsToBounds = true
     }
     
-    func selectYesOrNo(neutrification: Enum.Neutrification) {
+    func selectYesOrNo(neutrification: Neutrification) {
         setupButton(view: yesView, label: yesLabel, isNeutrificationTapped: neutrification == .yes)
         setupButton(view: noView, label: noLabel, isNeutrificationTapped: neutrification == .no)
     }

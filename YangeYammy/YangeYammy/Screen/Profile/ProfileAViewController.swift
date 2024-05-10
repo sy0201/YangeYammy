@@ -102,10 +102,10 @@ extension ProfileAViewController: UIImagePickerControllerDelegate, UINavigationC
     }
     
     @objc func maleButtonTapped() {
-        profileAView.selectGender(gender: .male)
+        profileAView.selectGender(gender: Gender.male)
     }
     
     @objc func femaleButtonTapped() {
-        profileAView.selectGender(gender: .female)
+        profileAView.selectGender(gender: Gender.female)
     }
 }

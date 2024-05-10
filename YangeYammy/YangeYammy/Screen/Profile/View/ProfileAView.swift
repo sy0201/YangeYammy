@@ -235,7 +235,7 @@ final class ProfileAView: BaseView {
         femaleView.clipsToBounds = true
     }
     
-    func selectGender(gender: Enum.Gender) {
+    func selectGender(gender: Gender) {
         setupButton(view: maleView, label: maleLabel, isGenderTapped: gender == .male)
         setupButton(view: femaleView, label: femaleLabel, isGenderTapped: gender == .female)
     }
