@@ -22,7 +22,6 @@ final class CreateAlarmViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupData()
         setupNavigationBar()
         setupTableView()
     }
@@ -31,16 +30,6 @@ final class CreateAlarmViewController: UIViewController {
 // MARK: - Private Methods
 
 private extension CreateAlarmViewController {
-    func setupData() {
-        NotificationService.shared.UNCurrentCenter.removeAllPendingNotificationRequests()
-        
-        if let alarmData = alarmData {
-            notificationId = "\(getCurrentDateFromSimulator(date: alarmData.time!))"
-        }
-        
-        createAlarmView.datePickerView.timeZone = TimeZone.current
-    }
-    
     func setupNavigationBar() {
         self.title = "알람추가"
         
@@ -65,9 +54,8 @@ private extension CreateAlarmViewController {
     }
     
     @objc func saveBarButtonTapped() {
-        delegate?.updateAlarm()
         let repeatDaysString = selectedDays.map { $0.rawValue }.joined(separator: ", ")
-
+        
         if alarmData != nil {
             let newData = alarmData
             newData?.isOn = true
@@ -77,21 +65,22 @@ private extension CreateAlarmViewController {
             newData?.repeatDays = repeatDaysString
             
             alarmManager.updateAlarm(targetId: alarmData!.time!, newData: newData!) {
-                self.setupData()
                 self.delegate?.updateAlarm()
             }
+            
         } else {
-            alarmManager.saveAlarm(isOn: true, time: createAlarmView.datePickerView.date, label: "", isAgain: getIsAgain(), repeatDays: repeatDaysString) {
-                self.setupData()
+            alarmManager.saveAlarm(isOn: true,
+                                   time: createAlarmView.datePickerView.date,
+                                   label: "",
+                                   isAgain: getIsAgain(),
+                                   repeatDays: repeatDaysString) {
                 self.delegate?.updateAlarm()
             }
             
             notificationId = "\(createAlarmView.datePickerView.date)"
         }
         
-        for selectedDay in selectedDays {
-            NotificationService.shared.requestAlarmNotification(date: createAlarmView.datePickerView.date, title: "냥이야미", subTitle: "오늘도 맛있는 밥을 먹을게요", notificationId: notificationId, dataIndex: alarmManager.getAlarmList().count == 0 ? nil : alarmManager.getAlarmList().count, needToReloadTableView: createAlarmView.tableView, updateTarget: alarmData?.time)
-        }
+        NotificationService.shared.requestAlarmNotification(date: createAlarmView.datePickerView.date, title: "냥이야미", subTitle: "오늘도 맛있는 밥을 먹을게요", notificationId: notificationId, dataIndex: alarmManager.getAlarmList().count == 0 ? nil : alarmManager.getAlarmList().count, updateTarget: alarmData?.time)
         
         self.dismiss(animated: true)
     }

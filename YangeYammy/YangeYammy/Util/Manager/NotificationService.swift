@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UserNotifications
 import UIKit
 
 final class NotificationService: NSObject {
@@ -36,25 +37,21 @@ final class NotificationService: NSObject {
         }
     }
     
-    func requestAlarmNotification(date: Date?, title: String, subTitle: String, repeatedly: Bool = false, notificationId: String, dataIndex: Int?, needToReloadTableView: UITableView?, updateTarget: Date?) {
+    func requestAlarmNotification(date: Date?, title: String, subTitle: String, repeatedly: Bool = false, notificationId: String, dataIndex: Int?, updateTarget: Date?) {
         let content = UNMutableNotificationContent()
         content.title = title
         content.subtitle = subTitle
         content.categoryIdentifier = "Alarm"
         
-        if let needToReloadTableView {
-            reloadTable = needToReloadTableView
-        }
-        
         content.userInfo = ["updateTarget": dataIndex ?? -1]
         
-        let trigger = getTrigger(date: date, notificationId: notificationId, dataIndex, updateTarget: updateTarget ) as! UNCalendarNotificationTrigger
+        let trigger = getTrigger(date: date, notificationId: notificationId, dataIndex, updateTarget: updateTarget) as! UNCalendarNotificationTrigger
         
         let request = UNNotificationRequest(identifier: notificationId, content: content, trigger: trigger)
         
         setCustomAction(actionIdentifier: "dismiss", actionTitle: "알람", categoryIdentifier: "Alarm")
         
-        NotificationService.shared.UNCurrentCenter.removeDeliveredNotifications(withIdentifiers: [notificationId])
+        NotificationService.shared.UNCurrentCenter.removePendingNotificationRequests(withIdentifiers: [notificationId])
         NotificationService.shared.UNCurrentCenter.add(request)
         
         UNCurrentCenter.getPendingNotificationRequests { request in
@@ -66,11 +63,12 @@ final class NotificationService: NSObject {
         var date = date!
         
         var dateComponents = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: date)
-        
+
         if #available(iOS 15, *) {
             let currentDateComponents = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: Date.now)
             
-            if currentDateComponents.day! > dateComponents.day! || currentDateComponents.hour! > dateComponents.hour! || currentDateComponents.hour! == dateComponents.hour && currentDateComponents.minute! > dateComponents.minute! {
+            if (currentDateComponents.day! > dateComponents.day! || currentDateComponents.hour! > dateComponents.hour! || (currentDateComponents.hour! == dateComponents.hour && currentDateComponents.minute! > dateComponents.minute!)) {
+                
                 date = Calendar.current.date(byAdding: .hour, value: 24, to: date)!
                 
                 dateComponents = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: getCurrentDateFromSimulator(date: date))
@@ -86,10 +84,8 @@ final class NotificationService: NSObject {
                         }
                     }
                 }
+                UNCurrentCenter.removePendingNotificationRequests(withIdentifiers: [notificationId])
             }
-            
-            UNCurrentCenter.removePendingNotificationRequests(withIdentifiers: [notificationId])
-            
         } else {
             // Fallback on earlier versions
         }

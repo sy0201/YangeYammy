@@ -69,7 +69,7 @@ final class AlarmManager {
         newAlarm.label = label
         newAlarm.isAgain = isAgain
         newAlarm.repeatDays = repeatDays
-        
+        print("repeatDaysString \(repeatDays)")
         if context.hasChanges {
             do {
                 try context.save()
