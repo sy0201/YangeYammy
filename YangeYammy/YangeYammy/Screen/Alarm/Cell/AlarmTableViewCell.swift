@@ -24,6 +24,13 @@ final class AlarmTableViewCell: UITableViewCell, ReuseIdentifying {
         return meridiemLabel
     }()
     
+    let descriptionLabel: UILabel = {
+        let descriptionLabel = UILabel()
+        descriptionLabel.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+        descriptionLabel.textColor = .black
+        return descriptionLabel
+    }()
+    
     let timeLabel: UILabel = {
         let timeLabel = UILabel()
         timeLabel.font = UIFont.systemFont(ofSize: 40, weight: .light)
@@ -64,6 +71,7 @@ extension AlarmTableViewCell {
         timeLabel.text = "\(setupTimeString(time: time).0)"
     
         meridiemLabel.text = setupTimeString(time: time).1
+        descriptionLabel.text = alarmData.label
         setSwitchButton.isOn = alarmData.isOn
         print("alarmData.isOn \(alarmData.isOn)")
     }
@@ -102,14 +110,21 @@ extension AlarmTableViewCell {
 private extension AlarmTableViewCell {
     func setupUI() {
         contentView.addSubviews([meridiemLabel,
-                     timeLabel,
-                     setSwitchButton])
+                                 descriptionLabel,
+                                 timeLabel,
+                                 setSwitchButton])
     }
     
     func setupConstraint() {
         meridiemLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
             make.centerY.equalToSuperview()
+        }
+        
+        descriptionLabel.snp.makeConstraints { make in
+            make.leading.equalTo(meridiemLabel)
+            make.top.equalTo(meridiemLabel.snp.bottom).offset(0)
+            make.bottom.equalToSuperview().offset(-10)
         }
         
         timeLabel.snp.makeConstraints { make in
