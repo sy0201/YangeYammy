@@ -14,3 +14,7 @@ protocol DayTableViewCellDelegate: AnyObject {
 protocol SwitchValueDelegate: AnyObject {
     func switchValueChanged(isOn: Bool)
 }
+
+protocol LabelTableViewCellDelegate: AnyObject {
+    func textFieldDidChange(text: String?)
+}

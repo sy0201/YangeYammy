@@ -12,6 +12,7 @@ final class CreateAlarmViewController: UIViewController {
     weak var delegate: AlarmDelegate?
     var switchAgain: Bool = true
     var selectedDays: [Day] = []
+    var textFieldLabel: String = ""
     var alarmData: AlarmEntity?
     var notificationId: String = ""
     
@@ -73,12 +74,13 @@ private extension CreateAlarmViewController {
         } else {
             alarmManager.saveAlarm(isOn: true,
                                    time: createAlarmView.datePickerView.date,
-                                   label: "",
+                                   label: textFieldLabel,
                                    isAgain: switchButtonAgain,
                                    repeatDays: repeatDaysString) {
                 self.delegate?.updateAlarm()
             }
             
+            print("textFieldLabel \(textFieldLabel)")
             notificationId = "\(createAlarmView.datePickerView.date)"
         }
         
@@ -96,6 +98,7 @@ private extension CreateAlarmViewController {
         createAlarmView.tableView.delegate = self
         
         createAlarmView.tableView.register(RepeatedDateTableViewCell.self, forCellReuseIdentifier: RepeatedDateTableViewCell.reuseIdentifier)
+        createAlarmView.tableView.register(LabelTableViewCell.self, forCellReuseIdentifier: LabelTableViewCell.reuseIdentifier)
     }
 }
 
@@ -103,17 +106,30 @@ private extension CreateAlarmViewController {
 
 extension CreateAlarmViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: RepeatedDateTableViewCell.reuseIdentifier, for: indexPath) as? RepeatedDateTableViewCell else {
-            return UITableViewCell() }
-        
-        cell.dayDelegate = self
-        cell.configure(with: selectedDays)
-        
-        return cell
+        switch indexPath.row {
+        case 0:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: RepeatedDateTableViewCell.reuseIdentifier, for: indexPath) as? RepeatedDateTableViewCell else {
+                return UITableViewCell() }
+            
+            cell.dayDelegate = self
+            cell.configure(with: selectedDays)
+            
+            return cell
+        case 1:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: LabelTableViewCell.reuseIdentifier, for: indexPath) as? LabelTableViewCell else {
+                return UITableViewCell() }
+            
+            cell.delegate = self
+            
+            return cell
+            
+        default:
+            return UITableViewCell()
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -121,9 +137,14 @@ extension CreateAlarmViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectDayVC = SelectDayViewController()
-        selectDayVC.selectDayDelegate = self
-        navigationController?.pushViewController(selectDayVC, animated: true)
+        switch indexPath.row {
+        case 0:
+            let selectDayVC = SelectDayViewController()
+            selectDayVC.selectDayDelegate = self
+            navigationController?.pushViewController(selectDayVC, animated: true)
+        default: 
+            break
+        }
     }
 }
 
@@ -133,5 +154,11 @@ extension CreateAlarmViewController: DayTableViewCellDelegate {
     func didSelectDay(_ day: [Day]) {
         selectedDays = day
         createAlarmView.tableView.reloadData()
+    }
+}
+
+extension CreateAlarmViewController: LabelTableViewCellDelegate {
+    func textFieldDidChange(text: String?) {
+        textFieldLabel = text ?? ""
     }
 }

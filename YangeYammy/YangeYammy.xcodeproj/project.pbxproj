@@ -29,6 +29,7 @@
 		188423C92BE8B3F000956EEE /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188423C82BE8B3F000956EEE /* NotificationService.swift */; };
 		188423CB2BE8BB3300956EEE /* getCurrentDateFromSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188423CA2BE8BB3300956EEE /* getCurrentDateFromSimulator.swift */; };
 		188423CF2BEB78A500956EEE /* ProfileBView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188423CE2BEB78A500956EEE /* ProfileBView.swift */; };
+		188423D12BF1E2AC00956EEE /* LabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188423D02BF1E2AC00956EEE /* LabelTableViewCell.swift */; };
 		18E5F4D52BC8AB36004E0E27 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4D42BC8AB36004E0E27 /* BaseView.swift */; };
 		18E5F4DA2BC8B72C004E0E27 /* AlarmNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4D92BC8B72C004E0E27 /* AlarmNavigationController.swift */; };
 		18E5F4DD2BC8C48B004E0E27 /* ReuseIdentifying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4DC2BC8C48B004E0E27 /* ReuseIdentifying.swift */; };
@@ -90,6 +91,7 @@
 		188423C82BE8B3F000956EEE /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		188423CA2BE8BB3300956EEE /* getCurrentDateFromSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getCurrentDateFromSimulator.swift; sourceTree = "<group>"; };
 		188423CE2BEB78A500956EEE /* ProfileBView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBView.swift; sourceTree = "<group>"; };
+		188423D02BF1E2AC00956EEE /* LabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTableViewCell.swift; sourceTree = "<group>"; };
 		18E5F4D42BC8AB36004E0E27 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		18E5F4D92BC8B72C004E0E27 /* AlarmNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmNavigationController.swift; sourceTree = "<group>"; };
 		18E5F4DC2BC8C48B004E0E27 /* ReuseIdentifying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifying.swift; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 			children = (
 				18E5F4EB2BC945BD004E0E27 /* AlarmTableViewCell.swift */,
 				18E5F5102BD9B7C3004E0E27 /* RepeatedDateTableViewCell.swift */,
+				188423D02BF1E2AC00956EEE /* LabelTableViewCell.swift */,
 				180216A62BDA24370033AE92 /* DayTableViewCell.swift */,
 			);
 			path = Cell;
@@ -485,6 +488,7 @@
 				180216A52BD9F3680033AE92 /* SelectDayView.swift in Sources */,
 				188423CF2BEB78A500956EEE /* ProfileBView.swift in Sources */,
 				18E5F4EC2BC945BD004E0E27 /* AlarmTableViewCell.swift in Sources */,
+				188423D12BF1E2AC00956EEE /* LabelTableViewCell.swift in Sources */,
 				18E5F4E82BC8EA69004E0E27 /* CreateAlarmView.swift in Sources */,
 				188423C92BE8B3F000956EEE /* NotificationService.swift in Sources */,
 				18E5F4E62BC8E7B9004E0E27 /* CreateAlarmViewController.swift in Sources */,
