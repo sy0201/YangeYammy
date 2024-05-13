@@ -144,7 +144,7 @@ extension AlarmViewController: UITableViewDataSource, UITableViewDelegate {
             let removeAlarm = alarmManager.getAlarmList()[indexPath.row]
             alarmManager.removeAlarm(deleteTarget: removeAlarm) {
             }
-            print("removeAlarm\(removeAlarm)")
+
             tableView.deleteRows(at: [indexPath], with: .automatic)
             
             let deletedAlarmId = String(describing: removeAlarm.id)
@@ -166,6 +166,8 @@ extension AlarmViewController: AlarmDelegate {
         alarmView.tableView.reloadData()
     }
 }
+
+// MARK: - SwitchValueDelegate
 
 extension AlarmViewController: SwitchValueDelegate {
     func switchValueChanged(isOn: Bool) {
