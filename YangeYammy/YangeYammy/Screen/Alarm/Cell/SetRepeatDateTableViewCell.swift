@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class RepeatedDateTableViewCell: UITableViewCell, ReuseIdentifying {
+final class SetRepeatDateTableViewCell: UITableViewCell, ReuseIdentifying {
     weak var dayDelegate: DayTableViewCellDelegate?
     var selectedDay: Day?
     
@@ -50,7 +50,7 @@ final class RepeatedDateTableViewCell: UITableViewCell, ReuseIdentifying {
 
 // MARK: - Private Methods
 
-private extension RepeatedDateTableViewCell {
+private extension SetRepeatDateTableViewCell {
     func setupUI() {
         contentView.addSubviews([repeatLabel,
                                  dateLabel])

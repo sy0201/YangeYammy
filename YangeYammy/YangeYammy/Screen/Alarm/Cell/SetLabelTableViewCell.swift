@@ -1,13 +1,14 @@
 //
-//  LabelTableViewCell.swift
+//  SetLabelTableViewCell.swift
 //  YangeYammy
 //
 //  Created by siyeon park on 5/13/24.
 //
 
 import UIKit
+import SnapKit
 
-final class LabelTableViewCell: UITableViewCell, ReuseIdentifying {
+final class SetLabelTableViewCell: UITableViewCell, ReuseIdentifying {
     weak var delegate: LabelTableViewCellDelegate?
     
     let titleLabel: UILabel = {
@@ -53,10 +54,9 @@ final class LabelTableViewCell: UITableViewCell, ReuseIdentifying {
 
 // MARK: - Private Methods
 
-private extension LabelTableViewCell {
+private extension SetLabelTableViewCell {
     func setupUI() {
-        contentView.addSubviews([titleLabel,
-                                 textField])
+        contentView.addSubviews([titleLabel, textField])
     }
     
     func setupConstraint() {
