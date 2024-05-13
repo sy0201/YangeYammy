@@ -17,7 +17,7 @@ final class AlarmViewController: UIViewController {
     }
     
     let alarmView = AlarmView()
-
+    
     override func loadView() {
         view = alarmView
     }
@@ -50,11 +50,11 @@ final class AlarmViewController: UIViewController {
                 return Int(str)!
             }
             
-            if(prevTimeInt[0] < nextTimeInt[0]){
+            if (prevTimeInt[0] < nextTimeInt[0]) {
                 return true
-            } else if(prevTimeInt[0] > nextTimeInt[0]){
+            } else if (prevTimeInt[0] > nextTimeInt[0]) {
                 return false
-            } else if(prevTimeInt[0] == nextTimeInt[0] && prevTimeInt[1] < nextTimeInt[1]){
+            } else if (prevTimeInt[0] == nextTimeInt[0] && prevTimeInt[1] < nextTimeInt[1]) {
                 return true
             } else {
                 return false
@@ -97,7 +97,7 @@ private extension AlarmViewController {
         let createAlarmViewController = CreateAlarmViewController()
         createAlarmViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: createAlarmViewController)
-
+        
         present(navigationController, animated: true, completion: nil)
     }
 }
@@ -123,10 +123,12 @@ extension AlarmViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AlarmTableViewCell.reuseIdentifier, for: indexPath) as? AlarmTableViewCell else {
             return UITableViewCell() }
+        
         let alarmList = alarmManager.getAlarmList()
         let alarm = alarmList[indexPath.row]
-
+        
         cell.alarmData = alarm
+        cell.switchDelegate = self
         cell.configure()
         
         return cell
@@ -162,5 +164,11 @@ extension AlarmViewController: UITableViewDataSource, UITableViewDelegate {
 extension AlarmViewController: AlarmDelegate {
     func updateAlarm() {
         alarmView.tableView.reloadData()
+    }
+}
+
+extension AlarmViewController: SwitchValueDelegate {
+    func switchValueChanged(isOn: Bool) {
+        print("Switch value changed: \(isOn)")
     }
 }

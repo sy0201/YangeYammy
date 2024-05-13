@@ -10,6 +10,7 @@ import UIKit
 final class CreateAlarmViewController: UIViewController {
     let alarmManager = AlarmManager.shared
     weak var delegate: AlarmDelegate?
+    var switchAgain: Bool = true
     var selectedDays: [Day] = []
     var alarmData: AlarmEntity?
     var notificationId: String = ""
@@ -54,6 +55,7 @@ private extension CreateAlarmViewController {
     }
     
     @objc func saveBarButtonTapped() {
+        let switchButtonAgain = switchAgain
         let repeatDaysString = selectedDays.map { $0.rawValue }.joined(separator: ", ")
         
         if alarmData != nil {
@@ -61,7 +63,7 @@ private extension CreateAlarmViewController {
             newData?.isOn = true
             newData?.time = createAlarmView.datePickerView.date
             newData?.label = ""
-            newData?.isAgain = getIsAgain()
+            newData?.isAgain = switchButtonAgain
             newData?.repeatDays = repeatDaysString
             
             alarmManager.updateAlarm(targetId: alarmData!.time!, newData: newData!) {
@@ -72,7 +74,7 @@ private extension CreateAlarmViewController {
             alarmManager.saveAlarm(isOn: true,
                                    time: createAlarmView.datePickerView.date,
                                    label: "",
-                                   isAgain: getIsAgain(),
+                                   isAgain: switchButtonAgain,
                                    repeatDays: repeatDaysString) {
                 self.delegate?.updateAlarm()
             }
@@ -83,15 +85,6 @@ private extension CreateAlarmViewController {
         NotificationService.shared.requestAlarmNotification(date: createAlarmView.datePickerView.date, title: "냥이야미", subTitle: "오늘도 맛있는 밥을 먹을게요", notificationId: notificationId, dataIndex: alarmManager.getAlarmList().count == 0 ? nil : alarmManager.getAlarmList().count, updateTarget: alarmData?.time)
         
         self.dismiss(animated: true)
-    }
-    
-    // TODO: 다시 알림 Cell 추가
-    func getIsAgain() -> Bool {
-        guard let cell = createAlarmView.tableView.visibleCells.first as? RepeatedDateTableViewCell else {
-            // 배열이 비어 있는 경우
-            return false
-        }
-        return true
     }
 }
 
