@@ -28,13 +28,12 @@ final class ProfileBView: BaseView {
     let yesButton = UIButton()
     
     let noView: UIView = {
-        let female = UIView()
-        female.backgroundColor = .systemBackground
-        female.layer.borderColor = CGColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1.0)
-        female.layer.borderWidth = 1
-        return female
+        let noView = UIView()
+        noView.backgroundColor = .systemBackground
+        noView.layer.borderColor = CGColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1.0)
+        noView.layer.borderWidth = 1
+        return noView
     }()
-    
     let noLabel: UILabel = {
         let no = UILabel()
         no.font = .systemFont(ofSize: 16, weight: .medium)

@@ -7,4 +7,11 @@
         <attribute name="repeatDays" optional="YES" attributeType="String"/>
         <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
+    <entity name="ProfileEntity" representedClassName="ProfileEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="age" optional="YES" attributeType="Integer 16" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="gender" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="neutrification" optional="YES" attributeType="String"/>
+        <attribute name="weight" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
 </model>

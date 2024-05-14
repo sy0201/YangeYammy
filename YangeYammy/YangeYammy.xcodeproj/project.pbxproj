@@ -12,7 +12,7 @@
 		180216A32BD9EE950033AE92 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180216A22BD9EE950033AE92 /* Protocol.swift */; };
 		180216A52BD9F3680033AE92 /* SelectDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180216A42BD9F3680033AE92 /* SelectDayView.swift */; };
 		180216A72BDA24370033AE92 /* DayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180216A62BDA24370033AE92 /* DayTableViewCell.swift */; };
-		180216AA2BDA59030033AE92 /* AlarmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180216A92BDA59030033AE92 /* AlarmManager.swift */; };
+		180216AA2BDA59030033AE92 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180216A92BDA59030033AE92 /* CoreDataManager.swift */; };
 		180216B62BDDBC300033AE92 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 180216B52BDDBC300033AE92 /* SnapKit */; };
 		180216BA2BDDBC4F0033AE92 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 180216B92BDDBC4F0033AE92 /* FirebaseAnalytics */; };
 		180216BC2BDDBC4F0033AE92 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 180216BB2BDDBC4F0033AE92 /* FirebaseDatabase */; };
@@ -74,7 +74,7 @@
 		180216A22BD9EE950033AE92 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		180216A42BD9F3680033AE92 /* SelectDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDayView.swift; sourceTree = "<group>"; };
 		180216A62BDA24370033AE92 /* DayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTableViewCell.swift; sourceTree = "<group>"; };
-		180216A92BDA59030033AE92 /* AlarmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmManager.swift; sourceTree = "<group>"; };
+		180216A92BDA59030033AE92 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		186F8CA32BC7E20100741FF1 /* YangeYammy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YangeYammy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		186F8CA62BC7E20100741FF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		186F8CA82BC7E20100741FF1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -170,7 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				188423C82BE8B3F000956EEE /* NotificationService.swift */,
-				180216A92BDA59030033AE92 /* AlarmManager.swift */,
+				180216A92BDA59030033AE92 /* CoreDataManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -487,7 +487,7 @@
 				180216A02BD9E3770033AE92 /* SelectDayViewController.swift in Sources */,
 				18E5F4F72BD63AAC004E0E27 /* ProfileBViewController.swift in Sources */,
 				18E5F5112BD9B7C3004E0E27 /* SetRepeatDateTableViewCell.swift in Sources */,
-				180216AA2BDA59030033AE92 /* AlarmManager.swift in Sources */,
+				180216AA2BDA59030033AE92 /* CoreDataManager.swift in Sources */,
 				186F8CA92BC7E20100741FF1 /* SceneDelegate.swift in Sources */,
 				180216A52BD9F3680033AE92 /* SelectDayView.swift in Sources */,
 				188423CF2BEB78A500956EEE /* ProfileBView.swift in Sources */,

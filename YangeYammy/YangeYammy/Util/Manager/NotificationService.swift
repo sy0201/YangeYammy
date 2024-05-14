@@ -18,7 +18,7 @@ final class NotificationService: NSObject {
     
     var pendingNotificationArray: [UNNotificationRequest]?
     
-    let alarmManager = AlarmManager.shared
+    let alarmManager = CoreDataManager.shared
     
     var reloadTable: UITableView?
     
