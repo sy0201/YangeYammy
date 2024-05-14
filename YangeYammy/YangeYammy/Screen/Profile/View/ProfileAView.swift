@@ -113,6 +113,7 @@ final class ProfileAView: BaseView {
         super.init(frame: frame)
         setupUI()
         setupConstraint()
+        viewTapGesture()
     }
     
     required init?(coder: NSCoder) {
@@ -235,6 +236,15 @@ final class ProfileAView: BaseView {
         femaleView.clipsToBounds = true
     }
     
+    func viewTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        scrollView.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func handleTap() {
+        endEditing(true)
+    }
+
     func selectGender(gender: Gender) {
         setupButton(view: maleView, label: maleLabel, isGenderTapped: gender == .male)
         setupButton(view: femaleView, label: femaleLabel, isGenderTapped: gender == .female)
@@ -266,13 +276,3 @@ final class ProfileAView: BaseView {
         femaleView.backgroundColor = isSelected ? .systemBackground : UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0)
     }
 }
-
-//extension ProfileAView: UIPickerViewDelegate, UIPickerViewDataSource {
-//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-//        <#code#>
-//    }
-//    
-//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-//        <#code#>
-//    }
-//}

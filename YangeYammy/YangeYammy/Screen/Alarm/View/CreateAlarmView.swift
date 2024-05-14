@@ -29,6 +29,7 @@ final class CreateAlarmView: BaseView {
         super.init(frame: frame)
         setupUI()
         setupConstraint()
+        //viewTapGesture()
     }
     
     required init?(coder: NSCoder) {

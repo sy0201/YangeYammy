@@ -27,6 +27,10 @@ final class CreateAlarmViewController: UIViewController {
         setupNavigationBar()
         setupTableView()
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        createAlarmView.endEditing(true)
+    }
 }
 
 // MARK: - Private Methods
