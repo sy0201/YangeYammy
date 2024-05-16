@@ -27,3 +27,11 @@ enum Neutrification: String {
     case yes = "중성화후"
     case no = "중성화전"
 }
+
+enum BcsType: Int {
+    case bcs1 = 1
+    case bcs2 = 2
+    case bcs3 = 3
+    case bcs4 = 4
+    case bcs5 = 5
+}
