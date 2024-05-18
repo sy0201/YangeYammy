@@ -90,7 +90,7 @@ extension ProfileContentViewController {
             let profileImage = profileAViewController.profileAView.profileImage.image?.toBase64() ?? ""
             let gender = profileAViewController.selectedGender?.rawValue ?? ""
             let name = profileAViewController.profileAView.name.text ?? ""
-            let age = profileAViewController.profileAView.weight.text ?? ""
+            let age = profileAViewController.profileAView.age.text ?? ""
             let weight = Float(profileAViewController.profileAView.weight.text ?? "") ?? 0.0
             let kcal = Int(profileAViewController.profileAView.kcal.text ?? "") ?? 0
             let neutrification = profileBViewController.selectedNeutrification?.rawValue ?? ""
@@ -105,6 +105,7 @@ extension ProfileContentViewController {
                         neutrification: neutrification,
                         bcs: bcs) {
                 print("프로필 정보 저장")
+                // TODO: 프로필 정보에 따른 알람시간 랜덤 설정
                 self.dismiss(animated: true)
             }
         } else {
