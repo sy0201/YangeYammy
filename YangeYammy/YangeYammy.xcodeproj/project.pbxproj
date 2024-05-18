@@ -12,10 +12,11 @@
 		180216A32BD9EE950033AE92 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180216A22BD9EE950033AE92 /* Protocol.swift */; };
 		180216A52BD9F3680033AE92 /* SelectDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180216A42BD9F3680033AE92 /* SelectDayView.swift */; };
 		180216A72BDA24370033AE92 /* DayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180216A62BDA24370033AE92 /* DayTableViewCell.swift */; };
-		180216AA2BDA59030033AE92 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180216A92BDA59030033AE92 /* CoreDataManager.swift */; };
+		180216AA2BDA59030033AE92 /* AlarmDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180216A92BDA59030033AE92 /* AlarmDataManager.swift */; };
 		180216B62BDDBC300033AE92 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 180216B52BDDBC300033AE92 /* SnapKit */; };
 		180216BA2BDDBC4F0033AE92 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 180216B92BDDBC4F0033AE92 /* FirebaseAnalytics */; };
 		180216BC2BDDBC4F0033AE92 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 180216BB2BDDBC4F0033AE92 /* FirebaseDatabase */; };
+		185F4B902BF7254A00DA8242 /* ProfileDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4B8F2BF7254A00DA8242 /* ProfileDataManager.swift */; };
 		186F8CA72BC7E20100741FF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F8CA62BC7E20100741FF1 /* AppDelegate.swift */; };
 		186F8CA92BC7E20100741FF1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F8CA82BC7E20100741FF1 /* SceneDelegate.swift */; };
 		186F8CB02BC7E20200741FF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 186F8CAF2BC7E20200741FF1 /* Assets.xcassets */; };
@@ -31,6 +32,7 @@
 		188423CF2BEB78A500956EEE /* ProfileBView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188423CE2BEB78A500956EEE /* ProfileBView.swift */; };
 		188423D12BF1E2AC00956EEE /* SetLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188423D02BF1E2AC00956EEE /* SetLabelTableViewCell.swift */; };
 		188423D32BF1F13700956EEE /* SetRepeatAgainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188423D22BF1F13700956EEE /* SetRepeatAgainTableViewCell.swift */; };
+		188423DD2BF5C86300956EEE /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188423DC2BF5C86300956EEE /* UIImage.swift */; };
 		18E5F4D52BC8AB36004E0E27 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4D42BC8AB36004E0E27 /* BaseView.swift */; };
 		18E5F4DA2BC8B72C004E0E27 /* AlarmNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4D92BC8B72C004E0E27 /* AlarmNavigationController.swift */; };
 		18E5F4DD2BC8C48B004E0E27 /* ReuseIdentifying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4DC2BC8C48B004E0E27 /* ReuseIdentifying.swift */; };
@@ -74,7 +76,8 @@
 		180216A22BD9EE950033AE92 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		180216A42BD9F3680033AE92 /* SelectDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDayView.swift; sourceTree = "<group>"; };
 		180216A62BDA24370033AE92 /* DayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTableViewCell.swift; sourceTree = "<group>"; };
-		180216A92BDA59030033AE92 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		180216A92BDA59030033AE92 /* AlarmDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmDataManager.swift; sourceTree = "<group>"; };
+		185F4B8F2BF7254A00DA8242 /* ProfileDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDataManager.swift; sourceTree = "<group>"; };
 		186F8CA32BC7E20100741FF1 /* YangeYammy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YangeYammy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		186F8CA62BC7E20100741FF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		186F8CA82BC7E20100741FF1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -94,6 +97,7 @@
 		188423CE2BEB78A500956EEE /* ProfileBView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBView.swift; sourceTree = "<group>"; };
 		188423D02BF1E2AC00956EEE /* SetLabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLabelTableViewCell.swift; sourceTree = "<group>"; };
 		188423D22BF1F13700956EEE /* SetRepeatAgainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRepeatAgainTableViewCell.swift; sourceTree = "<group>"; };
+		188423DC2BF5C86300956EEE /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		18E5F4D42BC8AB36004E0E27 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		18E5F4D92BC8B72C004E0E27 /* AlarmNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmNavigationController.swift; sourceTree = "<group>"; };
 		18E5F4DC2BC8C48B004E0E27 /* ReuseIdentifying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifying.swift; sourceTree = "<group>"; };
@@ -170,7 +174,8 @@
 			isa = PBXGroup;
 			children = (
 				188423C82BE8B3F000956EEE /* NotificationService.swift */,
-				180216A92BDA59030033AE92 /* CoreDataManager.swift */,
+				180216A92BDA59030033AE92 /* AlarmDataManager.swift */,
+				185F4B8F2BF7254A00DA8242 /* ProfileDataManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -288,6 +293,7 @@
 				18E5F4DC2BC8C48B004E0E27 /* ReuseIdentifying.swift */,
 				18E5F4DE2BC8C661004E0E27 /* UIView.swift */,
 				188423CA2BE8BB3300956EEE /* getCurrentDateFromSimulator.swift */,
+				188423DC2BF5C86300956EEE /* UIImage.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -477,6 +483,7 @@
 				188423CB2BE8BB3300956EEE /* getCurrentDateFromSimulator.swift in Sources */,
 				1802169E2BD9E1FE0033AE92 /* Enum.swift in Sources */,
 				180216A72BDA24370033AE92 /* DayTableViewCell.swift in Sources */,
+				188423DD2BF5C86300956EEE /* UIImage.swift in Sources */,
 				18E5F4F32BD62275004E0E27 /* ProfileContentViewController.swift in Sources */,
 				18E5F4EA2BC94152004E0E27 /* AlarmView.swift in Sources */,
 				18E5F4DA2BC8B72C004E0E27 /* AlarmNavigationController.swift in Sources */,
@@ -487,11 +494,12 @@
 				180216A02BD9E3770033AE92 /* SelectDayViewController.swift in Sources */,
 				18E5F4F72BD63AAC004E0E27 /* ProfileBViewController.swift in Sources */,
 				18E5F5112BD9B7C3004E0E27 /* SetRepeatDateTableViewCell.swift in Sources */,
-				180216AA2BDA59030033AE92 /* CoreDataManager.swift in Sources */,
+				180216AA2BDA59030033AE92 /* AlarmDataManager.swift in Sources */,
 				186F8CA92BC7E20100741FF1 /* SceneDelegate.swift in Sources */,
 				180216A52BD9F3680033AE92 /* SelectDayView.swift in Sources */,
 				188423CF2BEB78A500956EEE /* ProfileBView.swift in Sources */,
 				18E5F4EC2BC945BD004E0E27 /* AlarmTableViewCell.swift in Sources */,
+				185F4B902BF7254A00DA8242 /* ProfileDataManager.swift in Sources */,
 				188423D12BF1E2AC00956EEE /* SetLabelTableViewCell.swift in Sources */,
 				18E5F4E82BC8EA69004E0E27 /* CreateAlarmView.swift in Sources */,
 				188423C92BE8B3F000956EEE /* NotificationService.swift in Sources */,

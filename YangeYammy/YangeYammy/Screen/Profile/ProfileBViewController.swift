@@ -9,7 +9,9 @@ import UIKit
 
 final class ProfileBViewController: UIViewController {
     let profileBView = ProfileBView()
-
+    var selectedBcsType: BcsType?
+    var selectedNeutrification: Neutrification?
+    
     override func loadView() {
         view = profileBView
     }
@@ -40,30 +42,37 @@ private extension ProfileBViewController {
     }
     
     @objc func yesButtonTapped() {
+        selectedNeutrification = .yes
         profileBView.selectYesOrNo(neutrification: .yes)
     }
     
     @objc func noButtonTapped() {
+        selectedNeutrification = .no
         profileBView.selectYesOrNo(neutrification: .no)
     }
     
     @objc func bcs1ButtonTapped() {
+        selectedBcsType = .bcs1
         profileBView.selectBcs(bcs: .bcs1)
     }
     
     @objc func bcs2ButtonTapped() {
+        selectedBcsType = .bcs2
         profileBView.selectBcs(bcs: .bcs2)
     }
     
     @objc func bcs3ButtonTapped() {
+        selectedBcsType = .bcs3
         profileBView.selectBcs(bcs: .bcs3)
     }
     
     @objc func bcs4ButtonTapped() {
+        selectedBcsType = .bcs4
         profileBView.selectBcs(bcs: .bcs4)
     }
     
     @objc func bcs5ButtonTapped() {
+        selectedBcsType = .bcs5
         profileBView.selectBcs(bcs: .bcs5)
     }
 }
