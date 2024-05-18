@@ -84,6 +84,7 @@ extension ProfileContentViewController {
     
     @objc func saveBarButtonTapped() {
         if let profileAViewController = dataViewControllers.first as? ProfileAViewController,
+           let profileBViewController = dataViewControllers.last as? ProfileBViewController,
            profileAViewController.isProfileInfoComplete() {
 
             let profileImage = profileAViewController.profileAView.profileImage.image?.toBase64() ?? ""
@@ -92,8 +93,8 @@ extension ProfileContentViewController {
             let age = profileAViewController.profileAView.weight.text ?? ""
             let weight = Float(profileAViewController.profileAView.weight.text ?? "") ?? 0.0
             let kcal = Int(profileAViewController.profileAView.kcal.text ?? "") ?? 0
-            let neutrification = ""
-            let bcs = 0
+            let neutrification = profileBViewController.selectedNeutrification?.rawValue ?? ""
+            let bcs = profileBViewController.selectedBcsType?.rawValue ?? 0
 
             profileDataManager.saveProfile(profileImage: profileImage,
                         gender: gender,
