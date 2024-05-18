@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 final class ProfileContentViewController: UIViewController {
-
+    let profileDataManager = ProfileDataManager.shared
     lazy var navigationView: UIView = {
        let view = UIView()
         view.backgroundColor = .systemBackground
@@ -77,10 +77,41 @@ extension ProfileContentViewController {
     
     @objc func editBarButtonTapped() {
         self.dismiss(animated: true)
+        let profileAViewController = ProfileAViewController()
+        profileAViewController.modalPresentationStyle = .fullScreen
+        present(profileAViewController, animated: true)
     }
     
     @objc func saveBarButtonTapped() {
-        self.dismiss(animated: true)
+        if let profileAViewController = dataViewControllers.first as? ProfileAViewController,
+           profileAViewController.isProfileInfoComplete() {
+
+            let profileImage = profileAViewController.profileAView.profileImage.image?.toBase64() ?? ""
+            let gender = profileAViewController.selectedGender?.rawValue ?? ""
+            let name = profileAViewController.profileAView.name.text ?? ""
+            let age = profileAViewController.profileAView.weight.text ?? ""
+            let weight = Float(profileAViewController.profileAView.weight.text ?? "") ?? 0.0
+            let kcal = Int(profileAViewController.profileAView.kcal.text ?? "") ?? 0
+            let neutrification = ""
+            let bcs = 0
+
+            profileDataManager.saveProfile(profileImage: profileImage,
+                        gender: gender,
+                        name: name,
+                        age: age,
+                        weight: weight,
+                        kcal: kcal,
+                        neutrification: neutrification,
+                        bcs: bcs) {
+                print("프로필 정보 저장")
+                self.dismiss(animated: true)
+            }
+        } else {
+            let alertController = UIAlertController(title: nil, message: "프로필 정보를 모두 입력해주세요.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+            alertController.addAction(okAction)
+            present(alertController, animated: true, completion: nil)
+        }
     }
     
     func setConstraint() {

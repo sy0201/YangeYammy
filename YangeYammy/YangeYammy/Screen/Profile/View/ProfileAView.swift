@@ -73,13 +73,13 @@ final class ProfileAView: BaseView {
         return name
     }()
     
-    var birthTextField: UITextField = {
-        let birth = UITextField()
-        birth.borderStyle = .roundedRect
-        birth.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1.0)
-        birth.attributedPlaceholder = NSAttributedString(string: "나이를 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 189/255, green: 189/255, blue: 189/255, alpha: 1.0)])
+    var age: UITextField = {
+        let age = UITextField()
+        age.borderStyle = .roundedRect
+        age.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1.0)
+        age.attributedPlaceholder = NSAttributedString(string: "나이를 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 189/255, green: 189/255, blue: 189/255, alpha: 1.0)])
         
-        return birth
+        return age
     }()
     
     var yearLabel = UILabel()
@@ -132,7 +132,7 @@ final class ProfileAView: BaseView {
                                    femaleLabel,
                                    femaleButton,
                                    name,
-                                   birthTextField,
+                                   age,
                                    weight,
                                    kcal])
         
@@ -201,7 +201,7 @@ final class ProfileAView: BaseView {
             make.height.equalTo(50)
         }
         
-        birthTextField.snp.makeConstraints { make in
+        age.snp.makeConstraints { make in
             make.top.equalTo(name.snp.bottom).offset(20)
             make.leading.equalTo(16)
             make.trailing.equalTo(-16)
@@ -209,7 +209,7 @@ final class ProfileAView: BaseView {
         }
         
         weight.snp.makeConstraints { make in
-            make.top.equalTo(birthTextField.snp.bottom).offset(20)
+            make.top.equalTo(age.snp.bottom).offset(20)
             make.leading.equalTo(16)
             make.trailing.equalTo(-16)
             make.height.equalTo(50)
@@ -252,7 +252,6 @@ final class ProfileAView: BaseView {
     
     private func setupButton(view: UIView, label: UILabel, isGenderTapped: Bool) {
         if isGenderTapped {
-            print("isGenderTapped\(isGenderTapped)")
             view.backgroundColor = UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0)
             label.textColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
         } else {

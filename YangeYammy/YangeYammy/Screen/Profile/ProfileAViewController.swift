@@ -9,10 +9,12 @@ import UIKit
 import Photos
 
 final class ProfileAViewController: UIViewController {
-    let profileAView = ProfileAView()
+    let profileDataManager = ProfileDataManager.shared
+    var selectedGender: Gender?
     var imagePicker = UIImagePickerController()
-    var imageHandler: (UIImage) -> () = { _ in }
 
+    let profileAView = ProfileAView()
+    
     override func loadView() {
         view = profileAView
     }
@@ -20,6 +22,31 @@ final class ProfileAViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupButtonTapped()
+        setupTextFieldDelegate()
+    }
+    
+    func isProfileInfoComplete() -> Bool {
+        let isGenderSelected = profileAView.isGenderTapped
+        let isNameEntered = !(profileAView.name.text?.isEmpty ?? true)
+        let isAgeEntered = !(profileAView.age.text?.isEmpty ?? true)
+        let isWeightEntered = !(profileAView.weight.text?.isEmpty ?? true)
+        let isKcalEntered = !(profileAView.kcal.text?.isEmpty ?? true)
+        
+        print("isGenderSelected \(isGenderSelected)")
+        print("isNameEntered \(isNameEntered)")
+        print("isAgeEntered \(isAgeEntered)")
+        print("isWeightEntered \(isWeightEntered)")
+        print("isKcalEntered \(isKcalEntered)")
+
+        print("isProfileInfoComplete \(isNameEntered && isAgeEntered && isGenderSelected && isKcalEntered)")
+        return isGenderSelected && isNameEntered && isAgeEntered && isWeightEntered && isKcalEntered
+    }
+    
+    func setupTextFieldDelegate() {
+        profileAView.name.delegate = self
+        profileAView.age.delegate = self
+        profileAView.weight.delegate = self
+        profileAView.kcal.delegate = self
     }
 }
 
@@ -27,7 +54,6 @@ final class ProfileAViewController: UIViewController {
 
 extension ProfileAViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func setupButtonTapped() {
-        print("setupButtonTapped")
         profileAView.editButton.addTarget(self, action: #selector(alertPickerView), for: .touchUpInside)
         
         profileAView.maleButton.addTarget(self, action: #selector(maleButtonTapped), for: .touchUpInside)
@@ -41,14 +67,17 @@ extension ProfileAViewController: UIImagePickerControllerDelegate, UINavigationC
         let albumAction = UIAlertAction(title: "앨범에서 선택", style: .default) { _ in
             self.openLibrary()
         }
+        
         alertController.addAction(albumAction)
         
         let cameraAction = UIAlertAction(title: "카메라로 촬영", style: .default) { _ in
             self.openCamera()
         }
+        
         alertController.addAction(cameraAction)
         
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
         alertController.addAction(cancelAction)
         
         present(alertController, animated: true, completion: nil)
@@ -56,7 +85,6 @@ extension ProfileAViewController: UIImagePickerControllerDelegate, UINavigationC
     
     func openLibrary(sourceType: UIImagePickerController.SourceType) {
         guard UIImagePickerController.isSourceTypeAvailable(sourceType) else {
-            print("이 소스 타입은 사용할 수 없습니다.")
             return
         }
         
@@ -77,7 +105,6 @@ extension ProfileAViewController: UIImagePickerControllerDelegate, UINavigationC
     
     func openCamera() {
         guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
-            print("이 소스 타입은 사용할 수 없습니다.")
             return
         }
         
@@ -94,6 +121,7 @@ extension ProfileAViewController: UIImagePickerControllerDelegate, UINavigationC
         } else if let pickedImage = info[.originalImage] as? UIImage {
             profileAView.profileImage.image = pickedImage
         }
+        
         picker.dismiss(animated: true, completion: nil)
     }
     
@@ -102,10 +130,45 @@ extension ProfileAViewController: UIImagePickerControllerDelegate, UINavigationC
     }
     
     @objc func maleButtonTapped() {
+        selectedGender = .male
+        profileAView.isGenderTapped = true
         profileAView.selectGender(gender: Gender.male)
     }
     
     @objc func femaleButtonTapped() {
+        selectedGender = .female
+        profileAView.isGenderTapped = true
         profileAView.selectGender(gender: Gender.female)
+    }
+}
+
+// MARK: - UITextFieldDelegate
+
+extension ProfileAViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField {
+        case profileAView.name:
+            profileDataManager.saveProfileDetail(name: textField.text ?? "")
+            
+        case profileAView.age:
+            profileDataManager.saveProfileDetail(age: textField.text ?? "")
+            
+        case profileAView.weight:
+            if let weightText = textField.text, let weight = Float(weightText) {
+                profileDataManager.saveProfileDetail(weight: weight)
+            }
+            
+        case profileAView.kcal:
+            if let kcalText = textField.text, let kcal = Int(kcalText) {
+                profileDataManager.saveProfileDetail(kcal: kcal)
+            }
+            
+        default:
+            break
+        }
     }
 }
