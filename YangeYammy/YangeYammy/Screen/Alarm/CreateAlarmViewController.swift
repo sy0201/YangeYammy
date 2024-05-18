@@ -8,7 +8,7 @@
 import UIKit
 
 final class CreateAlarmViewController: UIViewController {
-    let alarmManager = CoreDataManager.shared
+    let alarmManager = AlarmDataManager.shared
     weak var delegate: AlarmDelegate?
     var switchAgain: Bool = true
     var selectedDays: [Day] = []

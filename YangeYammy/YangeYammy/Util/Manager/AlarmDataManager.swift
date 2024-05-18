@@ -12,8 +12,8 @@ protocol AlarmDelegate: AnyObject {
     func updateAlarm()
 }
 
-final class CoreDataManager {
-    static let shared = CoreDataManager()
+final class AlarmDataManager {
+    static let shared = AlarmDataManager()
     
     private init() {}
 
@@ -21,8 +21,8 @@ final class CoreDataManager {
     
     lazy var context = appDelegate?.persistentContainer.viewContext
     
+    
     let alarmEntityModelName = "AlarmEntity"
-    let profileEntityModelName = "ProfileEntity"
 
     // CoreData에 저장된 알람정보 가져오기
     func getAlarmList() -> [AlarmEntity] {
@@ -166,106 +166,6 @@ final class CoreDataManager {
         } catch {
             print("updateAlarm: error")
             completion()
-        }
-    }
-    
-    // CoreData에 저장된 프로필정보 가져오기
-    func getProfile() -> [ProfileEntity] {
-        var data: [ProfileEntity] = []
-        guard let context = context else {
-            print("getSavedProfile: context load error")
-            return []
-        }
-        
-        let request = NSFetchRequest<NSManagedObject>(entityName: self.profileEntityModelName)
-        // 리스트를 name 기준으로 가져오기
-        let descriptor = NSSortDescriptor(key: "name", ascending: true)
-        
-        request.sortDescriptors = [descriptor]
-        
-        do {
-            guard let fetchedProfileList = try context.fetch(request) as? [ProfileEntity] else {
-                return data
-            }
-            data = fetchedProfileList
-        } catch {
-            print("error")
-        }
-        return data
-    }
-    
-    // CoreData에 알람정보 저장하기
-    func saveProfile(name: String, age: Int, gender: String, weight: Float, neutrification: String, completion: @escaping () -> Void) {
-        guard let context = context else {
-            print("saveProfile: context load error")
-            return
-        }
-        
-        guard let entity = NSEntityDescription.entity(forEntityName: self.profileEntityModelName, in: context) else {
-            return
-        }
-        
-        guard let newProfile = NSManagedObject(entity: entity, insertInto: context) as? ProfileEntity else {
-            print("saveAlarm: entity insert error")
-            return
-        }
-        
-        newProfile.name = name
-        newProfile.age = Int16(age)
-        newProfile.gender = gender
-        newProfile.weight = weight
-        newProfile.neutrification = neutrification
-        
-        if context.hasChanges {
-            do {
-                try context.save()
-                completion()
-            } catch {
-                print("saveProfile: context save error")
-                completion()
-            }
-        }
-    }
-    
-    // CoreData에 프로필정보 삭제하기
-    func removeProfile(deleteTarget: ProfileEntity, completion: @escaping () -> Void) {
-        guard let context = context else {
-            print("removeProfile: context load error")
-            completion()
-            return
-        }
-        guard let targetId = deleteTarget.name else {
-            print("removeProfile: remove target id error")
-            completion()
-            return
-        }
-        
-        let request = NSFetchRequest<NSManagedObject>(entityName: self.profileEntityModelName)
-        
-        do {
-            guard let fetchData = try context.fetch(request) as? [ProfileEntity] else {
-                print("removeAlarm: fetch error")
-                completion()
-                return
-            }
-            
-            guard let data = fetchData.first else {
-                print("removeAlarm: data indexing error")
-                completion()
-                return
-            }
-            context.delete(data)
-            
-            do {
-                try context.save()
-                completion()
-                
-            } catch {
-                print("removeProfile: context save error")
-                completion()
-            }
-        } catch {
-            print("removeProfile: some error")
         }
     }
 }

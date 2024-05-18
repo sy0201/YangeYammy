@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 final class AlarmViewController: UIViewController {
-    var alarmManager = CoreDataManager.shared
+    var alarmManager = AlarmDataManager.shared
     var alarmData: [AlarmEntity] {
         get {
             return sortAlarmData()
