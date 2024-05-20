@@ -14,8 +14,6 @@
 		180216A72BDA24370033AE92 /* DayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180216A62BDA24370033AE92 /* DayTableViewCell.swift */; };
 		180216AA2BDA59030033AE92 /* AlarmDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180216A92BDA59030033AE92 /* AlarmDataManager.swift */; };
 		180216B62BDDBC300033AE92 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 180216B52BDDBC300033AE92 /* SnapKit */; };
-		180216BA2BDDBC4F0033AE92 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 180216B92BDDBC4F0033AE92 /* FirebaseAnalytics */; };
-		180216BC2BDDBC4F0033AE92 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 180216BB2BDDBC4F0033AE92 /* FirebaseDatabase */; };
 		185F4B902BF7254A00DA8242 /* ProfileDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4B8F2BF7254A00DA8242 /* ProfileDataManager.swift */; };
 		185F4B932BFB314100DA8242 /* ProfileListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4B922BFB314100DA8242 /* ProfileListViewController.swift */; };
 		185F4B952BFB329000DA8242 /* ProfileListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4B942BFB329000DA8242 /* ProfileListView.swift */; };
@@ -127,8 +125,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				180216BC2BDDBC4F0033AE92 /* FirebaseDatabase in Frameworks */,
-				180216BA2BDDBC4F0033AE92 /* FirebaseAnalytics in Frameworks */,
 				180216B62BDDBC300033AE92 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -364,8 +360,6 @@
 			name = YangeYammy;
 			packageProductDependencies = (
 				180216B52BDDBC300033AE92 /* SnapKit */,
-				180216B92BDDBC4F0033AE92 /* FirebaseAnalytics */,
-				180216BB2BDDBC4F0033AE92 /* FirebaseDatabase */,
 			);
 			productName = YangeYammy;
 			productReference = 186F8CA32BC7E20100741FF1 /* YangeYammy.app */;
@@ -441,7 +435,6 @@
 			mainGroup = 186F8C9A2BC7E20100741FF1;
 			packageReferences = (
 				18F300CE2BC8AD7F0065D852 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				18E5F5012BD6491F004E0E27 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 186F8CA42BC7E20100741FF1 /* Products */;
 			projectDirPath = "";
@@ -862,14 +855,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		18E5F5012BD6491F004E0E27 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 10.24.0;
-			};
-		};
 		18F300CE2BC8AD7F0065D852 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -885,16 +870,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 18F300CE2BC8AD7F0065D852 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		180216B92BDDBC4F0033AE92 /* FirebaseAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 18E5F5012BD6491F004E0E27 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
-		};
-		180216BB2BDDBC4F0033AE92 /* FirebaseDatabase */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 18E5F5012BD6491F004E0E27 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseDatabase;
 		};
 /* End XCSwiftPackageProductDependency section */
 

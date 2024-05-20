@@ -7,7 +7,6 @@
 
 import UIKit
 import CoreData
-import FirebaseCore
 import UserNotifications
 
 @main
@@ -25,9 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("ERROR: notification authrization request \(error.localizedDescription)")
             }
         }
-        
-        FirebaseApp.configure()
-        
+                
         return true
     }
 
