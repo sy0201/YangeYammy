@@ -32,8 +32,8 @@ final class ProfileAView: BaseView {
     let maleLabel: UILabel = {
         let male = UILabel()
         male.font = .systemFont(ofSize: 16, weight: .medium)
-        male.text = "남아"
         male.textColor = UIColor(red: 189/255, green: 189/255, blue: 189/255, alpha: 1.0)
+        male.text = "남아"
         return male
     }()
     let maleButton = UIButton()
@@ -49,8 +49,8 @@ final class ProfileAView: BaseView {
     let femaleLabel: UILabel = {
         let female = UILabel()
         female.font = .systemFont(ofSize: 16, weight: .medium)
-        female.text = "여아"
         female.textColor = UIColor(red: 189/255, green: 189/255, blue: 189/255, alpha: 1.0)
+        female.text = "여아"
         return female
     }()
     let femaleButton = UIButton()

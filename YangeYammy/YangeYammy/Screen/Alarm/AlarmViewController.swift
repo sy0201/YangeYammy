@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SnapKit
 
 final class AlarmViewController: UIViewController {
     var alarmManager = AlarmDataManager.shared
@@ -29,13 +28,7 @@ final class AlarmViewController: UIViewController {
         setupNavigationBar()
         setupTableView()
     }
-    
-//    override func setEditing(_ editing: Bool, animated: Bool) {
-//        super.setEditing(editing, animated: animated)
-//        
-//        alarmView.tableView.setEditing(editing, animated: true)
-//    }
-    
+
     func sortAlarmData() -> [AlarmEntity] {
         let sortedArray = alarmManager.getAlarmList().sorted { (prev, next) -> Bool in
             var prevTime = "\(prev.time!)"
@@ -83,6 +76,9 @@ final class AlarmViewController: UIViewController {
                                label: title,
                                isAgain: true,
                                repeatDays: "") {
+            DispatchQueue.main.async {
+                self.alarmView.tableView.reloadData()
+            }
         }
         
         let notificationId = "\(date)"

@@ -29,8 +29,8 @@ final class ProfileBView: BaseView {
     let yesLabel: UILabel = {
         let yes = UILabel()
         yes.font = .systemFont(ofSize: 16, weight: .medium)
-        yes.text = "네"
         yes.textColor = UIColor(red: 189/255, green: 189/255, blue: 189/255, alpha: 1.0)
+        yes.text = "네"
         return yes
     }()
     let yesButton = UIButton()
@@ -45,8 +45,8 @@ final class ProfileBView: BaseView {
     let noLabel: UILabel = {
         let no = UILabel()
         no.font = .systemFont(ofSize: 16, weight: .medium)
-        no.text = "아니오"
         no.textColor = UIColor(red: 189/255, green: 189/255, blue: 189/255, alpha: 1.0)
+        no.text = "아니오"
         return no
     }()
     let noButton = UIButton()
@@ -78,8 +78,8 @@ final class ProfileBView: BaseView {
     let bcs1Label: UILabel = {
         let bcs1Label = UILabel()
         bcs1Label.font = .systemFont(ofSize: 16, weight: .medium)
-        bcs1Label.text = "BCS 1점, 마름"
         bcs1Label.textColor = UIColor(red: 189/255, green: 189/255, blue: 189/255, alpha: 1.0)
+        bcs1Label.text = "BCS 1점, 마름"
         return bcs1Label
     }()
     let bcs1Button = UIButton()
@@ -94,8 +94,8 @@ final class ProfileBView: BaseView {
     let bcs2Label: UILabel = {
         let bcs2Label = UILabel()
         bcs2Label.font = .systemFont(ofSize: 16, weight: .medium)
-        bcs2Label.text = "BCS 2점, 약간마름"
         bcs2Label.textColor = UIColor(red: 189/255, green: 189/255, blue: 189/255, alpha: 1.0)
+        bcs2Label.text = "BCS 2점, 약간마름"
         return bcs2Label
     }()
     let bcs2Button = UIButton()
@@ -111,8 +111,8 @@ final class ProfileBView: BaseView {
     let bcs3Label: UILabel = {
         let bcs3Label = UILabel()
         bcs3Label.font = .systemFont(ofSize: 16, weight: .medium)
-        bcs3Label.text = "BCS 3점, 이상적"
         bcs3Label.textColor = UIColor(red: 189/255, green: 189/255, blue: 189/255, alpha: 1.0)
+        bcs3Label.text = "BCS 3점, 이상적"
         return bcs3Label
     }()
     let bcs3Button = UIButton()
@@ -127,8 +127,8 @@ final class ProfileBView: BaseView {
     let bcs4Label: UILabel = {
         let bcs4Label = UILabel()
         bcs4Label.font = .systemFont(ofSize: 16, weight: .medium)
-        bcs4Label.text = "BCS 4점, 경도의 비만"
         bcs4Label.textColor = UIColor(red: 189/255, green: 189/255, blue: 189/255, alpha: 1.0)
+        bcs4Label.text = "BCS 4점, 경도의 비만"
         return bcs4Label
     }()
     let bcs4Button = UIButton()
@@ -143,8 +143,8 @@ final class ProfileBView: BaseView {
     let bcs5Label: UILabel = {
         let bcs5Label = UILabel()
         bcs5Label.font = .systemFont(ofSize: 16, weight: .medium)
-        bcs5Label.text = "BCS 5점, 비만"
         bcs5Label.textColor = UIColor(red: 189/255, green: 189/255, blue: 189/255, alpha: 1.0)
+        bcs5Label.text = "BCS 5점, 비만"
         return bcs5Label
     }()
     let bcs5Button = UIButton()

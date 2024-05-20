@@ -18,10 +18,7 @@ final class AlarmDataManager {
     private init() {}
 
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
-    
     lazy var context = appDelegate?.persistentContainer.viewContext
-    
-    
     let alarmEntityModelName = "AlarmEntity"
 
     // CoreData에 저장된 알람정보 가져오기
@@ -32,7 +29,7 @@ final class AlarmDataManager {
             return []
         }
         
-        let request = NSFetchRequest<NSManagedObject>(entityName: self.alarmEntityModelName)
+        let request = NSFetchRequest<AlarmEntity>(entityName: self.alarmEntityModelName)
         // 리스트를 time 기준으로 가져오기
         let descriptor = NSSortDescriptor(key: "time", ascending: true)
         
@@ -71,6 +68,7 @@ final class AlarmDataManager {
         newAlarm.isAgain = isAgain
         newAlarm.repeatDays = repeatDays
         print("repeatDaysString \(repeatDays)")
+        
         if context.hasChanges {
             do {
                 try context.save()

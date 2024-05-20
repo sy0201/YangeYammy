@@ -25,13 +25,9 @@ final class ProfileDataManager {
     // CoreData에 저장된 프로필정보 가져오기
     func getProfile() -> [ProfileEntity] {
         var data: [ProfileEntity] = []
-//        guard let context = context else {
-//            print("getSavedProfile: context load error")
-//            return []
-//        }
-        
-        let request = NSFetchRequest<NSManagedObject>(entityName: self.profileEntityModelName)
-        // 리스트를 name 기준으로 가져오기
+
+        let request = NSFetchRequest<ProfileEntity>(entityName: self.profileEntityModelName)
+
         let descriptor = NSSortDescriptor(key: "name", ascending: true)
         
         request.sortDescriptors = [descriptor]
@@ -87,13 +83,8 @@ final class ProfileDataManager {
         }
     }
     
-    
     // CoreData에 알람정보 저장하기
     func saveProfile(profileImage: String, gender: String, name: String, age: String, weight: Float, kcal: Int, neutrification: String, bcs: Int, completion: @escaping () -> Void) {
-//        guard let context = context else {
-//            print("saveProfile: context load error")
-//            return
-//        }
         
         guard let entity = NSEntityDescription.entity(forEntityName: self.profileEntityModelName, in: context) else {
             return
@@ -126,11 +117,7 @@ final class ProfileDataManager {
     
     // CoreData에 프로필정보 삭제하기
     func removeProfile(deleteTarget: ProfileEntity, completion: @escaping () -> Void) {
-//        guard let context = context else {
-//            print("removeProfile: context load error")
-//            completion()
-//            return
-//        }
+
         guard let targetId = deleteTarget.name else {
             print("removeProfile: remove target id error")
             completion()

@@ -7,7 +7,6 @@
 
 import UIKit
 import SnapKit
-import UserNotifications
 
 final class AlarmView: BaseView {
     private let containerView = UIView()
