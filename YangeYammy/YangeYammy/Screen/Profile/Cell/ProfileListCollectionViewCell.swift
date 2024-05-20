@@ -9,16 +9,11 @@ import UIKit
 import SnapKit
 
 final class ProfileListCollectionViewCell: UICollectionViewCell, ReuseIdentifying {
-    var profileData: ProfileEntity? {
-        didSet {
-            configure()
-        }
-    }
     
     var profileImage: UIImageView = {
         let profileImage = UIImageView()
-        profileImage.tintColor = .purple
         profileImage.contentMode = .scaleAspectFit
+        profileImage.tintColor = .lightGray
         profileImage.layer.masksToBounds = true
         profileImage.isUserInteractionEnabled = true
         return profileImage
@@ -42,13 +37,16 @@ final class ProfileListCollectionViewCell: UICollectionViewCell, ReuseIdentifyin
         profileImage.clipsToBounds = true
     }
     
-    func configure() {
-        guard let profileData = profileData else {
+    func configure(with profileData: ProfileEntity) {
+        guard let profileImageString = profileData.profileImage else {
+            profileImage.image = UIImage(systemName: "cat")
             return
         }
         
-        guard let profileImage = profileData.profileImage else {
-            return
+        if let profileImage = UIImage(data: Data(base64Encoded: profileImageString)!) {
+            self.profileImage.image = profileImage
+        } else {
+            self.profileImage.image = UIImage(systemName: "cat")
         }
     }
 }

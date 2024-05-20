@@ -63,17 +63,9 @@ extension ProfileListViewController: UICollectionViewDataSource, UICollectionVie
             return UICollectionViewCell()
         }
         
-        if let profileImageString = profileManager.getProfile()[indexPath.row].profileImage {
-            if let profileImage = UIImage(data: Data(base64Encoded: profileImageString)!) {
-                cell.profileImage.image = profileImage
-            } else {
-                // Base64 문자열을 UIImage로 변환할 수 없는 경우의 처리
-                cell.profileImage.image = UIImage(systemName: "cat")
-            }
-        } else {
-            // profileImage가 nil인 경우의 처리
-            cell.profileImage.image = UIImage(systemName: "cat")
-        }
+        let profileData = profileManager.getProfile()[indexPath.row]
+        cell.configure(with: profileData)
+
         return cell
     }
     
