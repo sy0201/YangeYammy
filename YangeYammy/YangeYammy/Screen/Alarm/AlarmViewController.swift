@@ -10,6 +10,8 @@ import SnapKit
 
 final class AlarmViewController: UIViewController {
     var alarmManager = AlarmDataManager.shared
+    weak var delegate: AlarmDelegate?
+
     var alarmData: [AlarmEntity] {
         get {
             return sortAlarmData()
@@ -27,6 +29,12 @@ final class AlarmViewController: UIViewController {
         setupNavigationBar()
         setupTableView()
     }
+    
+//    override func setEditing(_ editing: Bool, animated: Bool) {
+//        super.setEditing(editing, animated: animated)
+//        
+//        alarmView.tableView.setEditing(editing, animated: true)
+//    }
     
     func sortAlarmData() -> [AlarmEntity] {
         let sortedArray = alarmManager.getAlarmList().sorted { (prev, next) -> Bool in
@@ -63,6 +71,23 @@ final class AlarmViewController: UIViewController {
         
         return sortedArray
     }
+    
+    func createAlarm(at time: String, title: String) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        guard let date = dateFormatter.date(from: time) else { 
+            return }
+        
+        alarmManager.saveAlarm(isOn: true, 
+                               time: date,
+                               label: title,
+                               isAgain: true,
+                               repeatDays: "") {
+        }
+        
+        let notificationId = "\(date)"
+        NotificationService.shared.requestAlarmNotification(date: date, title: title, subTitle: "추천 알람", notificationId: notificationId, dataIndex: alarmManager.getAlarmList().count, updateTarget: nil)
+    }
 }
 
 // MARK: - Private Methods
@@ -86,11 +111,8 @@ private extension AlarmViewController {
     }
     
     @objc func editBarButtonTapped() {
-        if #available(iOS 14.0, *) {
-            setEditing(alarmView.tableView.isEditing, animated: true)
-        } else {
-            // Fallback on earlier versions
-        }
+        let editing = !alarmView.tableView.isEditing
+        alarmView.tableView.setEditing(editing, animated: true)
     }
     
     @objc func addBarButtonTapped() {
@@ -100,11 +122,7 @@ private extension AlarmViewController {
         
         present(navigationController, animated: true, completion: nil)
     }
-}
-
-// MARK: - UITableViewController Protocol
-
-private extension AlarmViewController {
+    
     func setupTableView() {
         alarmView.tableView.dataSource = self
         alarmView.tableView.delegate = self
