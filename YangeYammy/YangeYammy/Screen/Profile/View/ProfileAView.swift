@@ -226,6 +226,7 @@ final class ProfileAView: BaseView {
     override func layoutSubviews() {
         super.layoutSubviews()
         scrollView.contentSize = containerView.bounds.size
+        
         profileImage.layer.cornerRadius = profileImage.frame.width / 2.0
         profileImage.clipsToBounds = true
         
@@ -239,6 +240,33 @@ final class ProfileAView: BaseView {
     func viewTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         scrollView.addGestureRecognizer(tapGesture)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrameValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
+            return
+        }
+        
+        let keyboardFrame = keyboardFrameValue.cgRectValue
+        let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: (keyboardFrame.height)+20, right: 0)
+        scrollView.contentInset = contentInsets
+        scrollView.scrollIndicatorInsets = contentInsets
+        
+        // 키보드가 나타날 때 현재 활성화된 입력 필드로 스크롤합니다.
+        var rect = self.frame
+        rect.size.height -= keyboardFrame.size.height
+        if !rect.contains(kcal.frame.origin) {
+            scrollView.scrollRectToVisible(kcal.frame, animated: true)
+        }
+    }
+    
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        scrollView.contentInset = .zero
+        scrollView.scrollIndicatorInsets = .zero
     }
     
     @objc private func handleTap() {
