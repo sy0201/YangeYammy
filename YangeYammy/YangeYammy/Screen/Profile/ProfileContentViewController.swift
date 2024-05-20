@@ -10,6 +10,7 @@ import SnapKit
 
 final class ProfileContentViewController: UIViewController {
     let profileDataManager = ProfileDataManager.shared
+    
     lazy var navigationView: UIView = {
        let view = UIView()
         view.backgroundColor = .systemBackground
@@ -85,8 +86,8 @@ extension ProfileContentViewController {
     @objc func saveBarButtonTapped() {
         if let profileAViewController = dataViewControllers.first as? ProfileAViewController,
            let profileBViewController = dataViewControllers.last as? ProfileBViewController,
-           profileAViewController.isProfileInfoComplete() {
-
+           profileAViewController.isProfileInfoComplete() && profileBViewController.isProfileInfoComplete() {
+            
             let profileImage = profileAViewController.profileAView.profileImage.image?.toBase64() ?? ""
             let gender = profileAViewController.selectedGender?.rawValue ?? ""
             let name = profileAViewController.profileAView.name.text ?? ""
@@ -95,18 +96,33 @@ extension ProfileContentViewController {
             let kcal = Int(profileAViewController.profileAView.kcal.text ?? "") ?? 0
             let neutrification = profileBViewController.selectedNeutrification?.rawValue ?? ""
             let bcs = profileBViewController.selectedBcsType?.rawValue ?? 0
-
+            
             profileDataManager.saveProfile(profileImage: profileImage,
-                        gender: gender,
-                        name: name,
-                        age: age,
-                        weight: weight,
-                        kcal: kcal,
-                        neutrification: neutrification,
-                        bcs: bcs) {
-                print("프로필 정보 저장")
-                // TODO: 프로필 정보에 따른 알람시간 랜덤 설정
-                self.dismiss(animated: true)
+                                           gender: gender,
+                                           name: name,
+                                           age: age,
+                                           weight: weight,
+                                           kcal: kcal,
+                                           neutrification: neutrification,
+                                           bcs: bcs) {
+                
+                if let tabBarController = self.presentingViewController as? RootTabBarViewController,
+                   let alarmNavController = tabBarController.viewControllers?.first(where: { $0 is AlarmNavigationController }) as? AlarmNavigationController,
+                   let alarmViewController = alarmNavController.viewControllers.first as? AlarmViewController {
+                    
+                    if age == "1" || age == "13" {
+                        alarmViewController.createAlarm(at: "05:00", title: "1차 야미")
+                        alarmViewController.createAlarm(at: "10:00", title: "2차 야미")
+                        alarmViewController.createAlarm(at: "14:00", title: "3차 야미")
+                        alarmViewController.createAlarm(at: "19:00", title: "4차 야미")
+                    } else {
+                        alarmViewController.createAlarm(at: "06:00", title: "아침 야미")
+                        alarmViewController.createAlarm(at: "20:00", title: "저녁 야미")
+                    }
+                    tabBarController.selectedIndex = 0
+                }
+                
+                self.dismiss(animated: true, completion: nil)
             }
         } else {
             let alertController = UIAlertController(title: nil, message: "프로필 정보를 모두 입력해주세요.", preferredStyle: .alert)
