@@ -55,7 +55,9 @@ final class ProfileContentViewController: UIViewController {
     }
 }
 
-extension ProfileContentViewController {
+// MARK: - Private Methods
+
+private extension ProfileContentViewController {
     func setupNavigationBar() {
         self.title = "Profile"
         
@@ -106,22 +108,7 @@ extension ProfileContentViewController {
                                            neutrification: neutrification,
                                            bcs: bcs) {
                 
-                if let tabBarController = self.presentingViewController as? RootTabBarViewController,
-                   let alarmNavController = tabBarController.viewControllers?.first(where: { $0 is AlarmNavigationController }) as? AlarmNavigationController,
-                   let alarmViewController = alarmNavController.viewControllers.first as? AlarmViewController {
-                    
-                    if age == "1" || age == "13" {
-                        alarmViewController.createAlarm(at: "05:00", title: "1차 야미")
-                        alarmViewController.createAlarm(at: "10:00", title: "2차 야미")
-                        alarmViewController.createAlarm(at: "14:00", title: "3차 야미")
-                        alarmViewController.createAlarm(at: "19:00", title: "4차 야미")
-                    } else {
-                        alarmViewController.createAlarm(at: "06:00", title: "아침 야미")
-                        alarmViewController.createAlarm(at: "20:00", title: "저녁 야미")
-                    }
-                    tabBarController.selectedIndex = 0
-                }
-                
+                self.setupRandomAlarm(age: age)
                 self.dismiss(animated: true, completion: nil)
             }
         } else {
@@ -153,7 +140,27 @@ extension ProfileContentViewController {
         pageViewController.dataSource = self
         pageViewController.delegate = self
     }
+    
+    func setupRandomAlarm(age: String) {
+        if let tabBarController = self.presentingViewController as? RootTabBarViewController,
+           let alarmNavController = tabBarController.viewControllers?.first(where: { $0 is AlarmNavigationController }) as? AlarmNavigationController,
+           let alarmViewController = alarmNavController.viewControllers.first as? AlarmViewController {
+            
+            if age == "1" || age == "13" {
+                alarmViewController.createAlarm(at: "05:00", title: "1차 야미")
+                alarmViewController.createAlarm(at: "10:00", title: "2차 야미")
+                alarmViewController.createAlarm(at: "14:00", title: "3차 야미")
+                alarmViewController.createAlarm(at: "19:00", title: "4차 야미")
+            } else {
+                alarmViewController.createAlarm(at: "06:00", title: "아침 야미")
+                alarmViewController.createAlarm(at: "20:00", title: "저녁 야미")
+            }
+            tabBarController.selectedIndex = 0
+        }
+    }
 }
+
+// MARK: - UIPageViewControllerDataSource, UIPageViewControllerDelegate
 
 extension ProfileContentViewController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
