@@ -40,6 +40,8 @@ final class ProfileContentViewController: UIViewController {
         return [vc1, vc2]
     }()
     
+    let profileListView = ProfileListView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
@@ -109,6 +111,7 @@ private extension ProfileContentViewController {
                                            bcs: bcs) {
                 
                 self.setupRandomAlarm(age: age)
+                self.profileListView.collectionView.reloadData()
                 self.dismiss(animated: true, completion: nil)
             }
         } else {

@@ -22,3 +22,7 @@ protocol LabelTableViewCellDelegate: AnyObject {
 protocol AlarmSelectionDelegate: AnyObject {
     func didSelectAlarm(_ alarm: AlarmEntity)
 }
+
+protocol ProfileSelectionDelegate: AnyObject {
+    func didSelectProfile(_ profile: ProfileEntity)
+}

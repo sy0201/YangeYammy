@@ -9,6 +9,7 @@ import UIKit
 
 final class ProfileListViewController: UIViewController {
     var profileManager = ProfileDataManager.shared
+    var profileContentViewController: ProfileContentViewController?
 
     let profileListView = ProfileListView()
     
@@ -20,7 +21,6 @@ final class ProfileListViewController: UIViewController {
         super.viewDidLoad()
         setupNavigationBar()
         setupCollectionView()
-        setupButtonTapped()
     }
 }
 
@@ -38,10 +38,14 @@ private extension ProfileListViewController {
     }
     
     @objc func addBarButtonTapped() {
-        let profileContentViewController = ProfileContentViewController()
-        let navigationController = UINavigationController(rootViewController: profileContentViewController)
+        if profileContentViewController == nil {
+            profileContentViewController = ProfileContentViewController()
+        }
         
-        present(navigationController, animated: true, completion: nil)
+        if let profileContentViewController = profileContentViewController {
+            let navigationController = UINavigationController(rootViewController: profileContentViewController)
+            present(navigationController, animated: true, completion: nil)
+        }
     }
     
     func setupCollectionView() {
@@ -49,10 +53,6 @@ private extension ProfileListViewController {
         profileListView.collectionView.delegate = self
         
         profileListView.collectionView.register(ProfileListCollectionViewCell.self, forCellWithReuseIdentifier: ProfileListCollectionViewCell.reuseIdentifier)
-    }
-    
-    func setupButtonTapped() {
-        //profileListView.editButton.addTarget(self, action: #selector(alertPickerView), for: .touchUpInside)
     }
 }
 
@@ -78,5 +78,19 @@ extension ProfileListViewController: UICollectionViewDataSource, UICollectionVie
         
         let width = (collectionView.bounds.width - 3 * 10) / 2
         return CGSize(width: width, height: 100)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let profileDetailVC = ProfileDetailViewController()
+        let selectedProfile = profileManager.getProfile()[indexPath.row]
+        profileDetailVC.profileData = selectedProfile
+        //profileDetailVC.delegate = self
+        navigationController?.pushViewController(profileDetailVC, animated: true)
+    }
+}
+
+extension ProfileListViewController: ProfileSelectionDelegate {
+    func didSelectProfile(_ profile: ProfileEntity) {
+        
     }
 }
