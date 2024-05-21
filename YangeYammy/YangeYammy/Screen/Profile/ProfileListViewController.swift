@@ -20,6 +20,7 @@ final class ProfileListViewController: UIViewController {
         super.viewDidLoad()
         setupNavigationBar()
         setupCollectionView()
+        setupButtonTapped()
     }
 }
 
@@ -48,6 +49,10 @@ private extension ProfileListViewController {
         profileListView.collectionView.delegate = self
         
         profileListView.collectionView.register(ProfileListCollectionViewCell.self, forCellWithReuseIdentifier: ProfileListCollectionViewCell.reuseIdentifier)
+    }
+    
+    func setupButtonTapped() {
+        //profileListView.editButton.addTarget(self, action: #selector(alertPickerView), for: .touchUpInside)
     }
 }
 

@@ -10,6 +10,7 @@ import UIKit
 final class CreateAlarmViewController: UIViewController {
     let alarmManager = AlarmDataManager.shared
     weak var delegate: AlarmDelegate?
+    weak var selectAlarmDelegate: AlarmSelectionDelegate?
     var switchAgain: Bool = true
     var selectedDays: [Day] = []
     var textFieldLabel: String = ""
@@ -26,10 +27,29 @@ final class CreateAlarmViewController: UIViewController {
         super.viewDidLoad()
         setupNavigationBar()
         setupTableView()
+        
+        if let alarmData = alarmData {
+            didSelectAlarm(alarmData)
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         createAlarmView.endEditing(true)
+    }
+    
+    func didSelectAlarm(_ alarm: AlarmEntity) {
+        self.alarmData = alarm
+        if isViewLoaded {
+            createAlarmView.datePickerView.setDate(alarm.time ?? Date(), animated: false)
+            selectedDays = parseRepeatDays(alarm.repeatDays ?? "")
+            textFieldLabel = alarm.label ?? ""
+            switchAgain = alarm.isAgain
+            createAlarmView.tableView.reloadData()
+        }
+    }
+    
+    func parseRepeatDays(_ repeatDays: String) -> [Day] {
+        return repeatDays.split(separator: ",").compactMap { Day(rawValue: String($0).trimmingCharacters(in: .whitespaces)) }
     }
 }
 
@@ -130,6 +150,7 @@ extension CreateAlarmViewController: UITableViewDataSource, UITableViewDelegate 
                 return UITableViewCell() }
             
             cell.delegate = self
+            cell.configure(with: alarmData?.label ?? "")
             
             return cell
             
@@ -138,7 +159,8 @@ extension CreateAlarmViewController: UITableViewDataSource, UITableViewDelegate 
                 return UITableViewCell() }
             
             cell.switchDelegate = self
-            
+            cell.configure(with: switchAgain)
+
             return cell
             
         default:
@@ -184,5 +206,6 @@ extension CreateAlarmViewController: LabelTableViewCellDelegate {
 extension CreateAlarmViewController: SwitchValueDelegate {
     func switchValueChanged(isOn: Bool) {
         print("Switch value changed: \(isOn)")
+        switchAgain = isOn
     }
 }

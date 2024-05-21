@@ -35,6 +35,10 @@ final class SetRepeatAgainTableViewCell: UITableViewCell, ReuseIdentifying {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func configure(with isRepeatAgainEnabled: Bool) {
+        setSwitchButton.isOn = isRepeatAgainEnabled
+    }
 }
 
 // MARK: - Private Methods

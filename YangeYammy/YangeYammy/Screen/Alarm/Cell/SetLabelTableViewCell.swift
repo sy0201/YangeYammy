@@ -50,6 +50,11 @@ final class SetLabelTableViewCell: UITableViewCell, ReuseIdentifying {
     @objc private func textFieldDidChange(_ textField: UITextField) {
         delegate?.textFieldDidChange(text: textField.text)
     }
+    
+    func configure(with label: String) {
+        // Configure the cell with the alarm label
+        textField.text = label
+    }
 }
 
 // MARK: - Private Methods

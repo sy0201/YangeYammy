@@ -18,3 +18,7 @@ protocol SwitchValueDelegate: AnyObject {
 protocol LabelTableViewCellDelegate: AnyObject {
     func textFieldDidChange(text: String?)
 }
+
+protocol AlarmSelectionDelegate: AnyObject {
+    func didSelectAlarm(_ alarm: AlarmEntity)
+}
