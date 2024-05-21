@@ -24,8 +24,8 @@ enum Gender: String {
 }
 
 enum Neutrification: String {
-    case yes = "중성화후"
-    case no = "중성화전"
+    case yes = "예"
+    case no = "아니오"
 }
 
 enum BcsType: Int {
