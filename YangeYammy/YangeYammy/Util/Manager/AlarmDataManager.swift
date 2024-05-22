@@ -9,7 +9,7 @@ import CoreData
 import UIKit
 
 protocol AlarmDelegate: AnyObject {
-    func updateAlarm()
+    func updateAlarm(_ alarm: AlarmEntity)
 }
 
 final class AlarmDataManager {
@@ -30,18 +30,13 @@ final class AlarmDataManager {
         }
         
         let request = NSFetchRequest<AlarmEntity>(entityName: self.alarmEntityModelName)
-        // 리스트를 time 기준으로 가져오기
         let descriptor = NSSortDescriptor(key: "time", ascending: true)
-        
         request.sortDescriptors = [descriptor]
         
         do {
-            guard let fetchedAlarmList = try context.fetch(request) as? [AlarmEntity] else {
-                return data
-            }
-            data = fetchedAlarmList
+            data = try context.fetch(request)
         } catch {
-            print("error")
+            print("error fetching alarms: \(error)")
         }
         return data
     }
@@ -164,6 +159,34 @@ final class AlarmDataManager {
         } catch {
             print("updateAlarm: error")
             completion()
+        }
+    }
+    
+    func updateOrAddAlarm(_ alarm: AlarmEntity) {
+        guard let context = context else { return }
+        
+        let request = NSFetchRequest<AlarmEntity>(entityName: self.alarmEntityModelName)
+        request.predicate = NSPredicate(format: "time = %@", alarm.time! as CVarArg)
+        
+        do {
+            if let fetchedAlarms = try context.fetch(request).first {
+                fetchedAlarms.isOn = alarm.isOn
+                fetchedAlarms.time = alarm.time
+                fetchedAlarms.label = alarm.label
+                fetchedAlarms.isAgain = alarm.isAgain
+                fetchedAlarms.repeatDays = alarm.repeatDays
+            } else {
+                let newAlarm = AlarmEntity(context: context)
+                newAlarm.isOn = alarm.isOn
+                newAlarm.time = alarm.time
+                newAlarm.label = alarm.label
+                newAlarm.isAgain = alarm.isAgain
+                newAlarm.repeatDays = alarm.repeatDays
+            }
+            
+            try context.save()
+        } catch {
+            print("Failed to update or add alarm: \(error)")
         }
     }
 }

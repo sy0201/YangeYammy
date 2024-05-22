@@ -10,7 +10,6 @@ import UIKit
 final class CreateAlarmViewController: UIViewController {
     let alarmManager = AlarmDataManager.shared
     weak var delegate: AlarmDelegate?
-    weak var selectAlarmDelegate: AlarmSelectionDelegate?
     var switchAgain: Bool = true
     var selectedDays: [Day] = []
     var textFieldLabel: String = ""
@@ -27,23 +26,19 @@ final class CreateAlarmViewController: UIViewController {
         super.viewDidLoad()
         setupNavigationBar()
         setupTableView()
-        
-        if let alarmData = alarmData {
-            didSelectAlarm(alarmData)
-        }
+        setupData()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         createAlarmView.endEditing(true)
     }
     
-    func didSelectAlarm(_ alarm: AlarmEntity) {
-        self.alarmData = alarm
-        if isViewLoaded {
-            createAlarmView.datePickerView.setDate(alarm.time ?? Date(), animated: false)
-            selectedDays = parseRepeatDays(alarm.repeatDays ?? "")
-            textFieldLabel = alarm.label ?? ""
-            switchAgain = alarm.isAgain
+    func setupData() {
+        if let alarmData = alarmData {
+            createAlarmView.datePickerView.setDate(alarmData.time ?? Date(), animated: false)
+            selectedDays = parseRepeatDays(alarmData.repeatDays ?? "")
+            textFieldLabel = alarmData.label ?? ""
+            switchAgain = alarmData.isAgain
             createAlarmView.tableView.reloadData()
         }
     }
@@ -83,19 +78,54 @@ private extension CreateAlarmViewController {
         let switchButtonAgain = switchAgain
         let repeatDaysString = selectedDays.map { $0.rawValue }.joined(separator: ", ")
         
-        if alarmData != nil {
-            let newData = alarmData
-            newData?.isOn = true
-            newData?.time = createAlarmView.datePickerView.date
-            newData?.label = ""
-            newData?.isAgain = switchButtonAgain
-            newData?.repeatDays = repeatDaysString
+        if let alarmData = alarmData {
+            alarmData.isOn = true
+            alarmData.time = createAlarmView.datePickerView.date
+            alarmData.label = textFieldLabel
+            alarmData.isAgain = switchButtonAgain
+            alarmData.repeatDays = repeatDaysString
             
-            alarmManager.updateAlarm(targetId: alarmData!.time!, newData: newData!) {
+            alarmManager.updateAlarm(targetId: alarmData.time!, newData: alarmData) {
+                self.delegate?.updateAlarm(alarmData)
+            }
+        } else {
+            guard let context = alarmManager.context else { return }
+            let newAlarm = AlarmEntity(context: context)
+            newAlarm.isOn = true
+            newAlarm.time = createAlarmView.datePickerView.date
+            newAlarm.label = textFieldLabel
+            newAlarm.isAgain = switchButtonAgain
+            newAlarm.repeatDays = repeatDaysString
+            
+            alarmManager.saveAlarm(isOn: true,
+                                   time: newAlarm.time!,
+                                   label: newAlarm.label!,
+                                   isAgain: newAlarm.isAgain,
+                                   repeatDays: newAlarm.repeatDays ?? "") {
+                self.delegate?.updateAlarm(newAlarm)
+            }
+            
+            notificationId = "\(createAlarmView.datePickerView.date)"
+        }
+        
+        NotificationService.shared.requestAlarmNotification(date: createAlarmView.datePickerView.date, title: "냥이야미", subTitle: "오늘도 맛있는 밥을 먹을게요", notificationId: notificationId, dataIndex: alarmManager.getAlarmList().count == 0 ? nil : alarmManager.getAlarmList().count, updateTarget: alarmData?.time)
+        
+        self.dismiss(animated: true)
+        
+        /**
+        if alarmData != nil {
+            alarmData?.isOn = true
+            alarmData?.time = createAlarmView.datePickerView.date
+            alarmData?.label = textFieldLabel
+            alarmData?.isAgain = switchButtonAgain
+            alarmData?.repeatDays = repeatDaysString
+            
+            alarmManager.updateAlarm(targetId: alarmData!.time!, newData: alarmData ?? AlarmEntity()) {
                 self.delegate?.updateAlarm()
             }
             
         } else {
+            
             alarmManager.saveAlarm(isOn: true,
                                    time: createAlarmView.datePickerView.date,
                                    label: textFieldLabel,
@@ -104,13 +134,13 @@ private extension CreateAlarmViewController {
                 self.delegate?.updateAlarm()
             }
             
-            print("textFieldLabel \(textFieldLabel)")
             notificationId = "\(createAlarmView.datePickerView.date)"
         }
         
         NotificationService.shared.requestAlarmNotification(date: createAlarmView.datePickerView.date, title: "냥이야미", subTitle: "오늘도 맛있는 밥을 먹을게요", notificationId: notificationId, dataIndex: alarmManager.getAlarmList().count == 0 ? nil : alarmManager.getAlarmList().count, updateTarget: alarmData?.time)
         
         self.dismiss(animated: true)
+        */
     }
 }
 

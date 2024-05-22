@@ -173,9 +173,11 @@ extension AlarmViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedAlarm = alarmManager.getAlarmList()[indexPath.row]
+        
         let createAlarmVC = CreateAlarmViewController()
-        createAlarmVC.alarmData = alarmData[indexPath.row]
-        createAlarmVC.selectAlarmDelegate = self
+        createAlarmVC.alarmData = selectedAlarm
+        createAlarmVC.delegate = self
         
         let navigationController = UINavigationController(rootViewController: createAlarmVC)
         present(navigationController, animated: true, completion: nil)
@@ -185,7 +187,8 @@ extension AlarmViewController: UITableViewDataSource, UITableViewDelegate {
 // MARK: - AlarmDelegate
 
 extension AlarmViewController: AlarmDelegate {
-    func updateAlarm() {
+    func updateAlarm(_ alarm: AlarmEntity) {
+        alarmManager.updateOrAddAlarm(alarm)
         alarmView.tableView.reloadData()
     }
 }
@@ -195,12 +198,5 @@ extension AlarmViewController: AlarmDelegate {
 extension AlarmViewController: SwitchValueDelegate {
     func switchValueChanged(isOn: Bool) {
         print("Switch value changed: \(isOn)")
-    }
-}
-
-// MARK: - AlarmSelectionDelegate
-
-extension AlarmViewController: AlarmSelectionDelegate {
-    func didSelectAlarm(_ alarm: AlarmEntity) {
     }
 }
