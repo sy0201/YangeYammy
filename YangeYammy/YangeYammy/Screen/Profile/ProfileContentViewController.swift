@@ -10,7 +10,9 @@ import SnapKit
 
 final class ProfileContentViewController: UIViewController {
     let profileDataManager = ProfileDataManager.shared
-    
+    weak var delegate: ProfileSelectionDelegate?
+    var profileData: ProfileEntity?
+
     lazy var navigationView: UIView = {
        let view = UIView()
         view.backgroundColor = .systemBackground
@@ -47,12 +49,30 @@ final class ProfileContentViewController: UIViewController {
         setupNavigationBar()
         setupDelegate()
         setConstraint()
-        
+        setupData()
+    }
+    
+    func setupData() {
         if let firstVC = dataViewControllers.first {
             pageViewController.setViewControllers([firstVC],
                                                   direction: .forward,
                                                   animated: true,
                                                   completion: nil)
+        }
+    }
+    
+    func configure(with profile: ProfileEntity, gender: String, neutrification: Neutrification?, bcsType: BcsType?) {
+        self.profileData = profile
+        
+        let selectedGender = Gender(rawValue: gender) ?? .female
+        vc1.configure(with: profile, gender: selectedGender)
+        print("selectedGender \(selectedGender)")
+        
+        if let neutrification = neutrification,
+           let bcsType = bcsType {
+            vc2.configure(with: profile, neutrification: neutrification, bcs: bcsType)
+        } else {
+            //vc2.configure(with: profile, neutrification: neutrification ?? .no , bcs: bcsType ?? .bcs1)
         }
     }
 }
@@ -92,29 +112,48 @@ private extension ProfileContentViewController {
            let profileBViewController = dataViewControllers.last as? ProfileBViewController,
            profileAViewController.isProfileInfoComplete() && profileBViewController.isProfileInfoComplete() {
             
-            let profileImage = profileAViewController.profileAView.profileImage.image?.toBase64() ?? ""
-            let gender = profileAViewController.selectedGender?.rawValue ?? ""
+            // ProfileAViewController에서 프로필 정보 가져오기
+            let profileImage = profileAViewController.profileAView.profileImage.image?.toBase64()
+            let gender = profileAViewController.genderType?.rawValue ?? ""
             let name = profileAViewController.profileAView.name.text ?? ""
             let age = profileAViewController.profileAView.age.text ?? ""
             let weight = Float(profileAViewController.profileAView.weight.text ?? "") ?? 0.0
             let kcal = Int(profileAViewController.profileAView.kcal.text ?? "") ?? 0
-            let neutrification = profileBViewController.selectedNeutrification?.rawValue ?? ""
-            let bcs = profileBViewController.selectedBcsType?.rawValue ?? 0
             
-            profileDataManager.saveProfile(profileImage: profileImage,
-                                           gender: gender,
-                                           name: name,
-                                           age: age,
-                                           weight: weight,
-                                           kcal: kcal,
-                                           neutrification: neutrification,
-                                           bcs: bcs) {
+            // ProfileBViewController에서 프로필 정보 가져오기
+            let neutrification = profileBViewController.neutrificationType?.rawValue ?? ""
+            let bcs = profileBViewController.bcsType?.rawValue ?? 0
+            
+            // 기존 프로필 정보 가져오기
+            let existingProfiles = profileDataManager.getProfileList()
+            
+            if let profileData = profileData {
+                // 기존 프로필이 있는 경우 업데이트
+                profileData.profileImage = profileImage
+                profileData.gender = gender
+                profileData.name = name
+                profileData.age = age
+                profileData.weight = weight
+                profileData.kcal = Int16(kcal)
+                profileData.neutrification = neutrification
+                profileData.bcs = Int16(bcs)
                 
-                self.setupRandomAlarm(age: age)
-                self.profileListView.collectionView.reloadData()
+                profileDataManager.updateProfile(profile: profileData) {
+                    self.delegate?.didSelectProfile(profileData)
+                    self.setupRandomAlarm(age: age)
+                    self.profileListView.collectionView.reloadData()
+                }
+                self.dismiss(animated: true, completion: nil)
+                
+            } else {
+                // 새로운 프로필 생성
+                profileDataManager.saveProfile(profileImage: profileImage, gender: gender, name: name, age: age, weight: weight, kcal: Int(kcal), neutrification: neutrification, bcs: Int(bcs), completion: {
+                    self.profileListView.collectionView.reloadData()
+                })
                 self.dismiss(animated: true, completion: nil)
             }
         } else {
+            // 프로필 정보가 완전하지 않을 때 경고 표시
             let alertController = UIAlertController(title: nil, message: "프로필 정보를 모두 입력해주세요.", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
             alertController.addAction(okAction)

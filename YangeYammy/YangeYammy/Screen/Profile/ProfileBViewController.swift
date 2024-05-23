@@ -8,8 +8,8 @@
 import UIKit
 
 final class ProfileBViewController: UIViewController {
-    var selectedNeutrification: Neutrification?
-    var selectedBcsType: BcsType?
+    var neutrificationType: Neutrification?
+    var bcsType: BcsType?
     
     let profileBView = ProfileBView()
     
@@ -30,6 +30,14 @@ final class ProfileBViewController: UIViewController {
         print("isBcsSelected \(isBcsSelected)")
 
         return isNeutrificationSelected && isBcsSelected
+    }
+    
+    func configure(with profile: ProfileEntity, neutrification: Neutrification, bcs: BcsType) {
+        self.neutrificationType = neutrification
+        profileBView.selectNeutrification(neutrification: Neutrification(rawValue: neutrificationType?.rawValue ?? "") ?? .no)
+        
+        self.bcsType = bcs
+        profileBView.selectBcs(bcs: BcsType(rawValue: bcsType?.rawValue ?? 0) ?? .bcs1)
     }
 }
 
@@ -53,43 +61,43 @@ private extension ProfileBViewController {
     }
     
     @objc func yesButtonTapped() {
-        selectedNeutrification = .yes
+        neutrificationType = .yes
         profileBView.isNeutrificationTapped = true
-        profileBView.selectYesOrNo(neutrification: .yes)
+        profileBView.selectNeutrification(neutrification: .yes)
     }
     
     @objc func noButtonTapped() {
-        selectedNeutrification = .no
+        neutrificationType = .no
         profileBView.isNeutrificationTapped = true
-        profileBView.selectYesOrNo(neutrification: .no)
+        profileBView.selectNeutrification(neutrification: .no)
     }
     
     @objc func bcs1ButtonTapped() {
-        selectedBcsType = .bcs1
+        bcsType = .bcs1
         profileBView.isBcsTapped = true
         profileBView.selectBcs(bcs: .bcs1)
     }
     
     @objc func bcs2ButtonTapped() {
-        selectedBcsType = .bcs2
+        bcsType = .bcs2
         profileBView.isBcsTapped = true
         profileBView.selectBcs(bcs: .bcs2)
     }
     
     @objc func bcs3ButtonTapped() {
-        selectedBcsType = .bcs3
+        bcsType = .bcs3
         profileBView.isBcsTapped = true
         profileBView.selectBcs(bcs: .bcs3)
     }
     
     @objc func bcs4ButtonTapped() {
-        selectedBcsType = .bcs4
+        bcsType = .bcs4
         profileBView.isBcsTapped = true
         profileBView.selectBcs(bcs: .bcs4)
     }
     
     @objc func bcs5ButtonTapped() {
-        selectedBcsType = .bcs5
+        bcsType = .bcs5
         profileBView.isBcsTapped = true
         profileBView.selectBcs(bcs: .bcs5)
     }

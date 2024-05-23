@@ -60,7 +60,7 @@ private extension ProfileListViewController {
 
 extension ProfileListViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        profileManager.getProfile().count
+        profileManager.getProfileList().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -68,7 +68,7 @@ extension ProfileListViewController: UICollectionViewDataSource, UICollectionVie
             return UICollectionViewCell()
         }
         
-        let profileData = profileManager.getProfile()[indexPath.row]
+        let profileData = profileManager.getProfileList()[indexPath.row]
         cell.configure(with: profileData)
 
         return cell
@@ -81,16 +81,27 @@ extension ProfileListViewController: UICollectionViewDataSource, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let profileDetailVC = ProfileDetailViewController()
-        let selectedProfile = profileManager.getProfile()[indexPath.row]
-        profileDetailVC.profileData = selectedProfile
-        //profileDetailVC.delegate = self
-        navigationController?.pushViewController(profileDetailVC, animated: true)
+        let profileData = profileManager.getProfileList()[indexPath.row]
+        let profileDetailVC = ProfileContentViewController()
+        profileDetailVC.delegate = self
+        
+        let gender = Gender(rawValue: profileData.gender ?? "") ?? .female
+        let selectedNeutrification = Neutrification(rawValue: profileData.neutrification ?? "") ?? .no
+        let selectedBcsType = BcsType(rawValue: Int(profileData.bcs)) ?? .bcs1
+        
+        profileDetailVC.configure(with: profileData, gender: gender.rawValue, neutrification: selectedNeutrification, bcsType: selectedBcsType)
+
+        let navigationController = UINavigationController(rootViewController: profileDetailVC)
+        present(navigationController, animated: true, completion: nil)
     }
 }
 
+// MARK: - ProfileSelectionDelegate
+
 extension ProfileListViewController: ProfileSelectionDelegate {
     func didSelectProfile(_ profile: ProfileEntity) {
-        
+        profileManager.updateProfile(profile: profile) {
+        }
+        profileListView.collectionView.reloadData()
     }
 }

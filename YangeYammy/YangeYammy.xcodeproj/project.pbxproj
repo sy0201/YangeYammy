@@ -18,7 +18,6 @@
 		185F4B932BFB314100DA8242 /* ProfileListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4B922BFB314100DA8242 /* ProfileListViewController.swift */; };
 		185F4B952BFB329000DA8242 /* ProfileListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4B942BFB329000DA8242 /* ProfileListView.swift */; };
 		185F4B9A2BFB3B2C00DA8242 /* ProfileListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4B992BFB3B2C00DA8242 /* ProfileListCollectionViewCell.swift */; };
-		185F4B9C2BFC933C00DA8242 /* ProfileDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4B9B2BFC933C00DA8242 /* ProfileDetailViewController.swift */; };
 		185F4B9E2BFC935300DA8242 /* ProfileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4B9D2BFC935300DA8242 /* ProfileDetailView.swift */; };
 		186F8CA72BC7E20100741FF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F8CA62BC7E20100741FF1 /* AppDelegate.swift */; };
 		186F8CA92BC7E20100741FF1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F8CA82BC7E20100741FF1 /* SceneDelegate.swift */; };
@@ -83,7 +82,6 @@
 		185F4B922BFB314100DA8242 /* ProfileListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileListViewController.swift; sourceTree = "<group>"; };
 		185F4B942BFB329000DA8242 /* ProfileListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileListView.swift; sourceTree = "<group>"; };
 		185F4B992BFB3B2C00DA8242 /* ProfileListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileListCollectionViewCell.swift; sourceTree = "<group>"; };
-		185F4B9B2BFC933C00DA8242 /* ProfileDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailViewController.swift; sourceTree = "<group>"; };
 		185F4B9D2BFC935300DA8242 /* ProfileDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailView.swift; sourceTree = "<group>"; };
 		186F8CA32BC7E20100741FF1 /* YangeYammy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YangeYammy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		186F8CA62BC7E20100741FF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -316,7 +314,6 @@
 				185F4B982BFB33CA00DA8242 /* Cell */,
 				18E5F4F02BD62215004E0E27 /* ProfileNavigationController.swift */,
 				185F4B922BFB314100DA8242 /* ProfileListViewController.swift */,
-				185F4B9B2BFC933C00DA8242 /* ProfileDetailViewController.swift */,
 				18E5F4F22BD62275004E0E27 /* ProfileContentViewController.swift */,
 				18E5F4F42BD639A4004E0E27 /* ProfileAViewController.swift */,
 				18E5F4F62BD63AAC004E0E27 /* ProfileBViewController.swift */,
@@ -506,7 +503,6 @@
 				186F8CA72BC7E20100741FF1 /* AppDelegate.swift in Sources */,
 				180216A02BD9E3770033AE92 /* SelectDayViewController.swift in Sources */,
 				18E5F4F72BD63AAC004E0E27 /* ProfileBViewController.swift in Sources */,
-				185F4B9C2BFC933C00DA8242 /* ProfileDetailViewController.swift in Sources */,
 				185F4B932BFB314100DA8242 /* ProfileListViewController.swift in Sources */,
 				18E5F5112BD9B7C3004E0E27 /* SetRepeatDateTableViewCell.swift in Sources */,
 				180216AA2BDA59030033AE92 /* AlarmDataManager.swift in Sources */,

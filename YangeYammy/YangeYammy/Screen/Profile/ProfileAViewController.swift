@@ -10,7 +10,7 @@ import Photos
 
 final class ProfileAViewController: UIViewController {
     let profileDataManager = ProfileDataManager.shared
-    var selectedGender: Gender?
+    var genderType: Gender?
     var imagePicker = UIImagePickerController()
 
     let profileAView = ProfileAView()
@@ -38,7 +38,7 @@ final class ProfileAViewController: UIViewController {
         print("isWeightEntered \(isWeightEntered)")
         print("isKcalEntered \(isKcalEntered)")
 
-        print("isProfileInfoComplete \(isNameEntered && isAgeEntered && isGenderSelected && isKcalEntered)")
+        print("ProfileAAInfoComplete \(isNameEntered && isAgeEntered && isGenderSelected && isKcalEntered)")
         return isGenderSelected && isNameEntered && isAgeEntered && isWeightEntered && isKcalEntered
     }
     
@@ -47,6 +47,22 @@ final class ProfileAViewController: UIViewController {
         profileAView.age.delegate = self
         profileAView.weight.delegate = self
         profileAView.kcal.delegate = self
+    }
+    
+    func configure(with profile: ProfileEntity, gender: Gender) {
+        if let profileImageString = profile.profileImage,
+           let profileImage = UIImage(base64String: profileImageString) {
+            profileAView.profileImage.image = profileImage
+        } else {
+            profileAView.profileImage.image = UIImage(systemName: "cat")
+        }
+        
+        self.genderType = gender
+        profileAView.selectGender(gender: Gender(rawValue: (genderType?.rawValue)!) ?? .female)
+        profileAView.name.text = profile.name
+        profileAView.age.text = profile.age
+        profileAView.weight.text = String(profile.weight)
+        profileAView.kcal.text = String(profile.kcal)
     }
 }
 
@@ -132,13 +148,13 @@ extension ProfileAViewController: UIImagePickerControllerDelegate, UINavigationC
     }
     
     @objc func maleButtonTapped() {
-        selectedGender = .male
+        genderType = .male
         profileAView.isGenderTapped = true
         profileAView.selectGender(gender: Gender.male)
     }
     
     @objc func femaleButtonTapped() {
-        selectedGender = .female
+        genderType = .female
         profileAView.isGenderTapped = true
         profileAView.selectGender(gender: Gender.female)
     }
