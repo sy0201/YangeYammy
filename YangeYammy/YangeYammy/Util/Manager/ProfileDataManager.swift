@@ -23,23 +23,19 @@ final class ProfileDataManager {
     let profileEntityModelName = "ProfileEntity"
     
     // CoreData에 저장된 프로필정보 가져오기
-    func getProfile() -> [ProfileEntity] {
+    func getProfileList() -> [ProfileEntity] {
         var data: [ProfileEntity] = []
 
         let request = NSFetchRequest<ProfileEntity>(entityName: self.profileEntityModelName)
-
         let descriptor = NSSortDescriptor(key: "name", ascending: true)
-        
         request.sortDescriptors = [descriptor]
         
         do {
-            guard let fetchedProfileList = try context.fetch(request) as? [ProfileEntity] else {
-                return data
-            }
-            data = fetchedProfileList
+            data = try context.fetch(request)
         } catch {
-            print("error")
+            print("Error fetching profile data: \(error)")
         }
+        
         return data
     }
     
@@ -69,8 +65,11 @@ final class ProfileDataManager {
     
     private func fetchProfile() -> ProfileEntity {
         let request: NSFetchRequest<ProfileEntity> = ProfileEntity.fetchRequest()
-        let profiles = try? context.fetch(request)
-        return profiles?.first ?? ProfileEntity(context: context)
+        if let profiles = try? context.fetch(request), let firstProfile = profiles.first {
+            return firstProfile
+        } else {
+            return ProfileEntity(context: context)
+        }
     }
     
     private func saveContext() {
@@ -84,25 +83,22 @@ final class ProfileDataManager {
     }
     
     // CoreData에 알람정보 저장하기
-    func saveProfile(profileImage: String, gender: String, name: String, age: String, weight: Float, kcal: Int, neutrification: String, bcs: Int, completion: @escaping () -> Void) {
-        
+    func saveProfile(profileImage: String?, gender: String?, name: String?, age: String?, weight: Float?, kcal: Int?, neutrification: String?, bcs: Int?, completion: @escaping () -> Void) {
+        //let context = self.context
         guard let entity = NSEntityDescription.entity(forEntityName: self.profileEntityModelName, in: context) else {
             return
         }
         
-        guard let newProfile = NSManagedObject(entity: entity, insertInto: context) as? ProfileEntity else {
-            print("saveAlarm: entity insert error")
-            return
-        }
-        
+        let newProfile = ProfileEntity(entity: entity, insertInto: context)
+        newProfile.id = UUID()
         newProfile.profileImage = profileImage
         newProfile.gender = gender
         newProfile.name = name
         newProfile.age = age
-        newProfile.weight = weight
-        newProfile.kcal = Int16(kcal)
+        newProfile.weight = weight ?? 0.0
+        newProfile.kcal = Int16(kcal ?? 0)
         newProfile.neutrification = neutrification
-        newProfile.bcs = Int16(bcs)
+        newProfile.bcs = Int16(bcs ?? 0)
         
         if context.hasChanges {
             do {
@@ -115,15 +111,43 @@ final class ProfileDataManager {
         }
     }
     
-    // CoreData에 프로필정보 삭제하기
-    func removeProfile(deleteTarget: ProfileEntity, completion: @escaping () -> Void) {
-
-        guard let targetId = deleteTarget.name else {
-            print("removeProfile: remove target id error")
-            completion()
+    func updateProfile(profile: ProfileEntity, completion: @escaping () -> Void) {
+        guard let profileId = profile.id else {
+            print("Profile ID is nil")
             return
         }
         
+        let request: NSFetchRequest<ProfileEntity> = ProfileEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", profileId as CVarArg)
+
+        do {
+            let results = try context.fetch(request)
+            if let existingProfile = results.first {
+                existingProfile.name = profile.name
+                existingProfile.age = profile.age
+                existingProfile.gender = profile.gender
+                existingProfile.weight = profile.weight
+                existingProfile.kcal = profile.kcal
+                existingProfile.neutrification = profile.neutrification
+                existingProfile.bcs = profile.bcs
+                
+                try context.save()
+            } else {
+                print("Profile not found")
+            }
+        } catch {
+            print("Failed to update profile: \(error)")
+        }
+    }
+    
+    // CoreData에 프로필정보 삭제하기
+    func removeProfile(deleteTarget: ProfileEntity, completion: @escaping () -> Void) {
+
+        guard let deleteTargetId = deleteTarget.id else {
+            completion()
+            return
+        }
+
         let request = NSFetchRequest<NSManagedObject>(entityName: self.profileEntityModelName)
         
         do {
