@@ -111,36 +111,6 @@ private extension CreateAlarmViewController {
         NotificationService.shared.requestAlarmNotification(date: createAlarmView.datePickerView.date, title: "냥이야미", subTitle: "오늘도 맛있는 밥을 먹을게요", notificationId: notificationId, dataIndex: alarmManager.getAlarmList().count == 0 ? nil : alarmManager.getAlarmList().count, updateTarget: alarmData?.time)
         
         self.dismiss(animated: true)
-        
-        /**
-        if alarmData != nil {
-            alarmData?.isOn = true
-            alarmData?.time = createAlarmView.datePickerView.date
-            alarmData?.label = textFieldLabel
-            alarmData?.isAgain = switchButtonAgain
-            alarmData?.repeatDays = repeatDaysString
-            
-            alarmManager.updateAlarm(targetId: alarmData!.time!, newData: alarmData ?? AlarmEntity()) {
-                self.delegate?.updateAlarm()
-            }
-            
-        } else {
-            
-            alarmManager.saveAlarm(isOn: true,
-                                   time: createAlarmView.datePickerView.date,
-                                   label: textFieldLabel,
-                                   isAgain: switchButtonAgain,
-                                   repeatDays: repeatDaysString) {
-                self.delegate?.updateAlarm()
-            }
-            
-            notificationId = "\(createAlarmView.datePickerView.date)"
-        }
-        
-        NotificationService.shared.requestAlarmNotification(date: createAlarmView.datePickerView.date, title: "냥이야미", subTitle: "오늘도 맛있는 밥을 먹을게요", notificationId: notificationId, dataIndex: alarmManager.getAlarmList().count == 0 ? nil : alarmManager.getAlarmList().count, updateTarget: alarmData?.time)
-        
-        self.dismiss(animated: true)
-        */
     }
 }
 
