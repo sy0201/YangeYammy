@@ -75,49 +75,6 @@ final class AlarmDataManager {
         }
     }
     
-    // CoreData에 알람정보 삭제하기
-    func removeAlarm(deleteTarget: AlarmEntity, completion: @escaping () -> Void) {
-        guard let context = context else {
-            print("removeAlarm: context load error")
-            completion()
-            return
-        }
-        guard let targetId = deleteTarget.time else {
-            print("removeAlarm: remove target id error")
-            completion()
-            return
-        }
-        
-        let request = NSFetchRequest<NSManagedObject>(entityName: self.alarmEntityModelName)
-        request.predicate = NSPredicate(format: "time = %@", targetId as CVarArg)
-        
-        do {
-            guard let fetchData = try context.fetch(request) as? [AlarmEntity] else {
-                print("removeAlarm: fetch error")
-                completion()
-                return
-            }
-            
-            guard let data = fetchData.first else {
-                print("removeAlarm: data indexing error")
-                completion()
-                return
-            }
-            context.delete(data)
-            
-            do {
-                try context.save()
-                completion()
-                
-            } catch {
-                print("removeAlarm: context save error")
-                completion()
-            }
-        } catch {
-            print("removeAlarm: some error")
-        }
-    }
-    
     // CoreData에 알람정보 업데이트하기
     func updateAlarm(targetId: Date, newData: AlarmEntity, completion: @escaping () -> Void) {
         guard let context = context else {
@@ -187,6 +144,49 @@ final class AlarmDataManager {
             try context.save()
         } catch {
             print("Failed to update or add alarm: \(error)")
+        }
+    }
+    
+    // CoreData에 알람정보 삭제하기
+    func removeAlarm(deleteTarget: AlarmEntity, completion: @escaping () -> Void) {
+        guard let context = context else {
+            print("removeAlarm: context load error")
+            completion()
+            return
+        }
+        guard let targetId = deleteTarget.time else {
+            print("removeAlarm: remove target id error")
+            completion()
+            return
+        }
+        
+        let request = NSFetchRequest<NSManagedObject>(entityName: self.alarmEntityModelName)
+        request.predicate = NSPredicate(format: "time = %@", targetId as CVarArg)
+        
+        do {
+            guard let fetchData = try context.fetch(request) as? [AlarmEntity] else {
+                print("removeAlarm: fetch error")
+                completion()
+                return
+            }
+            
+            guard let data = fetchData.first else {
+                print("removeAlarm: data indexing error")
+                completion()
+                return
+            }
+            context.delete(data)
+            
+            do {
+                try context.save()
+                completion()
+                
+            } catch {
+                print("removeAlarm: context save error")
+                completion()
+            }
+        } catch {
+            print("removeAlarm: some error")
         }
     }
 }
