@@ -274,6 +274,7 @@ final class ProfileAView: BaseView {
     }
 
     func selectGender(gender: Gender) {
+        isGenderTapped = true
         setupButton(view: maleView, label: maleLabel, isGenderTapped: gender == .male)
         setupButton(view: femaleView, label: femaleLabel, isGenderTapped: gender == .female)
     }
@@ -281,25 +282,27 @@ final class ProfileAView: BaseView {
     private func setupButton(view: UIView, label: UILabel, isGenderTapped: Bool) {
         if isGenderTapped {
             view.backgroundColor = UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0)
-            label.textColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
+            label.textColor = .white
         } else {
             view.backgroundColor = .systemBackground
             label.textColor = UIColor(red: 189/255, green: 189/255, blue: 189/255, alpha: 1.0)
         }
     }
+
     
     func changeState() {
         let isSelected = isGenderTapped
-
-        maleLabel.font = isSelected ? .systemFont(ofSize: 16, weight: .medium) : .systemFont(ofSize: 16, weight: .bold)
-        femaleLabel.font = isSelected ? .systemFont(ofSize: 16, weight: .medium) : .systemFont(ofSize: 16, weight: .bold)
-
-        let textColor = isSelected ? UIColor(red: 189/255, green: 189/255, blue: 189/255, alpha: 1.0) : UIColor(red: 1/255, green: 0/255, blue: 0/255, alpha: 1.0)
+        
+        maleLabel.font = isSelected ? .systemFont(ofSize: 16, weight: .bold) : .systemFont(ofSize: 16, weight: .medium)
+        femaleLabel.font = isSelected ? .systemFont(ofSize: 16, weight: .bold) : .systemFont(ofSize: 16, weight: .medium)
+        
+        let textColor = isSelected ? UIColor(red: 1/255, green: 0/255, blue: 0/255, alpha: 1.0) : UIColor(red: 189/255, green: 189/255, blue: 189/255, alpha: 1.0)
         
         maleLabel.textColor = textColor
         femaleLabel.textColor = textColor
-
-        maleView.backgroundColor = isSelected ? .systemBackground : UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0)
-        femaleView.backgroundColor = isSelected ? .systemBackground : UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0)
+        
+        maleView.backgroundColor = isSelected ? UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0) : .systemBackground
+        femaleView.backgroundColor = isSelected ? UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0) : .systemBackground
     }
+
 }

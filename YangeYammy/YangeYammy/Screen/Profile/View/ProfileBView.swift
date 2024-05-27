@@ -160,13 +160,13 @@ final class ProfileBView: BaseView {
     
     var isNeutrificationTapped: Bool = false {
         didSet {
-            self.changeState()
+            self.changeNeutrificationState()
         }
     }
     
     var isBcsTapped: Bool = false {
         didSet {
-            self.selectBcsState()
+            self.changeBcsState()
         }
     }
     
@@ -373,11 +373,12 @@ final class ProfileBView: BaseView {
     }
     
     func selectNeutrification(neutrification: Neutrification) {
-        setupButton(view: yesView, label: yesLabel, isNeutrificationTapped: neutrification == .yes)
-        setupButton(view: noView, label: noLabel, isNeutrificationTapped: neutrification == .no)
+        isNeutrificationTapped = true
+        setupNeutrificationButton(view: yesView, label: yesLabel, isNeutrificationTapped: neutrification == .yes)
+        setupNeutrificationButton(view: noView, label: noLabel, isNeutrificationTapped: neutrification == .no)
     }
     
-    private func setupButton(view: UIView, label: UILabel, isNeutrificationTapped: Bool) {
+    private func setupNeutrificationButton(view: UIView, label: UILabel, isNeutrificationTapped: Bool) {
         if isNeutrificationTapped {
             print("isNeutrificationTapped\(isNeutrificationTapped)")
             view.backgroundColor = UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0)
@@ -388,7 +389,7 @@ final class ProfileBView: BaseView {
         }
     }
     
-    func changeState() {
+    func changeNeutrificationState() {
         let isSelected = isNeutrificationTapped
         
         yesLabel.font = isSelected ? .systemFont(ofSize: 16, weight: .medium) : .systemFont(ofSize: 16, weight: .bold)
@@ -406,16 +407,16 @@ final class ProfileBView: BaseView {
 
 extension ProfileBView {
     func selectBcs(bcs: BcsType) {
-        setupButton(view: bcs1View, label: bcs1Label, isBcsTapped: bcs == .bcs1)
-        setupButton(view: bcs2View, label: bcs2Label, isBcsTapped: bcs == .bcs2)
-        setupButton(view: bcs3View, label: bcs3Label, isBcsTapped: bcs == .bcs3)
-        setupButton(view: bcs4View, label: bcs4Label, isBcsTapped: bcs == .bcs4)
-        setupButton(view: bcs5View, label: bcs5Label, isBcsTapped: bcs == .bcs5)
+        isBcsTapped = true
+        setupBcsButton(view: bcs1View, label: bcs1Label, isBcsTapped: bcs == .bcs1)
+        setupBcsButton(view: bcs2View, label: bcs2Label, isBcsTapped: bcs == .bcs2)
+        setupBcsButton(view: bcs3View, label: bcs3Label, isBcsTapped: bcs == .bcs3)
+        setupBcsButton(view: bcs4View, label: bcs4Label, isBcsTapped: bcs == .bcs4)
+        setupBcsButton(view: bcs5View, label: bcs5Label, isBcsTapped: bcs == .bcs5)
     }
     
-    private func setupButton(view: UIView, label: UILabel, isBcsTapped: Bool) {
+    private func setupBcsButton(view: UIView, label: UILabel, isBcsTapped: Bool) {
         if isBcsTapped {
-            print("isBcsTapped\(isBcsTapped)")
             view.backgroundColor = UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0)
             label.textColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
         } else {
@@ -426,13 +427,21 @@ extension ProfileBView {
     
     func selectBcsState() {
         let isSelected = isBcsTapped
-        
+        bcs1View.backgroundColor = isSelected ? .systemBackground : UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0)
+        bcs2View.backgroundColor = isSelected ? .systemBackground : UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0)
+        bcs3View.backgroundColor = isSelected ? .systemBackground : UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0)
+        bcs4View.backgroundColor = isSelected ? .systemBackground : UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0)
+        bcs5View.backgroundColor = isSelected ? .systemBackground : UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0)
+    }
+    
+    func changeBcsState() {
+        let isSelected = isBcsTapped
         bcs1Label.font = isSelected ? .systemFont(ofSize: 16, weight: .medium) : .systemFont(ofSize: 16, weight: .bold)
         bcs2Label.font = isSelected ? .systemFont(ofSize: 16, weight: .medium) : .systemFont(ofSize: 16, weight: .bold)
         bcs3Label.font = isSelected ? .systemFont(ofSize: 16, weight: .medium) : .systemFont(ofSize: 16, weight: .bold)
         bcs4Label.font = isSelected ? .systemFont(ofSize: 16, weight: .medium) : .systemFont(ofSize: 16, weight: .bold)
         bcs5Label.font = isSelected ? .systemFont(ofSize: 16, weight: .medium) : .systemFont(ofSize: 16, weight: .bold)
-
+        
         let textColor = isSelected ? UIColor(red: 189/255, green: 189/255, blue: 189/255, alpha: 1.0) : UIColor(red: 1/255, green: 0/255, blue: 0/255, alpha: 1.0)
         
         bcs1Label.textColor = textColor
@@ -441,10 +450,6 @@ extension ProfileBView {
         bcs4Label.textColor = textColor
         bcs5Label.textColor = textColor
         
-        bcs1View.backgroundColor = isSelected ? .systemBackground : UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0)
-        bcs2View.backgroundColor = isSelected ? .systemBackground : UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0)
-        bcs3View.backgroundColor = isSelected ? .systemBackground : UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0)
-        bcs4View.backgroundColor = isSelected ? .systemBackground : UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0)
-        bcs5View.backgroundColor = isSelected ? .systemBackground : UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0)
+
     }
 }

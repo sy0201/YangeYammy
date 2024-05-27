@@ -83,36 +83,27 @@ private extension ProfileContentViewController {
     func setupNavigationBar() {
         self.title = "Profile"
         
-        let editBarButton = UIBarButtonItem(title: "수정",
+        let deleteBarButton = UIBarButtonItem(title: "삭제",
                                             style: .plain,
                                             target: self,
-                                            action: #selector(editBarButtonTapped))
+                                            action: #selector(deleteBarButtonTapped))
         
         let profileSaveBarButton = UIBarButtonItem(title: "저장",
                                             style: .plain,
                                             target: self,
                                             action: #selector(saveBarButtonTapped))
         
-        editBarButton.tintColor = .systemGreen
+        deleteBarButton.tintColor = .systemGreen
         profileSaveBarButton.tintColor = .systemGreen
         
-        self.navigationItem.leftBarButtonItem = editBarButton
+        self.navigationItem.leftBarButtonItem = deleteBarButton
         self.navigationItem.rightBarButtonItem = profileSaveBarButton
     }
     
-    @objc func editBarButtonTapped() {
+    @objc func deleteBarButtonTapped() {
         self.dismiss(animated: true)
-        let profileAViewController = ProfileAViewController()
-        profileAViewController.modalPresentationStyle = .fullScreen
-        present(profileAViewController, animated: true)
-    }
-    
-    @objc func saveBarButtonTapped() {
         if let profileAViewController = dataViewControllers.first as? ProfileAViewController,
-           let profileBViewController = dataViewControllers.last as? ProfileBViewController,
-           profileAViewController.isProfileInfoComplete() && profileBViewController.isProfileInfoComplete() {
-            
-            // ProfileAViewController에서 프로필 정보 가져오기
+           let profileBViewController = dataViewControllers.last as? ProfileBViewController {
             let profileImage = profileAViewController.profileAView.profileImage.image?.toBase64()
             let gender = profileAViewController.genderType?.rawValue ?? ""
             let name = profileAViewController.profileAView.name.text ?? ""
@@ -120,11 +111,44 @@ private extension ProfileContentViewController {
             let weight = Float(profileAViewController.profileAView.weight.text ?? "") ?? 0.0
             let kcal = Int(profileAViewController.profileAView.kcal.text ?? "") ?? 0
             
-            // ProfileBViewController에서 프로필 정보 가져오기
             let neutrification = profileBViewController.neutrificationType?.rawValue ?? ""
             let bcs = profileBViewController.bcsType?.rawValue ?? 0
+            let existingProfiles = profileDataManager.getProfileList()
             
-            // 기존 프로필 정보 가져오기
+            if let profileData = profileData {
+                // 기존 프로필이 있는 경우 업데이트
+                profileData.profileImage = profileImage
+                profileData.gender = gender
+                profileData.name = name
+                profileData.age = age
+                profileData.weight = weight
+                profileData.kcal = Int16(kcal)
+                profileData.neutrification = neutrification
+                profileData.bcs = Int16(bcs)
+                
+                profileDataManager.removeProfile(deleteTarget: profileData) {
+                    self.profileListView.collectionView.reloadData()
+                    
+                }
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
+    
+    @objc func saveBarButtonTapped() {
+        if let profileAViewController = dataViewControllers.first as? ProfileAViewController,
+           let profileBViewController = dataViewControllers.last as? ProfileBViewController,
+           profileAViewController.isProfileInfoComplete() && profileBViewController.isProfileInfoComplete() {
+            
+            let profileImage = profileAViewController.profileAView.profileImage.image?.toBase64()
+            let gender = profileAViewController.genderType?.rawValue ?? ""
+            let name = profileAViewController.profileAView.name.text ?? ""
+            let age = profileAViewController.profileAView.age.text ?? ""
+            let weight = Float(profileAViewController.profileAView.weight.text ?? "") ?? 0.0
+            let kcal = Int(profileAViewController.profileAView.kcal.text ?? "") ?? 0
+
+            let neutrification = profileBViewController.neutrificationType?.rawValue ?? ""
+            let bcs = profileBViewController.bcsType?.rawValue ?? 0
             let existingProfiles = profileDataManager.getProfileList()
             
             if let profileData = profileData {
