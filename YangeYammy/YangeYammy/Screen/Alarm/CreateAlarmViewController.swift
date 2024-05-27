@@ -77,38 +77,35 @@ private extension CreateAlarmViewController {
     @objc func saveBarButtonTapped() {
         let switchButtonAgain = switchAgain
         let repeatDaysString = selectedDays.map { $0.rawValue }.joined(separator: ", ")
+        let alarmDate = createAlarmView.datePickerView.date
+        let alarmLabel = textFieldLabel
+        let alarmRepeatDays = repeatDaysString
         
-        if let alarmData = alarmData {
+        guard let context = alarmManager.context else { return }
+        
+        if var alarmData = alarmData {
+            // 알람 데이터가 이미 존재하면 업데이트
             alarmData.isOn = true
-            alarmData.time = createAlarmView.datePickerView.date
-            alarmData.label = textFieldLabel
+            alarmData.time = alarmDate
+            alarmData.label = alarmLabel
             alarmData.isAgain = switchButtonAgain
-            alarmData.repeatDays = repeatDaysString
-            
-            alarmManager.updateAlarm(targetId: alarmData.time!, newData: alarmData) {
-                self.delegate?.updateAlarm(alarmData)
-            }
+            alarmData.repeatDays = alarmRepeatDays
         } else {
-            guard let context = alarmManager.context else { return }
-            let newAlarm = AlarmEntity(context: context)
-            newAlarm.isOn = true
-            newAlarm.time = createAlarmView.datePickerView.date
-            newAlarm.label = textFieldLabel
-            newAlarm.isAgain = switchButtonAgain
-            newAlarm.repeatDays = repeatDaysString
-            
-            alarmManager.saveAlarm(isOn: true,
-                                   time: newAlarm.time!,
-                                   label: newAlarm.label!,
-                                   isAgain: newAlarm.isAgain,
-                                   repeatDays: newAlarm.repeatDays ?? "") {
-                self.delegate?.updateAlarm(newAlarm)
-            }
-            
-            notificationId = "\(createAlarmView.datePickerView.date)"
+            // 새로운 알람 데이터 생성
+            alarmData = AlarmEntity(context: context)
+            alarmData?.isOn = true
+            alarmData?.time = alarmDate
+            alarmData?.label = alarmLabel
+            alarmData?.isAgain = switchButtonAgain
+            alarmData?.repeatDays = alarmRepeatDays
         }
         
-        NotificationService.shared.requestAlarmNotification(date: createAlarmView.datePickerView.date, title: "냥이야미", subTitle: "오늘도 맛있는 밥을 먹을게요", notificationId: notificationId, dataIndex: alarmManager.getAlarmList().count == 0 ? nil : alarmManager.getAlarmList().count, updateTarget: alarmData?.time)
+        if let alarmData = alarmData {
+            alarmManager.updateOrAddAlarm(alarmData)
+            self.delegate?.updateAlarm(alarmData)
+        }
+        
+        NotificationService.shared.requestAlarmNotification(date: alarmDate, title: "냥이야미", subTitle: "오늘도 맛있는 밥을 먹을게요", notificationId: "\(alarmDate)", dataIndex: alarmManager.getAlarmList().count == 0 ? nil : alarmManager.getAlarmList().count, updateTarget: alarmData?.time)
         
         self.dismiss(animated: true)
     }
