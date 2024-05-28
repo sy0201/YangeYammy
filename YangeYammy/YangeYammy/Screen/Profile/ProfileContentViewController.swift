@@ -66,13 +66,10 @@ final class ProfileContentViewController: UIViewController {
         
         let selectedGender = Gender(rawValue: gender) ?? .female
         vc1.configure(with: profile, gender: selectedGender)
-        print("selectedGender \(selectedGender)")
         
         if let neutrification = neutrification,
            let bcsType = bcsType {
             vc2.configure(with: profile, neutrification: neutrification, bcs: bcsType)
-        } else {
-            //vc2.configure(with: profile, neutrification: neutrification ?? .no , bcs: bcsType ?? .bcs1)
         }
     }
 }
@@ -101,36 +98,12 @@ private extension ProfileContentViewController {
     }
     
     @objc func deleteBarButtonTapped() {
-        self.dismiss(animated: true)
-        if let profileAViewController = dataViewControllers.first as? ProfileAViewController,
-           let profileBViewController = dataViewControllers.last as? ProfileBViewController {
-            let profileImage = profileAViewController.profileAView.profileImage.image?.toBase64()
-            let gender = profileAViewController.genderType?.rawValue ?? ""
-            let name = profileAViewController.profileAView.name.text ?? ""
-            let age = profileAViewController.profileAView.age.text ?? ""
-            let weight = Float(profileAViewController.profileAView.weight.text ?? "") ?? 0.0
-            let kcal = Int(profileAViewController.profileAView.kcal.text ?? "") ?? 0
-            
-            let neutrification = profileBViewController.neutrificationType?.rawValue ?? ""
-            let bcs = profileBViewController.bcsType?.rawValue ?? 0
-            let existingProfiles = profileDataManager.getProfileList()
-            
-            if let profileData = profileData {
-                // 기존 프로필이 있는 경우 업데이트
-                profileData.profileImage = profileImage
-                profileData.gender = gender
-                profileData.name = name
-                profileData.age = age
-                profileData.weight = weight
-                profileData.kcal = Int16(kcal)
-                profileData.neutrification = neutrification
-                profileData.bcs = Int16(bcs)
-                
-                profileDataManager.removeProfile(deleteTarget: profileData) {
-                    self.profileListView.collectionView.reloadData()
-                    
+        if let profileData = profileData {
+            profileDataManager.removeProfile(deleteTarget: profileData) {
+                self.delegate?.didSelectProfile(profileData)
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true, completion: nil)
                 }
-                self.dismiss(animated: true, completion: nil)
             }
         }
     }
@@ -165,16 +138,18 @@ private extension ProfileContentViewController {
                 profileDataManager.updateProfile(profile: profileData) {
                     self.delegate?.didSelectProfile(profileData)
                     self.setupRandomAlarm(age: age)
-                    self.profileListView.collectionView.reloadData()
+                    DispatchQueue.main.async {
+                        self.dismiss(animated: true, completion: nil)
+                    }
                 }
-                self.dismiss(animated: true, completion: nil)
                 
             } else {
                 // 새로운 프로필 생성
-                profileDataManager.saveProfile(profileImage: profileImage, gender: gender, name: name, age: age, weight: weight, kcal: Int(kcal), neutrification: neutrification, bcs: Int(bcs), completion: {
-                    self.profileListView.collectionView.reloadData()
-                })
-                self.dismiss(animated: true, completion: nil)
+                profileDataManager.saveProfile(profileImage: profileImage, gender: gender, name: name, age: age, weight: weight, kcal: Int(kcal), neutrification: neutrification, bcs: Int(bcs)) {
+                    DispatchQueue.main.async {
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                }
             }
         } else {
             // 프로필 정보가 완전하지 않을 때 경고 표시

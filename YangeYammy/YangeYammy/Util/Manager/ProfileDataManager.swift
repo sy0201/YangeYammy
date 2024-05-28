@@ -22,21 +22,21 @@ final class ProfileDataManager {
     let context: NSManagedObjectContext
     let profileEntityModelName = "ProfileEntity"
     
-    // CoreData에 저장된 프로필정보 가져오기
+    // CoreData에 저장된 프로필정보 읽어오기
     func getProfileList() -> [ProfileEntity] {
-        var data: [ProfileEntity] = []
-
+        var profileData: [ProfileEntity] = []
+        
         let request = NSFetchRequest<ProfileEntity>(entityName: self.profileEntityModelName)
         let descriptor = NSSortDescriptor(key: "name", ascending: true)
         request.sortDescriptors = [descriptor]
         
         do {
-            data = try context.fetch(request)
+            profileData = try context.fetch(request)
         } catch {
             print("Error fetching profile data: \(error)")
         }
         
-        return data
+        return profileData
     }
     
     func saveProfileDetail(name: String) {
@@ -82,10 +82,11 @@ final class ProfileDataManager {
         }
     }
     
-    // CoreData에 알람정보 저장하기
+    // CoreData에 프로필정보 저장하기
     func saveProfile(profileImage: String?, gender: String?, name: String?, age: String?, weight: Float?, kcal: Int?, neutrification: String?, bcs: Int?, completion: @escaping () -> Void) {
-        //let context = self.context
         guard let entity = NSEntityDescription.entity(forEntityName: self.profileEntityModelName, in: context) else {
+            print("Failed to create entity description for \(self.profileEntityModelName)")
+            completion()
             return
         }
         
@@ -100,26 +101,25 @@ final class ProfileDataManager {
         newProfile.neutrification = neutrification
         newProfile.bcs = Int16(bcs ?? 0)
         
-        if context.hasChanges {
-            do {
-                try context.save()
-                completion()
-            } catch {
-                print("saveProfile: context save error")
-                completion()
-            }
+        do {
+            try context.save()
+            completion()
+        } catch {
+            print("Failed to save context: \(error)")
+            completion()
         }
     }
     
+    // CoreData에 프로필정보 수정하기
     func updateProfile(profile: ProfileEntity, completion: @escaping () -> Void) {
-        guard let profileId = profile.id else {
-            print("Profile ID is nil")
+        guard let profileName = profile.name else {
+            print("Profile name is nil")
             return
         }
         
         let request: NSFetchRequest<ProfileEntity> = ProfileEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %@", profileId as CVarArg)
-
+        request.predicate = NSPredicate(format: "name == %@", profileName)
+        
         do {
             let results = try context.fetch(request)
             if let existingProfile = results.first {
@@ -132,23 +132,26 @@ final class ProfileDataManager {
                 existingProfile.bcs = profile.bcs
                 
                 try context.save()
+                completion()
             } else {
                 print("Profile not found")
+                completion()
             }
         } catch {
             print("Failed to update profile: \(error)")
+            completion()
         }
     }
     
     // CoreData에 프로필정보 삭제하기
     func removeProfile(deleteTarget: ProfileEntity, completion: @escaping () -> Void) {
-
-        guard let deleteTargetId = deleteTarget.id else {
+        guard let deleteTargetName = deleteTarget.name else {
             completion()
             return
         }
 
         let request = NSFetchRequest<NSManagedObject>(entityName: self.profileEntityModelName)
+        request.predicate = NSPredicate(format: "name", deleteTargetName as CVarArg)
         
         do {
             guard let fetchData = try context.fetch(request) as? [ProfileEntity] else {

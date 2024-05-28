@@ -100,9 +100,12 @@ extension ProfileListViewController: UICollectionViewDataSource, UICollectionVie
 
 extension ProfileListViewController: ProfileSelectionDelegate {
     func didSelectProfile(_ profile: ProfileEntity) {
-        profileManager.updateProfile(profile: profile) {
-            
+        if let index = profileManager.getProfileList().firstIndex(where: { $0.id == profile.id }) {
+            profileManager.updateProfile(profile: profile) {
+                DispatchQueue.main.async {
+                    self.profileListView.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+                }
+            }
         }
-        profileListView.collectionView.reloadData()
     }
 }
