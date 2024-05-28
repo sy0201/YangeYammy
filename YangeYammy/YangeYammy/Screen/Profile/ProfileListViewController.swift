@@ -106,6 +106,11 @@ extension ProfileListViewController: ProfileSelectionDelegate {
                     self.profileListView.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
                 }
             }
+        } else {
+            // 새로운 프로필을 추가하는 경우
+            DispatchQueue.main.async {
+                self.profileListView.collectionView.reloadData()
+            }
         }
     }
 }

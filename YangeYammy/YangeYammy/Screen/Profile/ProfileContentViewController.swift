@@ -145,7 +145,10 @@ private extension ProfileContentViewController {
                 
             } else {
                 // 새로운 프로필 생성
-                profileDataManager.saveProfile(profileImage: profileImage, gender: gender, name: name, age: age, weight: weight, kcal: Int(kcal), neutrification: neutrification, bcs: Int(bcs)) {
+                profileDataManager.saveProfile(profileImage: profileImage, gender: gender, name: name, age: age, weight: weight, kcal: Int(kcal), neutrification: neutrification, bcs: Int(bcs)) { newProfile in
+                    if let newProfile = newProfile {
+                        self.delegate?.didSelectProfile(newProfile)
+                    }
                     DispatchQueue.main.async {
                         self.dismiss(animated: true, completion: nil)
                     }
