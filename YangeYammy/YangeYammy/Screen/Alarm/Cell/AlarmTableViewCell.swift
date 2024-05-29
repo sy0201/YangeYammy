@@ -73,7 +73,6 @@ extension AlarmTableViewCell {
         meridiemLabel.text = setupTimeString(time: time).1
         descriptionLabel.text = alarmData.label
         setSwitchButton.isOn = alarmData.isOn
-        print("alarmData.isOn \(alarmData.isOn)")
     }
     
     func setupTimeString(time: Date) -> (String, String){

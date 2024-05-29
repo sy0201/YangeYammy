@@ -49,10 +49,10 @@ final class ProfileContentViewController: UIViewController {
         setupNavigationBar()
         setupDelegate()
         setConstraint()
-        setupData()
+        setupPageVC()
     }
     
-    func setupData() {
+    func setupPageVC() {
         if let firstVC = dataViewControllers.first {
             pageViewController.setViewControllers([firstVC],
                                                   direction: .forward,
@@ -63,7 +63,6 @@ final class ProfileContentViewController: UIViewController {
     
     func configure(with profile: ProfileEntity, gender: String, neutrification: Neutrification?, bcsType: BcsType?) {
         self.profileData = profile
-        
         let selectedGender = Gender(rawValue: gender) ?? .female
         vc1.configure(with: profile, gender: selectedGender)
         
@@ -100,7 +99,7 @@ private extension ProfileContentViewController {
     @objc func deleteBarButtonTapped() {
         if let profileData = profileData {
             profileDataManager.removeProfile(deleteTarget: profileData) {
-                self.delegate?.didSelectProfile(profileData)
+                self.delegate?.editProfile(profileData)
                 DispatchQueue.main.async {
                     self.dismiss(animated: true, completion: nil)
                 }
@@ -136,18 +135,20 @@ private extension ProfileContentViewController {
                 profileData.bcs = Int16(bcs)
                 
                 profileDataManager.updateProfile(profile: profileData) {
-                    self.delegate?.didSelectProfile(profileData)
-                    self.setupRandomAlarm(age: age)
                     DispatchQueue.main.async {
-                        self.dismiss(animated: true, completion: nil)
+                        self.delegate?.editProfile(profileData)
                     }
                 }
                 
             } else {
                 // 새로운 프로필 생성
-                profileDataManager.saveProfile(profileImage: profileImage ?? "", gender: gender, name: name, age: age, weight: weight, kcal: Int(kcal), neutrification: neutrification, bcs: Int(bcs)) {
-                    self.setupRandomAlarm(age: age)
-                    self.dismiss(animated: true, completion: nil)
+                profileDataManager.saveProfile(profileImage: profileImage ?? "", gender: gender, name: name, age: age, weight: weight, kcal: Int(kcal), neutrification: neutrification, bcs: Int(bcs)) { newProfile in
+                    if let newProfile = newProfile {
+                        self.delegate?.saveNewProfile(newProfile)
+                        self.setupRandomAlarm(age: age)
+                    } else {
+                        print("Failed to save new profile")
+                    }
                 }
             }
         } else {
@@ -157,6 +158,7 @@ private extension ProfileContentViewController {
             alertController.addAction(okAction)
             present(alertController, animated: true, completion: nil)
         }
+        self.dismiss(animated: true, completion: nil)
     }
     
     func setConstraint() {

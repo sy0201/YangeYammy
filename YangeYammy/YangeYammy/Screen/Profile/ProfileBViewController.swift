@@ -34,10 +34,10 @@ final class ProfileBViewController: UIViewController {
     
     func configure(with profile: ProfileEntity, neutrification: Neutrification, bcs: BcsType) {
         self.neutrificationType = neutrification
-        profileBView.selectNeutrification(neutrification: Neutrification(rawValue: neutrificationType?.rawValue ?? "") ?? .no)
+        profileBView.selectNeutrification(neutrification: Neutrification(rawValue: neutrification.rawValue) ?? .no)
         
         self.bcsType = bcs
-        profileBView.selectBcs(bcs: BcsType(rawValue: bcsType?.rawValue ?? 0) ?? .bcs1)
+        profileBView.selectBcs(bcs: BcsType(rawValue: bcs.rawValue) ?? .bcs1)
     }
 }
 

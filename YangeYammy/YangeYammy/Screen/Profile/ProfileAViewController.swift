@@ -58,7 +58,7 @@ final class ProfileAViewController: UIViewController {
         }
         
         self.genderType = gender
-        profileAView.selectGender(gender: Gender(rawValue: (genderType?.rawValue)!) ?? .female)
+        profileAView.selectGender(gender: Gender(rawValue: gender.rawValue) ?? .female)
         profileAView.name.text = profile.name
         profileAView.age.text = profile.age
         profileAView.weight.text = String(profile.weight)
