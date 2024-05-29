@@ -137,6 +137,7 @@ private extension ProfileContentViewController {
                 profileDataManager.updateProfile(profile: profileData) {
                     DispatchQueue.main.async {
                         self.delegate?.editProfile(profileData)
+                        self.dismiss(animated: true, completion: nil)
                     }
                 }
                 
@@ -146,6 +147,9 @@ private extension ProfileContentViewController {
                     if let newProfile = newProfile {
                         self.delegate?.saveNewProfile(newProfile)
                         self.setupRandomAlarm(age: age)
+                        DispatchQueue.main.async {
+                            self.dismiss(animated: true, completion: nil)
+                        }
                     } else {
                         print("Failed to save new profile")
                     }
@@ -158,7 +162,6 @@ private extension ProfileContentViewController {
             alertController.addAction(okAction)
             present(alertController, animated: true, completion: nil)
         }
-        self.dismiss(animated: true, completion: nil)
     }
     
     func setConstraint() {

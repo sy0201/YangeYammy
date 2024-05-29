@@ -37,49 +37,6 @@ final class ProfileDataManager {
         return profileData
     }
     
-    func saveProfileDetail(name: String) {
-        let profile = fetchProfile()
-        profile.name = name
-        saveContext()
-    }
-    
-    func saveProfileDetail(age: String) {
-        let profile = fetchProfile()
-        profile.age = age
-        saveContext()
-    }
-    
-    func saveProfileDetail(weight: Float) {
-        let profile = fetchProfile()
-        profile.weight = weight
-        saveContext()
-    }
-    
-    func saveProfileDetail(kcal: Int) {
-        let profile = fetchProfile()
-        profile.kcal = Int16(kcal)
-        saveContext()
-    }
-    
-    private func fetchProfile() -> ProfileEntity {
-        let request: NSFetchRequest<ProfileEntity> = ProfileEntity.fetchRequest()
-        if let profiles = try? context?.fetch(request), let firstProfile = profiles.first {
-            return firstProfile
-        } else {
-            return ProfileEntity(context: context!)
-        }
-    }
-    
-    private func saveContext() {
-        if ((context?.hasChanges) != nil) {
-            do {
-                try context!.save()
-            } catch {
-                print("saveContext: context save error - \(error)")
-            }
-        }
-    }
-    
     // CoreData에 프로필정보 저장하기
     func saveProfile(profileImage: String, gender: String, name: String, age: String, weight: Float, kcal: Int, neutrification: String, bcs: Int, completion: @escaping (ProfileEntity?) -> Void) {
         guard let context = context else {
@@ -88,16 +45,7 @@ final class ProfileDataManager {
             return
         }
         
-        guard let entity = NSEntityDescription.entity(forEntityName: self.profileEntityModelName, in: context) else {
-            completion(nil)
-            return
-        }
-        guard let newProfile = NSManagedObject(entity: entity, insertInto: context) as? ProfileEntity else {
-            print("saveProfile: entity insert error")
-            completion(nil)
-            return
-        }
-        
+        let newProfile = ProfileEntity(context: context)
         newProfile.profileImage = profileImage
         newProfile.gender = gender
         newProfile.name = name

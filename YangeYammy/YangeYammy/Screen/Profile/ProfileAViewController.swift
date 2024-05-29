@@ -9,6 +9,8 @@ import UIKit
 import Photos
 
 final class ProfileAViewController: UIViewController {
+    var profileData: ProfileEntity?
+
     let profileDataManager = ProfileDataManager.shared
     var genderType: Gender?
     var imagePicker = UIImagePickerController()
@@ -168,21 +170,23 @@ extension ProfileAViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let profile = profileData else { return }
+
         switch textField {
         case profileAView.name:
-            profileDataManager.saveProfileDetail(name: textField.text ?? "")
+            profile.name = textField.text ?? ""
             
         case profileAView.age:
-            profileDataManager.saveProfileDetail(age: textField.text ?? "")
+            profile.age = textField.text ?? ""
             
         case profileAView.weight:
             if let weightText = textField.text, let weight = Float(weightText) {
-                profileDataManager.saveProfileDetail(weight: weight)
+                profile.weight = weight
             }
             
         case profileAView.kcal:
             if let kcalText = textField.text, let kcal = Int(kcalText) {
-                profileDataManager.saveProfileDetail(kcal: kcal)
+                profile.kcal = Int16(kcal)
             }
             
         default:
