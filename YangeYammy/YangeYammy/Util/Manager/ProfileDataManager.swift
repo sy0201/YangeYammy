@@ -81,17 +81,20 @@ final class ProfileDataManager {
     }
     
     // CoreData에 프로필정보 저장하기
-    func saveProfile(profileImage: String, gender: String, name: String, age: String, weight: Float, kcal: Int, neutrification: String, bcs: Int, completion: @escaping () -> Void) {
+    func saveProfile(profileImage: String, gender: String, name: String, age: String, weight: Float, kcal: Int, neutrification: String, bcs: Int, completion: @escaping (ProfileEntity?) -> Void) {
         guard let context = context else {
             print("saveProfile: context load error")
+            completion(nil)
             return
         }
         
         guard let entity = NSEntityDescription.entity(forEntityName: self.profileEntityModelName, in: context) else {
+            completion(nil)
             return
         }
         guard let newProfile = NSManagedObject(entity: entity, insertInto: context) as? ProfileEntity else {
             print("saveProfile: entity insert error")
+            completion(nil)
             return
         }
         
@@ -107,10 +110,10 @@ final class ProfileDataManager {
         if context.hasChanges {
             do {
                 try context.save()
-                completion()
+                completion(newProfile)
             } catch {
                 print("saveProfile: context save error")
-                completion()
+                completion(nil)
             }
         }
     }
@@ -119,9 +122,14 @@ final class ProfileDataManager {
     func updateProfile(profile: ProfileEntity, completion: @escaping () -> Void) {
         guard let context = context else { return }
         
-        let request = NSFetchRequest<ProfileEntity>(entityName: self.profileEntityModelName)
-        request.predicate = NSPredicate(format: "name = %@", profile.name! as CVarArg)
+        guard let name = profile.name else {
+            print("Profile name is nil")
+            return
+        }
         
+        let request = NSFetchRequest<ProfileEntity>(entityName: self.profileEntityModelName)
+        request.predicate = NSPredicate(format: "name = %@", name)
+
         do {
             if let fetchedProfiles = try context.fetch(request).first {
                 fetchedProfiles.profileImage = profile.profileImage
@@ -144,8 +152,10 @@ final class ProfileDataManager {
                 newProfile.bcs = profile.bcs
             }
             try context.save()
+            completion()
         } catch {
             print("Failed to update profile: \(error)")
+            completion()
         }
     }
     

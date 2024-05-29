@@ -20,5 +20,6 @@ protocol LabelTableViewCellDelegate: AnyObject {
 }
 
 protocol ProfileSelectionDelegate: AnyObject {
-    func didSelectProfile(_ profile: ProfileEntity)
+    func saveNewProfile(_ profile: ProfileEntity)
+    func editProfile(_ profile: ProfileEntity)
 }

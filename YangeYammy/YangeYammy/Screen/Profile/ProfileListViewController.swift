@@ -38,14 +38,12 @@ private extension ProfileListViewController {
     }
     
     @objc func addBarButtonTapped() {
-        if profileContentViewController == nil {
-            profileContentViewController = ProfileContentViewController()
-        }
+        let profileContentViewController = ProfileContentViewController()
+        profileContentViewController.delegate = self
         
-        if let profileContentViewController = profileContentViewController {
-            let navigationController = UINavigationController(rootViewController: profileContentViewController)
-            present(navigationController, animated: true, completion: nil)
-        }
+        let navigationController = UINavigationController(rootViewController: profileContentViewController)
+
+        present(navigationController, animated: true, completion: nil)
     }
     
     func setupCollectionView() {
@@ -81,8 +79,9 @@ extension ProfileListViewController: UICollectionViewDataSource, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let profileData = profileManager.getProfileList()[indexPath.row]
         let profileDetailVC = ProfileContentViewController()
+        let profileData = profileManager.getProfileList()[indexPath.row]
+        profileDetailVC.profileData = profileData
         profileDetailVC.delegate = self
         
         let gender = Gender(rawValue: profileData.gender ?? "") ?? .female
@@ -90,7 +89,7 @@ extension ProfileListViewController: UICollectionViewDataSource, UICollectionVie
         let selectedBcsType = BcsType(rawValue: Int(profileData.bcs)) ?? .bcs1
         
         profileDetailVC.configure(with: profileData, gender: gender.rawValue, neutrification: selectedNeutrification, bcsType: selectedBcsType)
-
+        
         let navigationController = UINavigationController(rootViewController: profileDetailVC)
         present(navigationController, animated: true, completion: nil)
     }
@@ -99,7 +98,13 @@ extension ProfileListViewController: UICollectionViewDataSource, UICollectionVie
 // MARK: - ProfileSelectionDelegate
 
 extension ProfileListViewController: ProfileSelectionDelegate {
-    func didSelectProfile(_ profile: ProfileEntity) {
+    func saveNewProfile(_ profile: ProfileEntity) {
+        DispatchQueue.main.async {
+            self.profileListView.collectionView.reloadData()
+        }
+    }
+    
+    func editProfile(_ profile: ProfileEntity) {
         if let index = profileManager.getProfileList().firstIndex(where: { $0.id == profile.id }) {
             profileManager.updateProfile(profile: profile) {
                 DispatchQueue.main.async {
