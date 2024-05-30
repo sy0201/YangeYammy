@@ -9,9 +9,8 @@ import UIKit
 import Photos
 
 final class ProfileAViewController: UIViewController {
-    var profileData: ProfileEntity?
-
     let profileDataManager = ProfileDataManager.shared
+    var profileData: ProfileEntity?
     var genderType: Gender?
     var imagePicker = UIImagePickerController()
 

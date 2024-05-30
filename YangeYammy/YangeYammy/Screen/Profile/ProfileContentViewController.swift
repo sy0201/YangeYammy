@@ -121,8 +121,7 @@ private extension ProfileContentViewController {
 
             let neutrification = profileBViewController.neutrificationType?.rawValue ?? ""
             let bcs = profileBViewController.bcsType?.rawValue ?? 0
-            let existingProfiles = profileDataManager.getProfileList()
-            
+
             if let profileData = profileData {
                 // 기존 프로필이 있는 경우 업데이트
                 profileData.profileImage = profileImage
