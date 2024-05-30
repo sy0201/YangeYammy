@@ -36,6 +36,7 @@ final class CreateAlarmView: BaseView {
     }
     
     override func setupUI() {
+        tableView.separatorInset.right = 20
         containerView.backgroundColor = .white
         addSubview(containerView)
         containerView.addSubviews([datePickerView,

@@ -23,6 +23,7 @@ final class AlarmView: BaseView {
     }
     
     override func setupUI() {
+        tableView.separatorInset.right = 20
         addSubview(containerView)
         containerView.addSubview(tableView)
     }
