@@ -22,6 +22,7 @@ final class SetLabelTableViewCell: UITableViewCell, ReuseIdentifying {
     let textField: UITextField = {
         let textField = UITextField()
         textField.textAlignment = .right
+        textField.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         
         let attributedPlaceholder = NSAttributedString(
             string: "알람",
