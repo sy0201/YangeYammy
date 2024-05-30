@@ -42,6 +42,7 @@ final class NotificationService: NSObject {
         content.title = title
         content.subtitle = subTitle
         content.categoryIdentifier = "Alarm"
+        content.sound = UNNotificationSound.default
         
         content.userInfo = ["updateTarget": dataIndex ?? -1]
         
