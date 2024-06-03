@@ -75,7 +75,7 @@ final class NotificationService: NSObject {
                 dateComponents = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: getCurrentDateFromSimulator(date: date))
                 
                 let _ = alarmManager.getAlarmList().map { data in
-                    var newData = data
+                    let newData = data
                     
                     if updateTarget == data.time {
                         newData.time = date
