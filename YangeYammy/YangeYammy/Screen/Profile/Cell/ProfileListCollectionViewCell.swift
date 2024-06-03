@@ -12,10 +12,11 @@ final class ProfileListCollectionViewCell: UICollectionViewCell, ReuseIdentifyin
     
     var profileImage: UIImageView = {
         let profileImage = UIImageView()
-        profileImage.contentMode = .scaleAspectFit
+        profileImage.contentMode = .scaleToFill
         profileImage.tintColor = .lightGray
-        profileImage.layer.masksToBounds = true
         profileImage.isUserInteractionEnabled = true
+        profileImage.layer.borderColor = CGColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1.0)
+        profileImage.layer.borderWidth = 1
         return profileImage
     }()
     
@@ -31,9 +32,9 @@ final class ProfileListCollectionViewCell: UICollectionViewCell, ReuseIdentifyin
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        profileImage.layer.cornerRadius = 25
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        profileImage.layer.cornerRadius = profileImage.frame.width / 2
         profileImage.clipsToBounds = true
     }
     
