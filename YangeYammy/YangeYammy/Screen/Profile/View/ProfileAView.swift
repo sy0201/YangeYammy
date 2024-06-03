@@ -15,9 +15,12 @@ final class ProfileAView: BaseView {
         let profileImage = UIImageView()
         profileImage.tintColor = .lightGray
         profileImage.contentMode = .scaleAspectFit
-        profileImage.layer.masksToBounds = true
         profileImage.image = UIImage(systemName: "cat")
         profileImage.isUserInteractionEnabled = true
+        profileImage.layer.borderColor = CGColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1.0)
+        profileImage.layer.borderWidth = 1
+        profileImage.layer.cornerRadius = profileImage.frame.width / 2
+        profileImage.clipsToBounds = true
         return profileImage
     }()
     let editButton = UIButton()
@@ -67,6 +70,7 @@ final class ProfileAView: BaseView {
     var name: UITextField = {
         let name = UITextField()
         name.borderStyle = .roundedRect
+        name.keyboardType = .default
         name.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1.0)
         name.attributedPlaceholder = NSAttributedString(string: "이름을 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 189/255, green: 189/255, blue: 189/255, alpha: 1.0)])
 
@@ -76,6 +80,7 @@ final class ProfileAView: BaseView {
     var age: UITextField = {
         let age = UITextField()
         age.borderStyle = .roundedRect
+        age.keyboardType = .numberPad
         age.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1.0)
         age.attributedPlaceholder = NSAttributedString(string: "나이를 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 189/255, green: 189/255, blue: 189/255, alpha: 1.0)])
         
@@ -88,8 +93,9 @@ final class ProfileAView: BaseView {
     var weight: UITextField = {
         let weight = UITextField()
         weight.borderStyle = .roundedRect
+        weight.keyboardType = .numbersAndPunctuation
         weight.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1.0)
-        weight.attributedPlaceholder = NSAttributedString(string: "몸무게를 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 189/255, green: 189/255, blue: 189/255, alpha: 1.0)])
+        weight.attributedPlaceholder = NSAttributedString(string: "몸무게를 입력해주세요. 예시) 3.0", attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 189/255, green: 189/255, blue: 189/255, alpha: 1.0)])
 
         return weight
     }()
@@ -97,6 +103,7 @@ final class ProfileAView: BaseView {
     var kcal: UITextField = {
         let kcal = UITextField()
         kcal.borderStyle = .roundedRect
+        kcal.keyboardType = .numberPad
         kcal.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1.0)
         kcal.attributedPlaceholder = NSAttributedString(string: "현재 사료 칼로리를 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 189/255, green: 189/255, blue: 189/255, alpha: 1.0)])
 
@@ -223,11 +230,10 @@ final class ProfileAView: BaseView {
         }
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    override func draw(_ rect: CGRect) {
         scrollView.contentSize = containerView.bounds.size
         
-        profileImage.layer.cornerRadius = profileImage.frame.width / 2.0
+        profileImage.layer.cornerRadius = profileImage.frame.width / 2
         profileImage.clipsToBounds = true
         
         maleView.layer.cornerRadius = 25
@@ -304,5 +310,4 @@ final class ProfileAView: BaseView {
         maleView.backgroundColor = isSelected ? UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0) : .systemBackground
         femaleView.backgroundColor = isSelected ? UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0) : .systemBackground
     }
-
 }
