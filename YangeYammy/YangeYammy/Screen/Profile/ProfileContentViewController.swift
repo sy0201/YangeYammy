@@ -77,7 +77,7 @@ final class ProfileContentViewController: UIViewController {
 
 private extension ProfileContentViewController {
     func setupNavigationBar() {
-        self.title = "Profile"
+        self.title = "반려동물 정보입력"
         
         let deleteBarButton = UIBarButtonItem(title: "삭제",
                                             style: .plain,
@@ -89,8 +89,8 @@ private extension ProfileContentViewController {
                                             target: self,
                                             action: #selector(saveBarButtonTapped))
         
-        deleteBarButton.tintColor = .systemGreen
-        profileSaveBarButton.tintColor = .systemGreen
+        deleteBarButton.tintColor = UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0)
+        profileSaveBarButton.tintColor = UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0)
         
         self.navigationItem.leftBarButtonItem = deleteBarButton
         self.navigationItem.rightBarButtonItem = profileSaveBarButton

@@ -32,7 +32,7 @@ private extension ProfileListViewController {
         
         let addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addBarButtonTapped))
         
-        addBarButton.tintColor = .systemOrange
+        addBarButton.tintColor = UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0)
         
         self.navigationItem.rightBarButtonItem = addBarButton
     }
