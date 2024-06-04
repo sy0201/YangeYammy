@@ -76,10 +76,15 @@ private extension CreateAlarmViewController {
     
     @objc func saveBarButtonTapped() {
         let switchButtonAgain = switchAgain
-        let repeatDaysString = selectedDays.map { $0.rawValue }.joined(separator: ", ")
+        let repeatDaysString: String
+        if selectedDays.isEmpty {
+            repeatDaysString = "Everyday" // 빈 문자열은 매일 반복을 나타냄
+
+        } else {
+            repeatDaysString = selectedDays.map { $0.rawValue }.joined(separator: ", ")
+        }
         let alarmDate = createAlarmView.datePickerView.date
         let alarmLabel = textFieldLabel
-        let alarmRepeatDays = repeatDaysString
         
         guard let context = alarmManager.context else { return }
         
@@ -89,7 +94,7 @@ private extension CreateAlarmViewController {
             alarmData.time = alarmDate
             alarmData.label = alarmLabel
             alarmData.isAgain = switchButtonAgain
-            alarmData.repeatDays = alarmRepeatDays
+            alarmData.repeatDays = repeatDaysString
         } else {
             // 새로운 알람 데이터 생성
             alarmData = AlarmEntity(context: context)
@@ -97,7 +102,7 @@ private extension CreateAlarmViewController {
             alarmData?.time = alarmDate
             alarmData?.label = alarmLabel
             alarmData?.isAgain = switchButtonAgain
-            alarmData?.repeatDays = alarmRepeatDays
+            alarmData?.repeatDays = repeatDaysString
         }
         
         if let alarmData = alarmData {
@@ -105,7 +110,13 @@ private extension CreateAlarmViewController {
             self.delegate?.updateAlarm(alarmData)
         }
         
-        NotificationService.shared.requestAlarmNotification(date: alarmDate, title: "냥이야미", subTitle: "오늘도 맛있는 밥을 먹을게요", notificationId: "\(alarmDate)", dataIndex: alarmManager.getAlarmList().count == 0 ? nil : alarmManager.getAlarmList().count, updateTarget: alarmData?.time)
+        NotificationService.shared.requestAlarmNotification(date: alarmDate, 
+                                                            title: "냥이야미",
+                                                            subTitle: "오늘도 맛있는 밥을 먹을게요",
+                                                            repeatDays: selectedDays.isEmpty ? nil : selectedDays.map { $0.rawValue },
+                                                            notificationId: "\(alarmDate)",
+                                                            dataIndex: alarmManager.getAlarmList().count == 0 ? nil : alarmManager.getAlarmList().count,
+                                                            updateTarget: alarmData?.time)
         
         self.dismiss(animated: true)
     }

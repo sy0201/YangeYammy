@@ -19,6 +19,8 @@
 		185F4B952BFB329000DA8242 /* ProfileListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4B942BFB329000DA8242 /* ProfileListView.swift */; };
 		185F4B9A2BFB3B2C00DA8242 /* ProfileListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4B992BFB3B2C00DA8242 /* ProfileListCollectionViewCell.swift */; };
 		185F4B9E2BFC935300DA8242 /* ProfileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4B9D2BFC935300DA8242 /* ProfileDetailView.swift */; };
+		185F4BAD2C0DC75400DA8242 /* AlarmEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4BAB2C0DC75400DA8242 /* AlarmEntity+CoreDataClass.swift */; };
+		185F4BAE2C0DC75400DA8242 /* AlarmEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4BAC2C0DC75400DA8242 /* AlarmEntity+CoreDataProperties.swift */; };
 		186F8CA72BC7E20100741FF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F8CA62BC7E20100741FF1 /* AppDelegate.swift */; };
 		186F8CA92BC7E20100741FF1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F8CA82BC7E20100741FF1 /* SceneDelegate.swift */; };
 		186F8CB02BC7E20200741FF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 186F8CAF2BC7E20200741FF1 /* Assets.xcassets */; };
@@ -83,6 +85,8 @@
 		185F4B942BFB329000DA8242 /* ProfileListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileListView.swift; sourceTree = "<group>"; };
 		185F4B992BFB3B2C00DA8242 /* ProfileListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileListCollectionViewCell.swift; sourceTree = "<group>"; };
 		185F4B9D2BFC935300DA8242 /* ProfileDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailView.swift; sourceTree = "<group>"; };
+		185F4BAB2C0DC75400DA8242 /* AlarmEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlarmEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		185F4BAC2C0DC75400DA8242 /* AlarmEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlarmEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		186F8CA32BC7E20100741FF1 /* YangeYammy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YangeYammy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		186F8CA62BC7E20100741FF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		186F8CA82BC7E20100741FF1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -160,6 +164,8 @@
 				18E5F4FD2BD64765004E0E27 /* GoogleService-Info.plist */,
 				186F8CA62BC7E20100741FF1 /* AppDelegate.swift */,
 				186F8CA82BC7E20100741FF1 /* SceneDelegate.swift */,
+				185F4BAB2C0DC75400DA8242 /* AlarmEntity+CoreDataClass.swift */,
+				185F4BAC2C0DC75400DA8242 /* AlarmEntity+CoreDataProperties.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -488,6 +494,8 @@
 				18E5F4F12BD62215004E0E27 /* ProfileNavigationController.swift in Sources */,
 				185F4B952BFB329000DA8242 /* ProfileListView.swift in Sources */,
 				188423C32BE6F2AD00956EEE /* YangeYammy.xcdatamodeld in Sources */,
+				185F4BAD2C0DC75400DA8242 /* AlarmEntity+CoreDataClass.swift in Sources */,
+				185F4BAE2C0DC75400DA8242 /* AlarmEntity+CoreDataProperties.swift in Sources */,
 				186F8CD82BC8A6E600741FF1 /* RootTabBarViewController.swift in Sources */,
 				18E5F4D52BC8AB36004E0E27 /* BaseView.swift in Sources */,
 				18E5F4FC2BD63B33004E0E27 /* ProfileAView.swift in Sources */,

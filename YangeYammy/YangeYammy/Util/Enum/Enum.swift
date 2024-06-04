@@ -16,6 +16,27 @@ enum Day: String, CaseIterable {
     case friday = "금요일 마다"
     case saturday = "토요일 마다"
     case none = "안함"
+    
+    var weekdayValue: Int {
+        switch self {
+        case .sunday:
+            return 1
+        case .monday:
+            return 2
+        case .tuesday:
+            return 3
+        case .wednesday:
+            return 4
+        case .thursday:
+            return 5
+        case .friday:
+            return 6
+        case .saturday:
+            return 7
+        case .none:
+            return 0
+        }
+    }
 }
 
 enum Gender: String {

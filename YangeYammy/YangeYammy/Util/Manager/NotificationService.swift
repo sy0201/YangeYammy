@@ -37,26 +37,34 @@ final class NotificationService: NSObject {
         }
     }
     
-    func requestAlarmNotification(date: Date?, title: String, subTitle: String, repeatedly: Bool = false, notificationId: String, dataIndex: Int?, updateTarget: Date?) {
+    func requestAlarmNotification(date: Date?, title: String, subTitle: String, repeatDays: [String]?, notificationId: String, dataIndex: Int?, updateTarget: Date?) {
         let content = UNMutableNotificationContent()
         content.title = title
         content.subtitle = subTitle
         content.categoryIdentifier = "Alarm"
-        content.sound = UNNotificationSound.default
+        content.sound = .default
+
+        var trigger: UNCalendarNotificationTrigger
         
-        content.userInfo = ["updateTarget": dataIndex ?? -1]
-        
-        let trigger = getTrigger(date: date, notificationId: notificationId, dataIndex, updateTarget: updateTarget) as! UNCalendarNotificationTrigger
-        
-        let request = UNNotificationRequest(identifier: notificationId, content: content, trigger: trigger)
-        
-        setCustomAction(actionIdentifier: "dismiss", actionTitle: "알람", categoryIdentifier: "Alarm")
-        
-        NotificationService.shared.UNCurrentCenter.removePendingNotificationRequests(withIdentifiers: [notificationId])
-        NotificationService.shared.UNCurrentCenter.add(request)
-        
-        UNCurrentCenter.getPendingNotificationRequests { request in
-            print(request.count)
+        if let repeatDays = repeatDays, !repeatDays.isEmpty {
+            // 특정 요일에만 반복
+            var dateComponents = Calendar.current.dateComponents([.hour, .minute], from: date ?? Date())
+            for day in repeatDays {
+                if let weekday = Day(rawValue: day)?.weekdayValue {
+                    dateComponents.weekday = weekday
+                    trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+                    
+                    let request = UNNotificationRequest(identifier: notificationId + day, content: content, trigger: trigger)
+                    UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+                }
+            }
+        } else {
+            // 매일 반복
+            let dateComponents = Calendar.current.dateComponents([.hour, .minute], from: date ?? Date())
+            trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+            
+            let request = UNNotificationRequest(identifier: notificationId, content: content, trigger: trigger)
+            UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         }
     }
     

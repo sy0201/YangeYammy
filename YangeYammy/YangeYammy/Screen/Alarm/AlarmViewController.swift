@@ -82,7 +82,13 @@ final class AlarmViewController: UIViewController {
         }
         
         let notificationId = "\(date)"
-        NotificationService.shared.requestAlarmNotification(date: date, title: title, subTitle: "추천 알람", notificationId: notificationId, dataIndex: alarmManager.getAlarmList().count, updateTarget: nil)
+        NotificationService.shared.requestAlarmNotification(date: date, 
+                                                            title: title,
+                                                            subTitle: "추천 알람", 
+                                                            repeatDays: nil,
+                                                            notificationId: notificationId,
+                                                            dataIndex: alarmManager.getAlarmList().count,
+                                                            updateTarget: nil)
     }
 }
 
