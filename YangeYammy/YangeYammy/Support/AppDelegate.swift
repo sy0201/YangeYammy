@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UNUserNotificationCenter.current().delegate = self
         
-        let authorizationOptions = UNAuthorizationOptions(arrayLiteral: [.alert, .badge, . sound])
+        let authorizationOptions = UNAuthorizationOptions(arrayLiteral: [.alert, .badge, .sound])
         userNotificationCenter.requestAuthorization(options: authorizationOptions) { _, error in
             if let error = error {
                 print("ERROR: notification authrization request \(error.localizedDescription)")

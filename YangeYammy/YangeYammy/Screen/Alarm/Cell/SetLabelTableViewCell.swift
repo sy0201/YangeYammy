@@ -32,7 +32,7 @@ final class SetLabelTableViewCell: UITableViewCell, ReuseIdentifying {
             ]
         )
         textField.attributedPlaceholder = attributedPlaceholder
-        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        textField.addTarget(SetLabelTableViewCell.self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         return textField
     }()
