@@ -68,9 +68,9 @@ extension AlarmTableViewCell {
         guard let time = alarmData.time else {
             return
         }
-        timeLabel.text = "\(setupTimeString(time: time).0)"
-    
+        
         meridiemLabel.text = setupTimeString(time: time).1
+        timeLabel.text = "\(setupTimeString(time: time).0)"
         descriptionLabel.text = alarmData.label
         setSwitchButton.isOn = alarmData.isOn
     }
@@ -87,7 +87,7 @@ extension AlarmTableViewCell {
         // timeString 반환 로직
         var timeString = dateFormatter.string(from: time)
         
-        if(timeString.first == "0"){
+        if(timeString.first == "0") {
             timeString.remove(at: timeString.startIndex)
         }
         
@@ -95,8 +95,10 @@ extension AlarmTableViewCell {
             String(str)
         }
         
-        if(Int(timeArray[0])! > 12){
-            timeArray[0] = String(Int(timeArray[0])! - 12)
+        if let hour = Int(timeArray[0]), hour > 12 {
+            timeArray[0] = String(hour - 12)
+            isNoon = true
+        } else if let hour = Int(timeArray[0]), hour == 12 {
             isNoon = true
         }
         
