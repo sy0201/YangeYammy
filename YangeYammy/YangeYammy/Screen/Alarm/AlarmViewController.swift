@@ -162,13 +162,26 @@ extension AlarmViewController: UITableViewDataSource, UITableViewDelegate {
         switch editingStyle {
         case .delete:
             let removeAlarm = alarmManager.getAlarmList()[indexPath.row]
-            alarmManager.removeAlarm(deleteTarget: removeAlarm) {
+            guard let time = removeAlarm.time else {
+                print("Error: removeAlarm.time is nil")
+                return
             }
-
-            tableView.deleteRows(at: [indexPath], with: .automatic)
             
-            let deletedAlarmId = String(describing: removeAlarm.id)
-            NotificationService.shared.removeNotification(withIdentifier: deletedAlarmId)
+            alarmManager.removeAlarm(deleteTarget: removeAlarm) {
+                let deletedAlarmId = String(describing: time)
+                let repeatDays = removeAlarm.repeatDays?.components(separatedBy: ",")
+                
+                print("삭제 deletedAlarmId \(deletedAlarmId)")
+                NotificationService.shared.removeNotification(withIdentifier: deletedAlarmId, repeatDays: repeatDays)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                
+                UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+                    for request in requests {
+                        print("Pending notification: \(request.identifier)")
+                    }
+                }
+            }
+            
         default:
             break
         }

@@ -38,6 +38,11 @@ final class NotificationService: NSObject {
     }
     
     func requestAlarmNotification(date: Date?, title: String, subTitle: String, repeatDays: [String]?, notificationId: String, dataIndex: Int?, updateTarget: Date?) {
+        guard alarmManager.getAlarmList().contains(where: { $0.time == date }) else {
+            print("Alarm has been deleted. Notification not scheduled.")
+            return
+        }
+        
         let content = UNMutableNotificationContent()
         content.title = title
         content.subtitle = subTitle
@@ -108,8 +113,19 @@ final class NotificationService: NSObject {
         self.UNCurrentCenter.setNotificationCategories([category])
     }
     
-    func removeNotification(withIdentifier identifier: String) {
-        UNCurrentCenter.removePendingNotificationRequests(withIdentifiers: [identifier])
+    func removeNotification(withIdentifier identifier: String, repeatDays: [String]?) {
+        if let repeatDays = repeatDays, !repeatDays.isEmpty {
+            // 요일별로 개별적으로 삭제
+            for day in repeatDays {
+                let dayIdentifier = identifier + day
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [dayIdentifier])
+                print("removeNotification: successfully removed notification with id \(dayIdentifier)")
+            }
+        } else {
+            // 매일 반복되는 알람 삭제
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
+            print("removeNotification: successfully removed notification with id \(identifier)")
+        }
     }
 }
 
