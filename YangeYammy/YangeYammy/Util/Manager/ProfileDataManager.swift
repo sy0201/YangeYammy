@@ -38,7 +38,7 @@ final class ProfileDataManager {
     }
     
     // CoreData에 프로필정보 저장하기
-    func saveProfile(profileImage: String, gender: String, name: String, age: String, weight: Float, kcal: Int, neutrification: String, bcs: Int, completion: @escaping (ProfileEntity?) -> Void) {
+    func saveProfile(profileImage: String, gender: String, name: String, birthYear: Int, birthMonth: Int, weight: Float, kcal: Int, neutrification: String, bcs: Int, completion: @escaping (ProfileEntity?) -> Void) {
         guard let context = context else {
             print("saveProfile: context load error")
             completion(nil)
@@ -49,7 +49,8 @@ final class ProfileDataManager {
         newProfile.profileImage = profileImage
         newProfile.gender = gender
         newProfile.name = name
-        newProfile.age = age
+        newProfile.birthYear = Int16(birthYear)
+        newProfile.birthMonth = Int16(birthMonth)
         newProfile.weight = weight
         newProfile.kcal = Int16(kcal)
         newProfile.neutrification = neutrification
@@ -58,6 +59,8 @@ final class ProfileDataManager {
         if context.hasChanges {
             do {
                 try context.save()
+                print("데이터저장birthYear \(birthYear)")
+                print("데이터저장birthMonth \(birthMonth)")
                 completion(newProfile)
             } catch {
                 print("saveProfile: context save error")
@@ -83,7 +86,8 @@ final class ProfileDataManager {
                 fetchedProfiles.profileImage = profile.profileImage
                 fetchedProfiles.gender = profile.gender
                 fetchedProfiles.name = profile.name
-                fetchedProfiles.age = profile.age
+                fetchedProfiles.birthYear = profile.birthYear
+                fetchedProfiles.birthMonth = profile.birthMonth
                 fetchedProfiles.weight = profile.weight
                 fetchedProfiles.kcal = profile.kcal
                 fetchedProfiles.neutrification = profile.neutrification
@@ -93,7 +97,8 @@ final class ProfileDataManager {
                 newProfile.profileImage = profile.profileImage
                 newProfile.gender = profile.gender
                 newProfile.name = profile.name
-                newProfile.age = profile.age
+                newProfile.birthYear = profile.birthYear
+                newProfile.birthMonth = profile.birthMonth
                 newProfile.weight = profile.weight
                 newProfile.kcal = profile.kcal
                 newProfile.neutrification = profile.neutrification

@@ -115,7 +115,8 @@ private extension ProfileContentViewController {
             let profileImage = profileAViewController.profileAView.profileImage.image?.toBase64()
             let gender = profileAViewController.genderType?.rawValue ?? ""
             let name = profileAViewController.profileAView.name.text ?? ""
-            let age = profileAViewController.profileAView.age.text ?? ""
+            let birthYear = Int(profileAViewController.profileAView.year.text ?? "") ?? 0
+            let birthMonth = Int(profileAViewController.profileAView.month.text ?? "") ?? 0
             let weight = Float(profileAViewController.profileAView.weight.text ?? "") ?? 0.0
             let kcal = Int(profileAViewController.profileAView.kcal.text ?? "") ?? 0
 
@@ -127,7 +128,8 @@ private extension ProfileContentViewController {
                 profileData.profileImage = profileImage
                 profileData.gender = gender
                 profileData.name = name
-                profileData.age = age
+                profileData.birthYear = Int16(birthYear)
+                profileData.birthMonth = Int16(birthMonth)
                 profileData.weight = weight
                 profileData.kcal = Int16(kcal)
                 profileData.neutrification = neutrification
@@ -142,10 +144,14 @@ private extension ProfileContentViewController {
                 
             } else {
                 // 새로운 프로필 생성
-                profileDataManager.saveProfile(profileImage: profileImage ?? "", gender: gender, name: name, age: age, weight: weight, kcal: Int(kcal), neutrification: neutrification, bcs: Int(bcs)) { newProfile in
+                profileDataManager.saveProfile(profileImage: profileImage ?? "", gender: gender, name: name, birthYear: birthYear, birthMonth: birthMonth, weight: weight, kcal: Int(kcal), neutrification: neutrification, bcs: Int(bcs)) { newProfile in
                     if let newProfile = newProfile {
                         self.delegate?.saveNewProfile(newProfile)
-                        self.setupRandomAlarm(age: age)
+                        //self.setupRandomAlarm(age: age)
+                        
+                        let ageInMonths = self.calculateAgeInMonths(birthYear: birthYear, birthMonth: birthMonth)
+                        print("⭐️ageInMonths\(ageInMonths)")
+                        self.setupRandomAlarm(ageInMonths: ageInMonths)
                         DispatchQueue.main.async {
                             self.dismiss(animated: true, completion: nil)
                         }
@@ -185,6 +191,70 @@ private extension ProfileContentViewController {
         pageViewController.delegate = self
     }
     
+    func calculateAgeInMonths(birthYear: Int, birthMonth: Int) -> Int {
+        let calendar = Calendar.current
+        let currentDate = Date()
+        
+        let birthDateComponents = DateComponents(year: birthYear, month: birthMonth)
+        
+        print("ProfileContentVC birthDateComponents \(birthDateComponents)")
+        guard let birthDate = calendar.date(from: birthDateComponents) else {
+            return 0
+        }
+        
+        let ageComponents = calendar.dateComponents([.year, .month], from: birthDate, to: currentDate)
+        if let years = ageComponents.year, let months = ageComponents.month {
+            return years * 12 + months
+        }
+        
+        return 0
+    }
+    
+    func setupRandomAlarm(ageInMonths: Int) {
+        if let tabBarController = self.presentingViewController as? RootTabBarViewController,
+           let alarmNavController = tabBarController.viewControllers?.first(where: { $0 is AlarmNavigationController }) as? AlarmNavigationController,
+           let alarmViewController = alarmNavController.viewControllers.first as? AlarmViewController {
+            
+            let interval = (ageInMonths >= 1 && ageInMonths <= 12 || ageInMonths >= 156) ? 4 : 12
+            let randomTimes = generateRandomTimes(interval: interval)
+            
+            if (ageInMonths >= 1 && ageInMonths <= 12 || ageInMonths >= 156) {
+                alarmViewController.createAlarm(at: randomTimes[0], title: "1차 야미")
+                alarmViewController.createAlarm(at: randomTimes[1], title: "2차 야미")
+                alarmViewController.createAlarm(at: randomTimes[2], title: "3차 야미")
+                alarmViewController.createAlarm(at: randomTimes[3], title: "4차 야미")
+            } else {
+                alarmViewController.createAlarm(at: randomTimes[0], title: "아침 야미")
+                alarmViewController.createAlarm(at: randomTimes[1], title: "저녁 야미")
+            }
+            tabBarController.selectedIndex = 0
+        }
+    }
+    
+    func generateRandomTimes(interval: Int) -> [String] {
+        var times: [String] = []
+        let calendar = Calendar.current
+        
+        for _ in 0..<2 {
+            let hour = Int.random(in: 1...24)
+            let minute = [0, 30].randomElement()!
+            if let randomDate = calendar.date(bySettingHour: hour, minute: minute, second: 0, of: Date()) {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "HH:mm"
+                let timeString = formatter.string(from: randomDate)
+                times.append(timeString)
+                
+                if let laterDate = calendar.date(byAdding: .hour, value: interval, to: randomDate) {
+                    let laterTimeString = formatter.string(from: laterDate)
+                    times.append(laterTimeString)
+                }
+            }
+        }
+        
+        return times
+    }
+    
+    /**
     func setupRandomAlarm(age: String) {
         if let tabBarController = self.presentingViewController as? RootTabBarViewController,
            let alarmNavController = tabBarController.viewControllers?.first(where: { $0 is AlarmNavigationController }) as? AlarmNavigationController,
@@ -231,6 +301,7 @@ private extension ProfileContentViewController {
         
         return times
     }
+     */
 }
 
 // MARK: - UIPageViewControllerDataSource, UIPageViewControllerDelegate

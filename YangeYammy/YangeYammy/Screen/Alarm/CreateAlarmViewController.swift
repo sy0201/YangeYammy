@@ -63,8 +63,8 @@ private extension CreateAlarmViewController {
                                             target: self,
                                             action: #selector(saveBarButtonTapped))
 
-        cancelBarButton.tintColor = .systemOrange
-        saveBarButton.tintColor = .systemOrange
+        cancelBarButton.tintColor = UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0)
+        saveBarButton.tintColor = UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0)
         
         self.navigationItem.leftBarButtonItem = cancelBarButton
         self.navigationItem.rightBarButtonItem = saveBarButton

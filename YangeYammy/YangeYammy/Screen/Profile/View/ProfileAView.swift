@@ -77,18 +77,34 @@ final class ProfileAView: BaseView {
         return name
     }()
     
-    var age: UITextField = {
-        let age = UITextField()
-        age.borderStyle = .roundedRect
-        age.keyboardType = .numberPad
-        age.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1.0)
-        age.attributedPlaceholder = NSAttributedString(string: "나이를 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 189/255, green: 189/255, blue: 189/255, alpha: 1.0)])
+    var year: UITextField = {
+        let year = UITextField()
+        year.borderStyle = .roundedRect
+        year.keyboardType = .numberPad
+        year.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1.0)
+        year.attributedPlaceholder = NSAttributedString(string: "연도 예시)2024", attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 189/255, green: 189/255, blue: 189/255, alpha: 1.0)])
         
-        return age
+        return year
     }()
     
-    var yearLabel = UILabel()
-    var monthLabel = UILabel()
+    var month: UITextField = {
+        let month = UITextField()
+        month.borderStyle = .roundedRect
+        month.keyboardType = .numberPad
+        month.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1.0)
+        month.attributedPlaceholder = NSAttributedString(string: "월 예시)03", attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 189/255, green: 189/255, blue: 189/255, alpha: 1.0)])
+        
+        return month
+    }()
+    
+    let birthStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .equalCentering
+        stackView.spacing = 8
+        return stackView
+    }()
     
     var weight: UITextField = {
         let weight = UITextField()
@@ -139,11 +155,12 @@ final class ProfileAView: BaseView {
                                    femaleLabel,
                                    femaleButton,
                                    name,
-                                   age,
+                                   birthStackView,
                                    weight,
                                    kcal])
         
         stackView.addSubviews([maleView, femaleView])
+        birthStackView.addSubviews([year, month])
     }
     
     override func setupConstraint() {
@@ -208,15 +225,27 @@ final class ProfileAView: BaseView {
             make.height.equalTo(50)
         }
         
-        age.snp.makeConstraints { make in
+        birthStackView.snp.makeConstraints { make in
             make.top.equalTo(name.snp.bottom).offset(20)
             make.leading.equalTo(16)
             make.trailing.equalTo(-16)
             make.height.equalTo(50)
         }
         
+        year.snp.makeConstraints { make in
+            make.leading.top.bottom.equalTo(birthStackView)
+            make.width.equalTo(birthStackView.snp.width).offset(-5).multipliedBy(0.5)
+            make.height.equalTo(50)
+        }
+        
+        month.snp.makeConstraints { make in
+            make.leading.equalTo(year.snp.trailing)
+            make.trailing.top.bottom.equalTo(birthStackView)
+            make.width.equalTo(birthStackView.snp.width).offset(-5).multipliedBy(0.5)
+        }
+        
         weight.snp.makeConstraints { make in
-            make.top.equalTo(age.snp.bottom).offset(20)
+            make.top.equalTo(birthStackView.snp.bottom).offset(20)
             make.leading.equalTo(16)
             make.trailing.equalTo(-16)
             make.height.equalTo(50)

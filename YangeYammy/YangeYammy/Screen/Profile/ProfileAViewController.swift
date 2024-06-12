@@ -29,7 +29,7 @@ final class ProfileAViewController: UIViewController {
     func isProfileInfoComplete() -> Bool {
         let isGenderSelected = profileAView.isGenderTapped
         let isNameEntered = !(profileAView.name.text?.isEmpty ?? true)
-        let isAgeEntered = !(profileAView.age.text?.isEmpty ?? true)
+        let isAgeEntered = !(profileAView.year.text?.isEmpty ?? true)
         let isWeightEntered = !(profileAView.weight.text?.isEmpty ?? true)
         let isKcalEntered = !(profileAView.kcal.text?.isEmpty ?? true)
         
@@ -45,7 +45,7 @@ final class ProfileAViewController: UIViewController {
     
     func setupTextFieldDelegate() {
         profileAView.name.delegate = self
-        profileAView.age.delegate = self
+        profileAView.year.delegate = self
         profileAView.weight.delegate = self
         profileAView.kcal.delegate = self
     }
@@ -61,8 +61,12 @@ final class ProfileAViewController: UIViewController {
         self.genderType = gender
         profileAView.selectGender(gender: Gender(rawValue: gender.rawValue) ?? .female)
         profileAView.name.text = profile.name
-        profileAView.age.text = profile.age
+        profileAView.year.text = String(profile.birthYear)
+        profileAView.month.text = String(profile.birthMonth)
         profileAView.weight.text = String(profile.weight)
+        print("ProfileAVC birthYear \(profile.birthYear)")
+        print("ProfileAVC birthMonth \(profile.birthMonth)")
+
         profileAView.kcal.text = String(profile.kcal)
     }
 }
@@ -175,8 +179,17 @@ extension ProfileAViewController: UITextFieldDelegate {
         case profileAView.name:
             profile.name = textField.text ?? ""
             
-        case profileAView.age:
-            profile.age = textField.text ?? ""
+        case profileAView.year:
+            if let birthYearText = textField.text,
+               let year = Int(birthYearText) {
+                profile.birthYear = Int16(year)
+            }
+            
+        case profileAView.month:
+            if let birthMonthText = textField.text,
+               let month = Int(birthMonthText) {
+                profile.birthMonth = Int16(month)
+            }
             
         case profileAView.weight:
             if let weightText = textField.text, let weight = Float(weightText) {
@@ -184,7 +197,8 @@ extension ProfileAViewController: UITextFieldDelegate {
             }
             
         case profileAView.kcal:
-            if let kcalText = textField.text, let kcal = Int(kcalText) {
+            if let kcalText = textField.text,
+                let kcal = Int(kcalText) {
                 profile.kcal = Int16(kcal)
             }
             
