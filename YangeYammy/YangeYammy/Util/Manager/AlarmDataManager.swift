@@ -42,18 +42,21 @@ final class AlarmDataManager {
     }
     
     // CoreData에 알람정보 저장하기
-    func saveAlarm(isOn: Bool, time: Date, label: String, isAgain: Bool, repeatDays: String, completion: @escaping () -> Void) {
+    func saveAlarm(isOn: Bool, time: Date, label: String, isAgain: Bool, repeatDays: String, completion: @escaping (AlarmEntity?) -> Void) {
         guard let context = context else {
             print("saveAlarm: context load error")
+            completion(nil)
             return
         }
         
         guard let entity = NSEntityDescription.entity(forEntityName: self.alarmEntityModelName, in: context) else {
+            completion(nil)
             return
         }
         
         guard let newAlarm = NSManagedObject(entity: entity, insertInto: context) as? AlarmEntity else {
             print("saveAlarm: entity insert error")
+            completion(nil)
             return
         }
         
@@ -67,10 +70,10 @@ final class AlarmDataManager {
         if context.hasChanges {
             do {
                 try context.save()
-                completion()
+                completion(newAlarm)
             } catch {
                 print("saveAlarm: context save error")
-                completion()
+                completion(nil)
             }
         }
     }

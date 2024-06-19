@@ -61,7 +61,6 @@ private extension SetRepeatAgainTableViewCell {
     }
     
     @objc func switchValueChanged(_ sender: UISwitch) {
-        let isOn = sender.isOn
-        switchDelegate?.switchValueChanged(isOn: isOn)
+        switchDelegate?.switchValueChanged(isOn: sender.isOn)
     }
 }

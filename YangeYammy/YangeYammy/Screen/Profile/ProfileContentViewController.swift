@@ -147,7 +147,6 @@ private extension ProfileContentViewController {
                 profileDataManager.saveProfile(profileImage: profileImage ?? "", gender: gender, name: name, birthYear: birthYear, birthMonth: birthMonth, weight: weight, kcal: Int(kcal), neutrification: neutrification, bcs: Int(bcs)) { newProfile in
                     if let newProfile = newProfile {
                         self.delegate?.saveNewProfile(newProfile)
-                        //self.setupRandomAlarm(age: age)
                         
                         let ageInMonths = self.calculateAgeInMonths(birthYear: birthYear, birthMonth: birthMonth)
                         print("⭐️ageInMonths\(ageInMonths)")
@@ -194,15 +193,14 @@ private extension ProfileContentViewController {
     func calculateAgeInMonths(birthYear: Int, birthMonth: Int) -> Int {
         let calendar = Calendar.current
         let currentDate = Date()
-        
         let birthDateComponents = DateComponents(year: birthYear, month: birthMonth)
         
-        print("ProfileContentVC birthDateComponents \(birthDateComponents)")
         guard let birthDate = calendar.date(from: birthDateComponents) else {
             return 0
         }
         
         let ageComponents = calendar.dateComponents([.year, .month], from: birthDate, to: currentDate)
+        
         if let years = ageComponents.year, let months = ageComponents.month {
             return years * 12 + months
         }
@@ -253,55 +251,6 @@ private extension ProfileContentViewController {
         
         return times
     }
-    
-    /**
-    func setupRandomAlarm(age: String) {
-        if let tabBarController = self.presentingViewController as? RootTabBarViewController,
-           let alarmNavController = tabBarController.viewControllers?.first(where: { $0 is AlarmNavigationController }) as? AlarmNavigationController,
-           let alarmViewController = alarmNavController.viewControllers.first as? AlarmViewController {
-            
-            // Create random times
-            let interval = (age == "1" || age == "13") ? 4 : 12
-            let randomTimes = generateRandomTimes(interval: interval)
-
-            if age == "1" || age == "13" {
-                alarmViewController.createAlarm(at: randomTimes[0], title: "1차 야미")
-                alarmViewController.createAlarm(at: randomTimes[1], title: "2차 야미")
-                alarmViewController.createAlarm(at: randomTimes[2], title: "3차 야미")
-                alarmViewController.createAlarm(at: randomTimes[3], title: "4차 야미")
-            } else {
-                alarmViewController.createAlarm(at: randomTimes[0], title: "아침 야미")
-                alarmViewController.createAlarm(at: randomTimes[1], title: "저녁 야미")
-            }
-            tabBarController.selectedIndex = 0
-        }
-    }
-    
-    func generateRandomTimes(interval: Int) -> [String] {
-        var times: [String] = []
-        let calendar = Calendar.current
-
-        // Create two random times within the range 1:00 AM to 24:00 PM
-        for _ in 0..<2 {
-            let hour = Int.random(in: 1...24)
-            let minute = [0, 30].randomElement()!
-            if let randomDate = calendar.date(bySettingHour: hour, minute: minute, second: 0, of: Date()) {
-                let formatter = DateFormatter()
-                formatter.dateFormat = "HH:mm"
-                let timeString = formatter.string(from: randomDate)
-                times.append(timeString)
-                
-                // Calculate later time based on the interval
-                if let laterDate = calendar.date(byAdding: .hour, value: interval, to: randomDate) {
-                    let laterTimeString = formatter.string(from: laterDate)
-                    times.append(laterTimeString)
-                }
-            }
-        }
-        
-        return times
-    }
-     */
 }
 
 // MARK: - UIPageViewControllerDataSource, UIPageViewControllerDelegate

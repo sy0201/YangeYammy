@@ -10,6 +10,7 @@ import UIKit
 final class AlarmViewController: UIViewController {
     var alarmManager = AlarmDataManager.shared
     weak var delegate: AlarmDelegate?
+    var switchOnOff: Bool = true
 
     var alarmData: [AlarmEntity] {
         get {
@@ -75,7 +76,7 @@ final class AlarmViewController: UIViewController {
                                time: date,
                                label: title,
                                isAgain: true,
-                               repeatDays: "") {
+                               repeatDays: "") {_ in 
             DispatchQueue.main.async {
                 self.alarmView.tableView.reloadData()
             }
@@ -144,12 +145,10 @@ extension AlarmViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AlarmTableViewCell.reuseIdentifier, for: indexPath) as? AlarmTableViewCell else {
             return UITableViewCell() }
         
-        let alarmList = alarmManager.getAlarmList()
-        let alarm = alarmList[indexPath.row]
-        
-        cell.alarmData = alarm
+        let alarmList = alarmManager.getAlarmList()[indexPath.row]
+        cell.alarmData = alarmList
         cell.switchDelegate = self
-        cell.configure()
+        cell.configure(with: alarmData[indexPath.row].isOn, indexPath: indexPath)
         
         return cell
     }
@@ -207,7 +206,6 @@ extension AlarmViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension AlarmViewController: AlarmDelegate {
     func updateAlarm(_ alarm: AlarmEntity) {
-        alarmManager.updateOrAddAlarm(alarm)
         alarmView.tableView.reloadData()
     }
 }
@@ -216,6 +214,17 @@ extension AlarmViewController: AlarmDelegate {
 
 extension AlarmViewController: SwitchValueDelegate {
     func switchValueChanged(isOn: Bool) {
-        print("Switch value changed: \(isOn)")
+        switchOnOff = isOn
+        guard let selectedIndexPath = alarmView.tableView.indexPathForSelectedRow else { return }
+
+        var selectedAlarm = alarmManager.getAlarmList()[selectedIndexPath.row]
+        selectedAlarm.isOn = isOn
+        
+        alarmManager.updateAlarm(targetId: selectedAlarm.time ?? Date(), newData: selectedAlarm) {
+            self.delegate?.updateAlarm(selectedAlarm)
+            DispatchQueue.main.async {
+                self.alarmView.tableView.reloadRows(at: [selectedIndexPath], with: .none)
+            }
+        }
     }
 }

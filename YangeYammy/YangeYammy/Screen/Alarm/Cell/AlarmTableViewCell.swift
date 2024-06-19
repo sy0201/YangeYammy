@@ -7,15 +7,10 @@
 
 import UIKit
 import SnapKit
-import UserNotifications
 
 final class AlarmTableViewCell: UITableViewCell, ReuseIdentifying {
     weak var switchDelegate: SwitchValueDelegate?
-    var alarmData: AlarmEntity? {
-        didSet {
-            configure()
-        }
-    }
+    var alarmData: AlarmEntity?
     
     let meridiemLabel: UILabel = {
         let meridiemLabel = UILabel()
@@ -60,7 +55,7 @@ final class AlarmTableViewCell: UITableViewCell, ReuseIdentifying {
 // MARK: - Internal Methods
 
 extension AlarmTableViewCell {
-    func configure() {
+    func configure(with isOnOffEnabled: Bool, indexPath: IndexPath) {
         guard let alarmData = alarmData else {
             return
         }
@@ -72,7 +67,8 @@ extension AlarmTableViewCell {
         meridiemLabel.text = setupTimeString(time: time).1
         timeLabel.text = "\(setupTimeString(time: time).0)"
         descriptionLabel.text = alarmData.label
-        setSwitchButton.isOn = alarmData.isOn
+        setSwitchButton.isOn = isOnOffEnabled
+        tag = indexPath.row
     }
     
     func setupTimeString(time: Date) -> (String, String){
@@ -140,7 +136,8 @@ private extension AlarmTableViewCell {
     }
     
     @objc func switchValueChanged(_ sender: UISwitch) {
-        let isOn = sender.isOn
-        switchDelegate?.switchValueChanged(isOn: isOn)
+        guard let alarmData = alarmData else { return }
+        alarmData.isOn = sender.isOn
+        switchDelegate?.switchValueChanged(isOn: sender.isOn)
     }
 }

@@ -59,8 +59,6 @@ final class ProfileDataManager {
         if context.hasChanges {
             do {
                 try context.save()
-                print("데이터저장birthYear \(birthYear)")
-                print("데이터저장birthMonth \(birthMonth)")
                 completion(newProfile)
             } catch {
                 print("saveProfile: context save error")
