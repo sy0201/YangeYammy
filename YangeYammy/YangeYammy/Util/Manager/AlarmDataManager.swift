@@ -122,34 +122,6 @@ final class AlarmDataManager {
         }
     }
     
-    func updateOrAddAlarm(_ alarm: AlarmEntity) {
-        guard let context = context else { return }
-        
-        let request = NSFetchRequest<AlarmEntity>(entityName: self.alarmEntityModelName)
-        request.predicate = NSPredicate(format: "time = %@", alarm.time! as CVarArg)
-        
-        do {
-            if let fetchedAlarms = try context.fetch(request).first {
-                fetchedAlarms.isOn = alarm.isOn
-                fetchedAlarms.time = alarm.time
-                fetchedAlarms.label = alarm.label
-                fetchedAlarms.isAgain = alarm.isAgain
-                fetchedAlarms.repeatDays = alarm.repeatDays
-            } else {
-                let newAlarm = AlarmEntity(context: context)
-                newAlarm.isOn = alarm.isOn
-                newAlarm.time = alarm.time
-                newAlarm.label = alarm.label
-                newAlarm.isAgain = alarm.isAgain
-                newAlarm.repeatDays = alarm.repeatDays
-            }
-            
-            try context.save()
-        } catch {
-            print("Failed to update or add alarm: \(error)")
-        }
-    }
-    
     // CoreData에 알람정보 삭제하기
     func removeAlarm(deleteTarget: AlarmEntity, completion: @escaping () -> Void) {
         guard let context = context else {

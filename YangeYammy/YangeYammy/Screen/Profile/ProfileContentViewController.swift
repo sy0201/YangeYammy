@@ -152,7 +152,7 @@ private extension ProfileContentViewController {
                         print("⭐️ageInMonths\(ageInMonths)")
                         self.setupRandomAlarm(ageInMonths: ageInMonths)
                         DispatchQueue.main.async {
-                            self.dismiss(animated: true, completion: nil)
+                            self.dismiss(animated: true)
                         }
                     } else {
                         print("Failed to save new profile")
