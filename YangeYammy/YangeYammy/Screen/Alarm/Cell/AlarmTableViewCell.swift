@@ -139,5 +139,15 @@ private extension AlarmTableViewCell {
         guard let alarmData = alarmData else { return }
         alarmData.isOn = sender.isOn
         switchDelegate?.switchValueChanged(isOn: sender.isOn)
+        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        let context = appDelegate?.persistentContainer.viewContext
+        if let context = context {
+            do {
+                try context.save()
+            } catch {
+                print("Error saving context: \(error)")
+            }
+        }
     }
 }

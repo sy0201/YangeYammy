@@ -20,6 +20,13 @@ final class ProfileListCollectionViewCell: UICollectionViewCell, ReuseIdentifyin
         return profileImage
     }()
     
+    let nameLabel: UILabel = {
+        let nameLabel = UILabel()
+        nameLabel.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+        nameLabel.textColor = .black
+        return nameLabel
+    }()
+    
     var detailButton = UIButton()
     
     override init(frame: CGRect) {
@@ -49,6 +56,8 @@ final class ProfileListCollectionViewCell: UICollectionViewCell, ReuseIdentifyin
         } else {
             self.profileImage.image = UIImage(systemName: "cat")
         }
+        
+        nameLabel.text = profileData.name
     }
 }
 
@@ -57,13 +66,19 @@ final class ProfileListCollectionViewCell: UICollectionViewCell, ReuseIdentifyin
 private extension ProfileListCollectionViewCell {
     func setupUI() {
         contentView.addSubviews([profileImage,
-                                detailButton])
+                                 nameLabel,
+                                 detailButton])
     }
     
     func setupConstraint() {
         profileImage.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
             make.width.height.equalTo(100)
+        }
+        
+        nameLabel.snp.makeConstraints { make in
+            make.top.equalTo(profileImage.snp.bottom).offset(10)
+            make.centerX.equalTo(profileImage)
         }
     }
 }

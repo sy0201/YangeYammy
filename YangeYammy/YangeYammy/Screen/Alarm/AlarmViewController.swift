@@ -72,7 +72,7 @@ final class AlarmViewController: UIViewController {
         guard let date = dateFormatter.date(from: time) else { 
             return }
         
-        alarmManager.saveAlarm(isOn: true, 
+        alarmManager.saveAlarm(isOn: true,
                                time: date,
                                label: title,
                                isAgain: true,
@@ -148,7 +148,7 @@ extension AlarmViewController: UITableViewDataSource, UITableViewDelegate {
         let alarmList = alarmManager.getAlarmList()[indexPath.row]
         cell.alarmData = alarmList
         cell.switchDelegate = self
-        cell.configure(with: alarmData[indexPath.row].isOn, indexPath: indexPath)
+        cell.configure(with: alarmList.isOn, indexPath: indexPath)
         
         return cell
     }
