@@ -238,5 +238,4 @@ extension AlarmViewController: SwitchValueDelegate {
             NotificationService.shared.requestAlarmNotification(date: alarmData.time, title: "냥이야미", subTitle: "오늘도 맛있는 밥을 먹을게요", repeatDays: repeatDays, notificationId: notificationId, dataIndex: alarmManager.getAlarmList().count, updateTarget: nil)
         }
     }
-
 }

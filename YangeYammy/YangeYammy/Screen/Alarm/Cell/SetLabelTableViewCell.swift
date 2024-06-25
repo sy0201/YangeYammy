@@ -32,8 +32,8 @@ final class SetLabelTableViewCell: UITableViewCell, ReuseIdentifying {
             ]
         )
         textField.attributedPlaceholder = attributedPlaceholder
-        textField.addTarget(SetLabelTableViewCell.self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        
+        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+
         return textField
     }()
     
@@ -48,12 +48,11 @@ final class SetLabelTableViewCell: UITableViewCell, ReuseIdentifying {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc private func textFieldDidChange(_ textField: UITextField) {
+    @objc func textFieldDidChange(_ textField: UITextField) {
         delegate?.textFieldDidChange(text: textField.text)
     }
     
     func configure(with label: String) {
-        // Configure the cell with the alarm label
         textField.text = label
     }
 }
