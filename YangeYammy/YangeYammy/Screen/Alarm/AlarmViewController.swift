@@ -214,9 +214,7 @@ extension AlarmViewController: AlarmDelegate {
 
 extension AlarmViewController: SwitchValueDelegate {
     func switchValueChanged(isOn: Bool) {
-        switchOnOff = isOn
         guard let selectedIndexPath = alarmView.tableView.indexPathForSelectedRow else { return }
-
         var selectedAlarm = alarmManager.getAlarmList()[selectedIndexPath.row]
         selectedAlarm.isOn = isOn
         
@@ -226,5 +224,19 @@ extension AlarmViewController: SwitchValueDelegate {
                 self.alarmView.tableView.reloadRows(at: [selectedIndexPath], with: .none)
             }
         }
+        
+        // Update or remove notification based on isOn state
+        if !isOn {
+            let alarmData = alarmManager.getAlarmList()[selectedIndexPath.row]
+            let notificationId = "\(alarmData.time ?? Date())"
+            let repeatDays = alarmData.repeatDays?.components(separatedBy: ",")
+            NotificationService.shared.removeNotification(withIdentifier: notificationId, repeatDays: repeatDays)
+        } else {
+            let alarmData = alarmManager.getAlarmList()[selectedIndexPath.row]
+            let notificationId = "\(alarmData.time ?? Date())"
+            let repeatDays = alarmData.repeatDays?.components(separatedBy: ",")
+            NotificationService.shared.requestAlarmNotification(date: alarmData.time, title: "냥이야미", subTitle: "오늘도 맛있는 밥을 먹을게요", repeatDays: repeatDays, notificationId: notificationId, dataIndex: alarmManager.getAlarmList().count, updateTarget: nil)
+        }
     }
+
 }

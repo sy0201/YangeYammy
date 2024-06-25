@@ -121,7 +121,7 @@ private extension CreateAlarmViewController {
                                                             notificationId: "\(alarmDate)",
                                                             dataIndex: alarmManager.getAlarmList().count == 0 ? nil : alarmManager.getAlarmList().count,
                                                             updateTarget: alarmData?.time)
-        
+        print("저장 notificationId \(alarmDate)")
         self.dismiss(animated: true)
     }
 }

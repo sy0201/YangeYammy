@@ -138,16 +138,12 @@ private extension AlarmTableViewCell {
     @objc func switchValueChanged(_ sender: UISwitch) {
         guard let alarmData = alarmData else { return }
         alarmData.isOn = sender.isOn
-        switchDelegate?.switchValueChanged(isOn: sender.isOn)
-        
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        let context = appDelegate?.persistentContainer.viewContext
-        if let context = context {
-            do {
-                try context.save()
-            } catch {
-                print("Error saving context: \(error)")
-            }
+        //switchDelegate?.switchValueChanged(isOn: sender.isOn)
+        if !sender.isOn {
+            // New logic to remove notification when switch is off
+            NotificationService.shared.removeNotification(withIdentifier: "\(alarmData.time ?? Date())", repeatDays: alarmData.repeatDays?.components(separatedBy: ","))
         }
+        
+        switchDelegate?.switchValueChanged(isOn: sender.isOn)
     }
 }
