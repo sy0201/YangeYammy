@@ -142,20 +142,42 @@ private extension ProfileContentViewController {
                 }
                 
             } else {
-                profileDataManager.saveProfile(profileImage: profileImage ?? "", gender: gender, name: name, birthYear: birthYear, birthMonth: birthMonth, weight: weight, kcal: Int(kcal), neutrification: neutrification, bcs: Int(bcs)) { newProfile in
-                    if let newProfile = newProfile {
-                        self.delegate?.saveNewProfile(newProfile)
+                let alertController = UIAlertController(title: nil, message: "자동 사료 알람을 설정하시겠습니까?", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "확인", style: .default) { _ in
+                    // Call saveProfile function
+                    self.profileDataManager.saveProfile(profileImage: profileImage ?? "",
+                                                        gender: gender,
+                                                        name: name,
+                                                        birthYear: birthYear,
+                                                        birthMonth: birthMonth,
+                                                        weight: weight,
+                                                        kcal: Int(kcal),
+                                                        neutrification: neutrification,
+                                                        bcs: Int(bcs)
+                    ) { newProfile in
+                        if let newProfile = newProfile {
+                            self.delegate?.saveNewProfile(newProfile)
                         
-                        let ageInMonths = self.calculateAgeInMonths(birthYear: birthYear, birthMonth: birthMonth)
-                        self.setupRandomAlarm(ageInMonths: ageInMonths)
-                        DispatchQueue.main.async {
-                            self.dismiss(animated: true)
+                            let ageInMonths = self.calculateAgeInMonths(birthYear: birthYear, birthMonth: birthMonth)
+                            self.setupRandomAlarm(ageInMonths: ageInMonths)
+                            
+                            DispatchQueue.main.async {
+                                self.dismiss(animated: true)
+                            }
+                        } else {
+                            print("Failed to save new profile")
                         }
-                    } else {
-                        print("Failed to save new profile")
                     }
                 }
+                
+                let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+
+                alertController.addAction(okAction)
+                alertController.addAction(cancelAction)
+
+                present(alertController, animated: true, completion: nil)
             }
+            
         } else {
             let alertController = UIAlertController(title: nil, message: "프로필 정보를 모두 입력해주세요.", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)

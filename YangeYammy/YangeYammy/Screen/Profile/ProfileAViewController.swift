@@ -57,8 +57,6 @@ final class ProfileAViewController: UIViewController {
         profileAView.year.text = String(profile.birthYear)
         profileAView.month.text = String(profile.birthMonth)
         profileAView.weight.text = String(profile.weight)
-        print("ProfileAVC birthYear \(profile.birthYear)")
-        print("ProfileAVC birthMonth \(profile.birthMonth)")
 
         profileAView.kcal.text = String(profile.kcal)
     }
