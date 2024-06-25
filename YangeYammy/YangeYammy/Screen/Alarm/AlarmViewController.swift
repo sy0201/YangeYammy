@@ -170,7 +170,6 @@ extension AlarmViewController: UITableViewDataSource, UITableViewDelegate {
                 let deletedAlarmId = String(describing: time)
                 let repeatDays = removeAlarm.repeatDays?.components(separatedBy: ",")
                 
-                print("삭제 deletedAlarmId \(deletedAlarmId)")
                 NotificationService.shared.removeNotification(withIdentifier: deletedAlarmId, repeatDays: repeatDays)
                 tableView.deleteRows(at: [indexPath], with: .automatic)
                 
@@ -225,7 +224,6 @@ extension AlarmViewController: SwitchValueDelegate {
             }
         }
         
-        // Update or remove notification based on isOn state
         if !isOn {
             let alarmData = alarmManager.getAlarmList()[selectedIndexPath.row]
             let notificationId = "\(alarmData.time ?? Date())"

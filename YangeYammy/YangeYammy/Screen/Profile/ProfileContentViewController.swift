@@ -124,7 +124,6 @@ private extension ProfileContentViewController {
             let bcs = profileBViewController.bcsType?.rawValue ?? 0
 
             if let profileData = profileData {
-                // 기존 프로필이 있는 경우 업데이트
                 profileData.profileImage = profileImage
                 profileData.gender = gender
                 profileData.name = name
@@ -143,13 +142,11 @@ private extension ProfileContentViewController {
                 }
                 
             } else {
-                // 새로운 프로필 생성
                 profileDataManager.saveProfile(profileImage: profileImage ?? "", gender: gender, name: name, birthYear: birthYear, birthMonth: birthMonth, weight: weight, kcal: Int(kcal), neutrification: neutrification, bcs: Int(bcs)) { newProfile in
                     if let newProfile = newProfile {
                         self.delegate?.saveNewProfile(newProfile)
                         
                         let ageInMonths = self.calculateAgeInMonths(birthYear: birthYear, birthMonth: birthMonth)
-                        print("⭐️ageInMonths\(ageInMonths)")
                         self.setupRandomAlarm(ageInMonths: ageInMonths)
                         DispatchQueue.main.async {
                             self.dismiss(animated: true)
@@ -160,7 +157,6 @@ private extension ProfileContentViewController {
                 }
             }
         } else {
-            // 프로필 정보가 완전하지 않을 때 경고 표시
             let alertController = UIAlertController(title: nil, message: "프로필 정보를 모두 입력해주세요.", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
             alertController.addAction(okAction)

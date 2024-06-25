@@ -26,9 +26,6 @@ final class ProfileBViewController: UIViewController {
         let isNeutrificationSelected = profileBView.isNeutrificationTapped
         let isBcsSelected = profileBView.isBcsTapped
         
-        print("isNeutrificationSelected \(isNeutrificationSelected)")
-        print("isBcsSelected \(isBcsSelected)")
-
         return isNeutrificationSelected && isBcsSelected
     }
     

@@ -380,7 +380,6 @@ final class ProfileBView: BaseView {
     
     private func setupNeutrificationButton(view: UIView, label: UILabel, isNeutrificationTapped: Bool) {
         if isNeutrificationTapped {
-            print("isNeutrificationTapped\(isNeutrificationTapped)")
             view.backgroundColor = UIColor(red: 93/255, green: 176/255, blue: 117/255, alpha: 1.0)
             label.textColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
         } else {

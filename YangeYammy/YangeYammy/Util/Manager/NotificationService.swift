@@ -52,7 +52,6 @@ final class NotificationService: NSObject {
         var trigger: UNCalendarNotificationTrigger
         
         if let repeatDays = repeatDays, !repeatDays.isEmpty {
-            // Schedule notifications for specific days
             var dateComponents = Calendar.current.dateComponents([.hour, .minute], from: date ?? Date())
             for day in repeatDays {
                 if let weekday = Day(rawValue: day)?.weekdayValue {
@@ -64,7 +63,6 @@ final class NotificationService: NSObject {
                 }
             }
         } else {
-            // Schedule daily notifications
             let dateComponents = Calendar.current.dateComponents([.hour, .minute], from: date ?? Date())
             trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
             
@@ -115,16 +113,12 @@ final class NotificationService: NSObject {
     
     func removeNotification(withIdentifier identifier: String, repeatDays: [String]?) {
         if let repeatDays = repeatDays, !repeatDays.isEmpty {
-            // 요일별로 개별적으로 삭제
             for day in repeatDays {
                 let dayIdentifier = identifier
                 UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [dayIdentifier])
-                print("요일알람 삭제 id \(dayIdentifier)")
             }
         } else {
-            // 매일 반복되는 알람 삭제
             UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
-            print("반복알람 삭제 id \(identifier)")
         }
     }
 }

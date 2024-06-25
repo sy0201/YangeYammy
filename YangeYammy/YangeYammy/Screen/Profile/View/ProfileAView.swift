@@ -291,7 +291,6 @@ final class ProfileAView: BaseView {
         scrollView.contentInset = contentInsets
         scrollView.scrollIndicatorInsets = contentInsets
         
-        // 키보드가 나타날 때 현재 활성화된 입력 필드로 스크롤합니다.
         var rect = self.frame
         rect.size.height -= keyboardFrame.size.height
         if !rect.contains(kcal.frame.origin) {

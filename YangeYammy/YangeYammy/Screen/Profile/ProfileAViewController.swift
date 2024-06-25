@@ -32,14 +32,7 @@ final class ProfileAViewController: UIViewController {
         let isAgeEntered = !(profileAView.year.text?.isEmpty ?? true)
         let isWeightEntered = !(profileAView.weight.text?.isEmpty ?? true)
         let isKcalEntered = !(profileAView.kcal.text?.isEmpty ?? true)
-        
-        print("isGenderSelected \(isGenderSelected)")
-        print("isNameEntered \(isNameEntered)")
-        print("isAgeEntered \(isAgeEntered)")
-        print("isWeightEntered \(isWeightEntered)")
-        print("isKcalEntered \(isKcalEntered)")
 
-        print("ProfileAAInfoComplete \(isNameEntered && isAgeEntered && isGenderSelected && isKcalEntered)")
         return isGenderSelected && isNameEntered && isAgeEntered && isWeightEntered && isKcalEntered
     }
     

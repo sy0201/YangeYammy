@@ -92,7 +92,6 @@ private extension CreateAlarmViewController {
         guard alarmManager.context != nil else { return }
         
         if let alarmData = alarmData {
-            // 알람 데이터가 있는 경우 업데이트
             alarmData.isOn = alarmOnOff
             alarmData.time = alarmDate
             alarmData.label = alarmLabel
@@ -105,7 +104,6 @@ private extension CreateAlarmViewController {
             }
             
         } else {
-            // 새로운 알람 생성
             alarmManager.saveAlarm(isOn: alarmOnOff, time: alarmDate, label: alarmLabel, isAgain: switchButtonAgain, repeatDays: repeatDaysString) { newAlarm in
                 if let newAlarm = newAlarm {
                     self.delegate?.updateAlarm(newAlarm)
@@ -121,7 +119,6 @@ private extension CreateAlarmViewController {
                                                             notificationId: "\(alarmDate)",
                                                             dataIndex: alarmManager.getAlarmList().count == 0 ? nil : alarmManager.getAlarmList().count,
                                                             updateTarget: alarmData?.time)
-        print("저장 notificationId \(alarmDate)")
         self.dismiss(animated: true)
     }
 }
@@ -217,7 +214,6 @@ extension CreateAlarmViewController: LabelTableViewCellDelegate {
 
 extension CreateAlarmViewController: SwitchValueDelegate {
     func switchValueChanged(isOn: Bool) {
-        print("Switch value changed: \(isOn)")
         switchAgain = isOn
     }
 }

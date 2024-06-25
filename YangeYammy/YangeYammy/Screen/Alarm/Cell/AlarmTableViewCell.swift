@@ -74,13 +74,12 @@ extension AlarmTableViewCell {
     func setupTimeString(time: Date) -> (String, String){
         var isNoon = false
         
-        // 코어데이터에 저장된 UTC를 KST로 변환하는 로직
+        // 코어데이터에 저장된 UTC를 KST로 변환
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko_KR")
         dateFormatter.timeZone = TimeZone.current
         dateFormatter.dateFormat = "HH:mm"
         
-        // timeString 반환 로직
         var timeString = dateFormatter.string(from: time)
         
         if(timeString.first == "0") {
@@ -138,12 +137,9 @@ private extension AlarmTableViewCell {
     @objc func switchValueChanged(_ sender: UISwitch) {
         guard let alarmData = alarmData else { return }
         alarmData.isOn = sender.isOn
-        //switchDelegate?.switchValueChanged(isOn: sender.isOn)
         if !sender.isOn {
-            // New logic to remove notification when switch is off
             NotificationService.shared.removeNotification(withIdentifier: "\(alarmData.time ?? Date())", repeatDays: alarmData.repeatDays?.components(separatedBy: ","))
         }
-        
         switchDelegate?.switchValueChanged(isOn: sender.isOn)
     }
 }
