@@ -22,19 +22,18 @@ final class ProfileContentViewController: UIViewController {
     
     lazy var pageViewController: UIPageViewController = {
         let pageVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
-        
+        pageVC.delegate = self
+        pageVC.dataSource = self
         return pageVC
     }()
     
     lazy var vc1: ProfileAViewController = {
         let vc1 = ProfileAViewController()
-        
         return vc1
     }()
     
     lazy var vc2: ProfileBViewController = {
         let vc2 = ProfileBViewController()
-
         return vc2
     }()
     
@@ -54,10 +53,8 @@ final class ProfileContentViewController: UIViewController {
     
     func setupPageVC() {
         if let firstVC = dataViewControllers.first {
-            pageViewController.setViewControllers([firstVC],
-                                                  direction: .forward,
-                                                  animated: true,
-                                                  completion: nil)
+            pageViewController.setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
+            updateSaveButtonTitle(for: firstVC)
         }
     }
     
@@ -69,6 +66,14 @@ final class ProfileContentViewController: UIViewController {
         if let neutrification = neutrification,
            let bcsType = bcsType {
             vc2.configure(with: profile, neutrification: neutrification, bcs: bcsType)
+        }
+    }
+    
+    func updateSaveButtonTitle(for viewController: UIViewController) {
+        if viewController is ProfileAViewController {
+            self.navigationItem.rightBarButtonItem?.title = "다음"
+        } else if viewController is ProfileBViewController {
+            self.navigationItem.rightBarButtonItem?.title = "저장"
         }
     }
 }
@@ -107,6 +112,97 @@ private extension ProfileContentViewController {
         }
     }
     
+    @objc func saveBarButtonTapped() {
+        if let visibleViewController = pageViewController.viewControllers?.first {
+            if visibleViewController is ProfileAViewController {
+                if dataViewControllers.count > 1 {
+                    let nextVC = dataViewControllers[1]
+                    pageViewController.setViewControllers([nextVC], direction: .forward, animated: true) { [weak self] _ in
+                        self?.updateSaveButtonTitle(for: nextVC)
+                    }
+                }
+            } else if visibleViewController is ProfileBViewController {
+                if let profileAViewController = dataViewControllers.first as? ProfileAViewController,
+                   let profileBViewController = dataViewControllers.last as? ProfileBViewController,
+                   profileAViewController.isProfileInfoComplete() && profileBViewController.isProfileInfoComplete() {
+                    
+                    let profileImage = profileAViewController.profileAView.profileImage.image?.toBase64()
+                    let gender = profileAViewController.genderType?.rawValue ?? ""
+                    let name = profileAViewController.profileAView.name.text ?? ""
+                    let birthYear = Int(profileAViewController.profileAView.year.text ?? "") ?? 0
+                    let birthMonth = Int(profileAViewController.profileAView.month.text ?? "") ?? 0
+                    let weight = Float(profileAViewController.profileAView.weight.text ?? "") ?? 0.0
+                    let kcal = Int(profileAViewController.profileAView.kcal.text ?? "") ?? 0
+                    
+                    let neutrification = profileBViewController.neutrificationType?.rawValue ?? ""
+                    let bcs = profileBViewController.bcsType?.rawValue ?? 0
+                    
+                    if let profileData = profileData {
+                        profileData.profileImage = profileImage
+                        profileData.gender = gender
+                        profileData.name = name
+                        profileData.birthYear = Int16(birthYear)
+                        profileData.birthMonth = Int16(birthMonth)
+                        profileData.weight = weight
+                        profileData.kcal = Int16(kcal)
+                        profileData.neutrification = neutrification
+                        profileData.bcs = Int16(bcs)
+                        
+                        profileDataManager.updateProfile(profile: profileData) {
+                            DispatchQueue.main.async {
+                                self.delegate?.editProfile(profileData)
+                                self.dismiss(animated: true, completion: nil)
+                            }
+                        }
+                        
+                    } else {
+                        let alertController = UIAlertController(title: nil, message: "자동 사료 알람을 설정하시겠습니까?", preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "확인", style: .default) { _ in
+                            // Call saveProfile function
+                            self.profileDataManager.saveProfile(profileImage: profileImage ?? "",
+                                                                gender: gender,
+                                                                name: name,
+                                                                birthYear: birthYear,
+                                                                birthMonth: birthMonth,
+                                                                weight: weight,
+                                                                kcal: Int(kcal),
+                                                                neutrification: neutrification,
+                                                                bcs: Int(bcs)
+                            ) { newProfile in
+                                if let newProfile = newProfile {
+                                    self.delegate?.saveNewProfile(newProfile)
+                                    
+                                    let ageInMonths = self.calculateAgeInMonths(birthYear: birthYear, birthMonth: birthMonth)
+                                    self.setupRandomAlarm(ageInMonths: ageInMonths)
+                                    
+                                    DispatchQueue.main.async {
+                                        self.dismiss(animated: true)
+                                    }
+                                } else {
+                                    print("Failed to save new profile")
+                                }
+                            }
+                        }
+                        
+                        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+                        
+                        alertController.addAction(okAction)
+                        alertController.addAction(cancelAction)
+                        
+                        present(alertController, animated: true, completion: nil)
+                    }
+                    
+                } else {
+                    let alertController = UIAlertController(title: nil, message: "프로필 정보를 모두 입력해주세요.", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+                    alertController.addAction(okAction)
+                    present(alertController, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+    
+    /**
     @objc func saveBarButtonTapped() {
         if let profileAViewController = dataViewControllers.first as? ProfileAViewController,
            let profileBViewController = dataViewControllers.last as? ProfileBViewController,
@@ -185,6 +281,7 @@ private extension ProfileContentViewController {
             present(alertController, animated: true, completion: nil)
         }
     }
+    */
     
     func setConstraint() {
         view.addSubview(navigationView)
@@ -292,5 +389,11 @@ extension ProfileContentViewController: UIPageViewControllerDataSource, UIPageVi
             return nil
         }
         return dataViewControllers[nextIndex]
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        if completed, let visibleViewController = pageViewController.viewControllers?.first {
+            updateSaveButtonTitle(for: visibleViewController)
+        }
     }
 }
