@@ -50,9 +50,6 @@
 		18E5F4F52BD639A4004E0E27 /* ProfileAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4F42BD639A4004E0E27 /* ProfileAViewController.swift */; };
 		18E5F4F72BD63AAC004E0E27 /* ProfileBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4F62BD63AAC004E0E27 /* ProfileBViewController.swift */; };
 		18E5F4FC2BD63B33004E0E27 /* ProfileAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4FB2BD63B33004E0E27 /* ProfileAView.swift */; };
-		18E5F4FE2BD64765004E0E27 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18E5F4FD2BD64765004E0E27 /* GoogleService-Info.plist */; };
-		18E5F4FF2BD64765004E0E27 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18E5F4FD2BD64765004E0E27 /* GoogleService-Info.plist */; };
-		18E5F5002BD64765004E0E27 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18E5F4FD2BD64765004E0E27 /* GoogleService-Info.plist */; };
 		18E5F5112BD9B7C3004E0E27 /* SetRepeatDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F5102BD9B7C3004E0E27 /* SetRepeatDateTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -120,7 +117,6 @@
 		18E5F4F42BD639A4004E0E27 /* ProfileAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAViewController.swift; sourceTree = "<group>"; };
 		18E5F4F62BD63AAC004E0E27 /* ProfileBViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBViewController.swift; sourceTree = "<group>"; };
 		18E5F4FB2BD63B33004E0E27 /* ProfileAView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAView.swift; sourceTree = "<group>"; };
-		18E5F4FD2BD64765004E0E27 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		18E5F5102BD9B7C3004E0E27 /* SetRepeatDateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRepeatDateTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -161,7 +157,6 @@
 		1802169C2BD9E1DC0033AE92 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				18E5F4FD2BD64765004E0E27 /* GoogleService-Info.plist */,
 				186F8CA62BC7E20100741FF1 /* AppDelegate.swift */,
 				186F8CA82BC7E20100741FF1 /* SceneDelegate.swift */,
 				185F4BAB2C0DC75400DA8242 /* AlarmEntity+CoreDataClass.swift */,
@@ -460,7 +455,6 @@
 			files = (
 				186F8CB02BC7E20200741FF1 /* Assets.xcassets in Resources */,
 				186F8CB32BC7E20200741FF1 /* Base in Resources */,
-				18E5F4FE2BD64765004E0E27 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,7 +462,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18E5F4FF2BD64765004E0E27 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -476,7 +469,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18E5F5002BD64765004E0E27 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
