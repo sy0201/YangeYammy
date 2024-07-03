@@ -202,87 +202,6 @@ private extension ProfileContentViewController {
         }
     }
     
-    /**
-    @objc func saveBarButtonTapped() {
-        if let profileAViewController = dataViewControllers.first as? ProfileAViewController,
-           let profileBViewController = dataViewControllers.last as? ProfileBViewController,
-           profileAViewController.isProfileInfoComplete() && profileBViewController.isProfileInfoComplete() {
-            
-            let profileImage = profileAViewController.profileAView.profileImage.image?.toBase64()
-            let gender = profileAViewController.genderType?.rawValue ?? ""
-            let name = profileAViewController.profileAView.name.text ?? ""
-            let birthYear = Int(profileAViewController.profileAView.year.text ?? "") ?? 0
-            let birthMonth = Int(profileAViewController.profileAView.month.text ?? "") ?? 0
-            let weight = Float(profileAViewController.profileAView.weight.text ?? "") ?? 0.0
-            let kcal = Int(profileAViewController.profileAView.kcal.text ?? "") ?? 0
-
-            let neutrification = profileBViewController.neutrificationType?.rawValue ?? ""
-            let bcs = profileBViewController.bcsType?.rawValue ?? 0
-
-            if let profileData = profileData {
-                profileData.profileImage = profileImage
-                profileData.gender = gender
-                profileData.name = name
-                profileData.birthYear = Int16(birthYear)
-                profileData.birthMonth = Int16(birthMonth)
-                profileData.weight = weight
-                profileData.kcal = Int16(kcal)
-                profileData.neutrification = neutrification
-                profileData.bcs = Int16(bcs)
-                
-                profileDataManager.updateProfile(profile: profileData) {
-                    DispatchQueue.main.async {
-                        self.delegate?.editProfile(profileData)
-                        self.dismiss(animated: true, completion: nil)
-                    }
-                }
-                
-            } else {
-                let alertController = UIAlertController(title: nil, message: "자동 사료 알람을 설정하시겠습니까?", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "확인", style: .default) { _ in
-                    // Call saveProfile function
-                    self.profileDataManager.saveProfile(profileImage: profileImage ?? "",
-                                                        gender: gender,
-                                                        name: name,
-                                                        birthYear: birthYear,
-                                                        birthMonth: birthMonth,
-                                                        weight: weight,
-                                                        kcal: Int(kcal),
-                                                        neutrification: neutrification,
-                                                        bcs: Int(bcs)
-                    ) { newProfile in
-                        if let newProfile = newProfile {
-                            self.delegate?.saveNewProfile(newProfile)
-                        
-                            let ageInMonths = self.calculateAgeInMonths(birthYear: birthYear, birthMonth: birthMonth)
-                            self.setupRandomAlarm(ageInMonths: ageInMonths)
-                            
-                            DispatchQueue.main.async {
-                                self.dismiss(animated: true)
-                            }
-                        } else {
-                            print("Failed to save new profile")
-                        }
-                    }
-                }
-                
-                let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-
-                alertController.addAction(okAction)
-                alertController.addAction(cancelAction)
-
-                present(alertController, animated: true, completion: nil)
-            }
-            
-        } else {
-            let alertController = UIAlertController(title: nil, message: "프로필 정보를 모두 입력해주세요.", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
-            alertController.addAction(okAction)
-            present(alertController, animated: true, completion: nil)
-        }
-    }
-    */
-    
     func setConstraint() {
         view.addSubview(navigationView)
         addChild(pageViewController)
@@ -296,7 +215,6 @@ private extension ProfileContentViewController {
             make.top.equalToSuperview().offset(72)
             make.leading.trailing.bottom.equalToSuperview()
         }
-        
         pageViewController.didMove(toParent: self)
     }
     
