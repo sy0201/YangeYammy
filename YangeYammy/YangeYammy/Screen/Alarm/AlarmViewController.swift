@@ -214,7 +214,7 @@ extension AlarmViewController: AlarmDelegate {
 extension AlarmViewController: SwitchValueDelegate {
     func switchValueChanged(isOn: Bool) {
         guard let selectedIndexPath = alarmView.tableView.indexPathForSelectedRow else { return }
-        var selectedAlarm = alarmManager.getAlarmList()[selectedIndexPath.row]
+        let selectedAlarm = alarmManager.getAlarmList()[selectedIndexPath.row]
         selectedAlarm.isOn = isOn
         
         alarmManager.updateAlarm(targetId: selectedAlarm.time ?? Date(), newData: selectedAlarm) {
