@@ -7,15 +7,50 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1802169E2BD9E1FE0033AE92 /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1802169D2BD9E1FE0033AE92 /* Enum.swift */; };
+		180216A02BD9E3770033AE92 /* SelectDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1802169F2BD9E3770033AE92 /* SelectDayViewController.swift */; };
+		180216A32BD9EE950033AE92 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180216A22BD9EE950033AE92 /* Protocol.swift */; };
+		180216A52BD9F3680033AE92 /* SelectDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180216A42BD9F3680033AE92 /* SelectDayView.swift */; };
+		180216A72BDA24370033AE92 /* DayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180216A62BDA24370033AE92 /* DayTableViewCell.swift */; };
+		180216AA2BDA59030033AE92 /* AlarmDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180216A92BDA59030033AE92 /* AlarmDataManager.swift */; };
+		180216B62BDDBC300033AE92 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 180216B52BDDBC300033AE92 /* SnapKit */; };
+		185F4B902BF7254A00DA8242 /* ProfileDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4B8F2BF7254A00DA8242 /* ProfileDataManager.swift */; };
+		185F4B932BFB314100DA8242 /* ProfileListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4B922BFB314100DA8242 /* ProfileListViewController.swift */; };
+		185F4B952BFB329000DA8242 /* ProfileListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4B942BFB329000DA8242 /* ProfileListView.swift */; };
+		185F4B9A2BFB3B2C00DA8242 /* ProfileListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4B992BFB3B2C00DA8242 /* ProfileListCollectionViewCell.swift */; };
+		185F4B9E2BFC935300DA8242 /* ProfileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4B9D2BFC935300DA8242 /* ProfileDetailView.swift */; };
+		185F4BAD2C0DC75400DA8242 /* AlarmEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4BAB2C0DC75400DA8242 /* AlarmEntity+CoreDataClass.swift */; };
+		185F4BAE2C0DC75400DA8242 /* AlarmEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4BAC2C0DC75400DA8242 /* AlarmEntity+CoreDataProperties.swift */; };
 		186F8CA72BC7E20100741FF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F8CA62BC7E20100741FF1 /* AppDelegate.swift */; };
 		186F8CA92BC7E20100741FF1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F8CA82BC7E20100741FF1 /* SceneDelegate.swift */; };
-		186F8CAB2BC7E20100741FF1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F8CAA2BC7E20100741FF1 /* ViewController.swift */; };
-		186F8CAE2BC7E20100741FF1 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 186F8CAD2BC7E20100741FF1 /* Base */; };
 		186F8CB02BC7E20200741FF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 186F8CAF2BC7E20200741FF1 /* Assets.xcassets */; };
 		186F8CB32BC7E20200741FF1 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 186F8CB22BC7E20200741FF1 /* Base */; };
 		186F8CBE2BC7E20200741FF1 /* YangeYammyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F8CBD2BC7E20200741FF1 /* YangeYammyTests.swift */; };
 		186F8CC82BC7E20200741FF1 /* YangeYammyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F8CC72BC7E20200741FF1 /* YangeYammyUITests.swift */; };
 		186F8CCA2BC7E20200741FF1 /* YangeYammyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F8CC92BC7E20200741FF1 /* YangeYammyUITestsLaunchTests.swift */; };
+		186F8CD82BC8A6E600741FF1 /* RootTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F8CD72BC8A6E600741FF1 /* RootTabBarViewController.swift */; };
+		186F8CDC2BC8A8F200741FF1 /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F8CDB2BC8A8F200741FF1 /* AlarmViewController.swift */; };
+		188423C32BE6F2AD00956EEE /* YangeYammy.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 188423C12BE6F2AD00956EEE /* YangeYammy.xcdatamodeld */; };
+		188423C92BE8B3F000956EEE /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188423C82BE8B3F000956EEE /* NotificationService.swift */; };
+		188423CB2BE8BB3300956EEE /* getCurrentDateFromSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188423CA2BE8BB3300956EEE /* getCurrentDateFromSimulator.swift */; };
+		188423CF2BEB78A500956EEE /* ProfileBView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188423CE2BEB78A500956EEE /* ProfileBView.swift */; };
+		188423D12BF1E2AC00956EEE /* SetLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188423D02BF1E2AC00956EEE /* SetLabelTableViewCell.swift */; };
+		188423D32BF1F13700956EEE /* SetRepeatAgainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188423D22BF1F13700956EEE /* SetRepeatAgainTableViewCell.swift */; };
+		188423DD2BF5C86300956EEE /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188423DC2BF5C86300956EEE /* UIImage.swift */; };
+		18E5F4D52BC8AB36004E0E27 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4D42BC8AB36004E0E27 /* BaseView.swift */; };
+		18E5F4DA2BC8B72C004E0E27 /* AlarmNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4D92BC8B72C004E0E27 /* AlarmNavigationController.swift */; };
+		18E5F4DD2BC8C48B004E0E27 /* ReuseIdentifying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4DC2BC8C48B004E0E27 /* ReuseIdentifying.swift */; };
+		18E5F4DF2BC8C661004E0E27 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4DE2BC8C661004E0E27 /* UIView.swift */; };
+		18E5F4E62BC8E7B9004E0E27 /* CreateAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4E52BC8E7B9004E0E27 /* CreateAlarmViewController.swift */; };
+		18E5F4E82BC8EA69004E0E27 /* CreateAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4E72BC8EA69004E0E27 /* CreateAlarmView.swift */; };
+		18E5F4EA2BC94152004E0E27 /* AlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4E92BC94152004E0E27 /* AlarmView.swift */; };
+		18E5F4EC2BC945BD004E0E27 /* AlarmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4EB2BC945BD004E0E27 /* AlarmTableViewCell.swift */; };
+		18E5F4F12BD62215004E0E27 /* ProfileNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4F02BD62215004E0E27 /* ProfileNavigationController.swift */; };
+		18E5F4F32BD62275004E0E27 /* ProfileContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4F22BD62275004E0E27 /* ProfileContentViewController.swift */; };
+		18E5F4F52BD639A4004E0E27 /* ProfileAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4F42BD639A4004E0E27 /* ProfileAViewController.swift */; };
+		18E5F4F72BD63AAC004E0E27 /* ProfileBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4F62BD63AAC004E0E27 /* ProfileBViewController.swift */; };
+		18E5F4FC2BD63B33004E0E27 /* ProfileAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F4FB2BD63B33004E0E27 /* ProfileAView.swift */; };
+		18E5F5112BD9B7C3004E0E27 /* SetRepeatDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5F5102BD9B7C3004E0E27 /* SetRepeatDateTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,11 +71,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1802169D2BD9E1FE0033AE92 /* Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };
+		1802169F2BD9E3770033AE92 /* SelectDayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDayViewController.swift; sourceTree = "<group>"; };
+		180216A22BD9EE950033AE92 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
+		180216A42BD9F3680033AE92 /* SelectDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDayView.swift; sourceTree = "<group>"; };
+		180216A62BDA24370033AE92 /* DayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTableViewCell.swift; sourceTree = "<group>"; };
+		180216A92BDA59030033AE92 /* AlarmDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmDataManager.swift; sourceTree = "<group>"; };
+		185F4B8F2BF7254A00DA8242 /* ProfileDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDataManager.swift; sourceTree = "<group>"; };
+		185F4B922BFB314100DA8242 /* ProfileListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileListViewController.swift; sourceTree = "<group>"; };
+		185F4B942BFB329000DA8242 /* ProfileListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileListView.swift; sourceTree = "<group>"; };
+		185F4B992BFB3B2C00DA8242 /* ProfileListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileListCollectionViewCell.swift; sourceTree = "<group>"; };
+		185F4B9D2BFC935300DA8242 /* ProfileDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailView.swift; sourceTree = "<group>"; };
+		185F4BAB2C0DC75400DA8242 /* AlarmEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlarmEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		185F4BAC2C0DC75400DA8242 /* AlarmEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlarmEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		186F8CA32BC7E20100741FF1 /* YangeYammy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YangeYammy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		186F8CA62BC7E20100741FF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		186F8CA82BC7E20100741FF1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		186F8CAA2BC7E20100741FF1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		186F8CAD2BC7E20100741FF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		186F8CAF2BC7E20200741FF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		186F8CB22BC7E20200741FF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		186F8CB42BC7E20200741FF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,6 +95,29 @@
 		186F8CC32BC7E20200741FF1 /* YangeYammyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YangeYammyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		186F8CC72BC7E20200741FF1 /* YangeYammyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YangeYammyUITests.swift; sourceTree = "<group>"; };
 		186F8CC92BC7E20200741FF1 /* YangeYammyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YangeYammyUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		186F8CD72BC8A6E600741FF1 /* RootTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarViewController.swift; sourceTree = "<group>"; };
+		186F8CDB2BC8A8F200741FF1 /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
+		188423C22BE6F2AD00956EEE /* YangeYammy.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = YangeYammy.xcdatamodel; sourceTree = "<group>"; };
+		188423C82BE8B3F000956EEE /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		188423CA2BE8BB3300956EEE /* getCurrentDateFromSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getCurrentDateFromSimulator.swift; sourceTree = "<group>"; };
+		188423CE2BEB78A500956EEE /* ProfileBView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBView.swift; sourceTree = "<group>"; };
+		188423D02BF1E2AC00956EEE /* SetLabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLabelTableViewCell.swift; sourceTree = "<group>"; };
+		188423D22BF1F13700956EEE /* SetRepeatAgainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRepeatAgainTableViewCell.swift; sourceTree = "<group>"; };
+		188423DC2BF5C86300956EEE /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		18E5F4D42BC8AB36004E0E27 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		18E5F4D92BC8B72C004E0E27 /* AlarmNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmNavigationController.swift; sourceTree = "<group>"; };
+		18E5F4DC2BC8C48B004E0E27 /* ReuseIdentifying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifying.swift; sourceTree = "<group>"; };
+		18E5F4DE2BC8C661004E0E27 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		18E5F4E52BC8E7B9004E0E27 /* CreateAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAlarmViewController.swift; sourceTree = "<group>"; };
+		18E5F4E72BC8EA69004E0E27 /* CreateAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAlarmView.swift; sourceTree = "<group>"; };
+		18E5F4E92BC94152004E0E27 /* AlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmView.swift; sourceTree = "<group>"; };
+		18E5F4EB2BC945BD004E0E27 /* AlarmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableViewCell.swift; sourceTree = "<group>"; };
+		18E5F4F02BD62215004E0E27 /* ProfileNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNavigationController.swift; sourceTree = "<group>"; };
+		18E5F4F22BD62275004E0E27 /* ProfileContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileContentViewController.swift; sourceTree = "<group>"; };
+		18E5F4F42BD639A4004E0E27 /* ProfileAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAViewController.swift; sourceTree = "<group>"; };
+		18E5F4F62BD63AAC004E0E27 /* ProfileBViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBViewController.swift; sourceTree = "<group>"; };
+		18E5F4FB2BD63B33004E0E27 /* ProfileAView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAView.swift; sourceTree = "<group>"; };
+		18E5F5102BD9B7C3004E0E27 /* SetRepeatDateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRepeatDateTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				180216B62BDDBC300033AE92 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +146,62 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1802169B2BD9E1C90033AE92 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				1802169D2BD9E1FE0033AE92 /* Enum.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
+		1802169C2BD9E1DC0033AE92 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				186F8CA62BC7E20100741FF1 /* AppDelegate.swift */,
+				186F8CA82BC7E20100741FF1 /* SceneDelegate.swift */,
+				185F4BAB2C0DC75400DA8242 /* AlarmEntity+CoreDataClass.swift */,
+				185F4BAC2C0DC75400DA8242 /* AlarmEntity+CoreDataProperties.swift */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		180216A12BD9EE840033AE92 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				180216A22BD9EE950033AE92 /* Protocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		180216A82BDA58D10033AE92 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				188423C82BE8B3F000956EEE /* NotificationService.swift */,
+				180216A92BDA59030033AE92 /* AlarmDataManager.swift */,
+				185F4B8F2BF7254A00DA8242 /* ProfileDataManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		180216AB2BDA592D0033AE92 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				1802169B2BD9E1C90033AE92 /* Enum */,
+				180216A82BDA58D10033AE92 /* Manager */,
+				18E5F4DB2BC8C47B004E0E27 /* Extension */,
+				180216A12BD9EE840033AE92 /* Protocol */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		185F4B982BFB33CA00DA8242 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				185F4B992BFB3B2C00DA8242 /* ProfileListCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		186F8C9A2BC7E20100741FF1 = {
 			isa = PBXGroup;
 			children = (
@@ -99,10 +225,10 @@
 		186F8CA52BC7E20100741FF1 /* YangeYammy */ = {
 			isa = PBXGroup;
 			children = (
-				186F8CA62BC7E20100741FF1 /* AppDelegate.swift */,
-				186F8CA82BC7E20100741FF1 /* SceneDelegate.swift */,
-				186F8CAA2BC7E20100741FF1 /* ViewController.swift */,
-				186F8CAC2BC7E20100741FF1 /* Main.storyboard */,
+				188423C12BE6F2AD00956EEE /* YangeYammy.xcdatamodeld */,
+				1802169C2BD9E1DC0033AE92 /* Support */,
+				180216AB2BDA592D0033AE92 /* Util */,
+				186F8CD62BC7E2DF00741FF1 /* Screen */,
 				186F8CAF2BC7E20200741FF1 /* Assets.xcassets */,
 				186F8CB12BC7E20200741FF1 /* LaunchScreen.storyboard */,
 				186F8CB42BC7E20200741FF1 /* Info.plist */,
@@ -127,6 +253,96 @@
 			path = YangeYammyUITests;
 			sourceTree = "<group>";
 		};
+		186F8CD62BC7E2DF00741FF1 /* Screen */ = {
+			isa = PBXGroup;
+			children = (
+				186F8CDE2BC8AA9E00741FF1 /* Base */,
+				186F8CD72BC8A6E600741FF1 /* RootTabBarViewController.swift */,
+				186F8CDD2BC8AA3E00741FF1 /* Alarm */,
+				18E5F4EF2BD62193004E0E27 /* Profile */,
+			);
+			path = Screen;
+			sourceTree = "<group>";
+		};
+		186F8CDD2BC8AA3E00741FF1 /* Alarm */ = {
+			isa = PBXGroup;
+			children = (
+				18F300CB2BC8ABC60065D852 /* View */,
+				18E5F4D62BC8B165004E0E27 /* Cell */,
+				18E5F4D92BC8B72C004E0E27 /* AlarmNavigationController.swift */,
+				186F8CDB2BC8A8F200741FF1 /* AlarmViewController.swift */,
+				18E5F4E52BC8E7B9004E0E27 /* CreateAlarmViewController.swift */,
+				1802169F2BD9E3770033AE92 /* SelectDayViewController.swift */,
+			);
+			path = Alarm;
+			sourceTree = "<group>";
+		};
+		186F8CDE2BC8AA9E00741FF1 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				18E5F4D42BC8AB36004E0E27 /* BaseView.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		18E5F4D62BC8B165004E0E27 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				18E5F4EB2BC945BD004E0E27 /* AlarmTableViewCell.swift */,
+				180216A62BDA24370033AE92 /* DayTableViewCell.swift */,
+				18E5F5102BD9B7C3004E0E27 /* SetRepeatDateTableViewCell.swift */,
+				188423D02BF1E2AC00956EEE /* SetLabelTableViewCell.swift */,
+				188423D22BF1F13700956EEE /* SetRepeatAgainTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		18E5F4DB2BC8C47B004E0E27 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				18E5F4DC2BC8C48B004E0E27 /* ReuseIdentifying.swift */,
+				18E5F4DE2BC8C661004E0E27 /* UIView.swift */,
+				188423CA2BE8BB3300956EEE /* getCurrentDateFromSimulator.swift */,
+				188423DC2BF5C86300956EEE /* UIImage.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		18E5F4EF2BD62193004E0E27 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				18E5F4FA2BD63B1E004E0E27 /* View */,
+				185F4B982BFB33CA00DA8242 /* Cell */,
+				18E5F4F02BD62215004E0E27 /* ProfileNavigationController.swift */,
+				185F4B922BFB314100DA8242 /* ProfileListViewController.swift */,
+				18E5F4F22BD62275004E0E27 /* ProfileContentViewController.swift */,
+				18E5F4F42BD639A4004E0E27 /* ProfileAViewController.swift */,
+				18E5F4F62BD63AAC004E0E27 /* ProfileBViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		18E5F4FA2BD63B1E004E0E27 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				185F4B942BFB329000DA8242 /* ProfileListView.swift */,
+				185F4B9D2BFC935300DA8242 /* ProfileDetailView.swift */,
+				18E5F4FB2BD63B33004E0E27 /* ProfileAView.swift */,
+				188423CE2BEB78A500956EEE /* ProfileBView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		18F300CB2BC8ABC60065D852 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				18E5F4E92BC94152004E0E27 /* AlarmView.swift */,
+				18E5F4E72BC8EA69004E0E27 /* CreateAlarmView.swift */,
+				180216A42BD9F3680033AE92 /* SelectDayView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,6 +359,9 @@
 			dependencies = (
 			);
 			name = YangeYammy;
+			packageProductDependencies = (
+				180216B52BDDBC300033AE92 /* SnapKit */,
+			);
 			productName = YangeYammy;
 			productReference = 186F8CA32BC7E20100741FF1 /* YangeYammy.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +434,9 @@
 				Base,
 			);
 			mainGroup = 186F8C9A2BC7E20100741FF1;
+			packageReferences = (
+				18F300CE2BC8AD7F0065D852 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 186F8CA42BC7E20100741FF1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -233,7 +455,6 @@
 			files = (
 				186F8CB02BC7E20200741FF1 /* Assets.xcassets in Resources */,
 				186F8CB32BC7E20200741FF1 /* Base in Resources */,
-				186F8CAE2BC7E20100741FF1 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,9 +479,44 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				186F8CAB2BC7E20100741FF1 /* ViewController.swift in Sources */,
+				18E5F4DF2BC8C661004E0E27 /* UIView.swift in Sources */,
+				186F8CDC2BC8A8F200741FF1 /* AlarmViewController.swift in Sources */,
+				188423D32BF1F13700956EEE /* SetRepeatAgainTableViewCell.swift in Sources */,
+				18E5F4DD2BC8C48B004E0E27 /* ReuseIdentifying.swift in Sources */,
+				18E5F4F12BD62215004E0E27 /* ProfileNavigationController.swift in Sources */,
+				185F4B952BFB329000DA8242 /* ProfileListView.swift in Sources */,
+				188423C32BE6F2AD00956EEE /* YangeYammy.xcdatamodeld in Sources */,
+				185F4BAD2C0DC75400DA8242 /* AlarmEntity+CoreDataClass.swift in Sources */,
+				185F4BAE2C0DC75400DA8242 /* AlarmEntity+CoreDataProperties.swift in Sources */,
+				186F8CD82BC8A6E600741FF1 /* RootTabBarViewController.swift in Sources */,
+				18E5F4D52BC8AB36004E0E27 /* BaseView.swift in Sources */,
+				18E5F4FC2BD63B33004E0E27 /* ProfileAView.swift in Sources */,
+				188423CB2BE8BB3300956EEE /* getCurrentDateFromSimulator.swift in Sources */,
+				1802169E2BD9E1FE0033AE92 /* Enum.swift in Sources */,
+				180216A72BDA24370033AE92 /* DayTableViewCell.swift in Sources */,
+				188423DD2BF5C86300956EEE /* UIImage.swift in Sources */,
+				18E5F4F32BD62275004E0E27 /* ProfileContentViewController.swift in Sources */,
+				18E5F4EA2BC94152004E0E27 /* AlarmView.swift in Sources */,
+				18E5F4DA2BC8B72C004E0E27 /* AlarmNavigationController.swift in Sources */,
+				18E5F4F52BD639A4004E0E27 /* ProfileAViewController.swift in Sources */,
+				180216A32BD9EE950033AE92 /* Protocol.swift in Sources */,
 				186F8CA72BC7E20100741FF1 /* AppDelegate.swift in Sources */,
+				180216A02BD9E3770033AE92 /* SelectDayViewController.swift in Sources */,
+				18E5F4F72BD63AAC004E0E27 /* ProfileBViewController.swift in Sources */,
+				185F4B932BFB314100DA8242 /* ProfileListViewController.swift in Sources */,
+				18E5F5112BD9B7C3004E0E27 /* SetRepeatDateTableViewCell.swift in Sources */,
+				180216AA2BDA59030033AE92 /* AlarmDataManager.swift in Sources */,
 				186F8CA92BC7E20100741FF1 /* SceneDelegate.swift in Sources */,
+				180216A52BD9F3680033AE92 /* SelectDayView.swift in Sources */,
+				188423CF2BEB78A500956EEE /* ProfileBView.swift in Sources */,
+				18E5F4EC2BC945BD004E0E27 /* AlarmTableViewCell.swift in Sources */,
+				185F4B902BF7254A00DA8242 /* ProfileDataManager.swift in Sources */,
+				188423D12BF1E2AC00956EEE /* SetLabelTableViewCell.swift in Sources */,
+				185F4B9E2BFC935300DA8242 /* ProfileDetailView.swift in Sources */,
+				18E5F4E82BC8EA69004E0E27 /* CreateAlarmView.swift in Sources */,
+				188423C92BE8B3F000956EEE /* NotificationService.swift in Sources */,
+				185F4B9A2BFB3B2C00DA8242 /* ProfileListCollectionViewCell.swift in Sources */,
+				18E5F4E62BC8E7B9004E0E27 /* CreateAlarmViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,14 +553,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		186F8CAC2BC7E20100741FF1 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				186F8CAD2BC7E20100741FF1 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		186F8CB12BC7E20200741FF1 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -368,7 +616,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -425,7 +673,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -447,7 +695,6 @@
 				INFOPLIST_FILE = YangeYammy/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -475,7 +722,6 @@
 				INFOPLIST_FILE = YangeYammy/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -607,6 +853,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		18F300CE2BC8AD7F0065D852 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		180216B52BDDBC300033AE92 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 18F300CE2BC8AD7F0065D852 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		188423C12BE6F2AD00956EEE /* YangeYammy.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				188423C22BE6F2AD00956EEE /* YangeYammy.xcdatamodel */,
+			);
+			currentVersion = 188423C22BE6F2AD00956EEE /* YangeYammy.xcdatamodel */;
+			path = YangeYammy.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 186F8C9B2BC7E20100741FF1 /* Project object */;
 }
