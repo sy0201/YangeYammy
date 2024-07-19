@@ -184,7 +184,29 @@ private extension ProfileContentViewController {
                             }
                         }
                         
-                        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+                        //let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+                        let cancelAction = UIAlertAction(title: "취소", style: .cancel) { _ in
+                            self.profileDataManager.saveProfile(profileImage: profileImage ?? "",
+                                                                gender: gender,
+                                                                name: name,
+                                                                birthYear: birthYear,
+                                                                birthMonth: birthMonth,
+                                                                weight: weight,
+                                                                kcal: Int(kcal),
+                                                                neutrification: neutrification,
+                                                                bcs: Int(bcs)) { newProfile in
+                                if let newProfile = newProfile {
+                                    self.delegate?.saveNewProfile(newProfile)
+                                    
+                                    DispatchQueue.main.async {
+                                        self.dismiss(animated: true)
+                                    }
+                                } else {
+                                    print("Failed to save new profile")
+                                }
+                            }
+                        }
+
                         
                         alertController.addAction(okAction)
                         alertController.addAction(cancelAction)
