@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 import Photos
 
 final class ProfileAViewController: UIViewController {
@@ -62,6 +63,59 @@ final class ProfileAViewController: UIViewController {
     }
 }
 
+extension ProfileAViewController {
+    func requestPhotoLibraryPermission(completion: @escaping (Bool) -> Void) {
+        let status = PHPhotoLibrary.authorizationStatus(for: .readWrite)
+        
+        switch status {
+        case .authorized:
+            completion(true)
+        case .notDetermined, .denied, .restricted:
+            PHPhotoLibrary.requestAuthorization(for: .readWrite) { newStatus in
+                DispatchQueue.main.async {
+                    completion(newStatus == .authorized)
+                }
+            }
+        default:
+            completion(false)
+        }
+    }
+    
+    func requestCameraPermission(completion: @escaping (Bool) -> Void) {
+        let status = AVCaptureDevice.authorizationStatus(for: .video)
+        
+        switch status {
+        case .authorized:
+            completion(true)
+        case .notDetermined, .denied, .restricted:
+            AVCaptureDevice.requestAccess(for: .video) { granted in
+                DispatchQueue.main.async {
+                    completion(granted)
+                }
+            }
+        default:
+            completion(false)
+        }
+    }
+    
+    func showPermissionAlert(message: String) {
+        let alertController = UIAlertController(title: "사진 접근 권한이 없습니다. 설정으로 이동하여 권한 설정을 해주세요.", message: message, preferredStyle: .alert)
+        
+        let settingsAction = UIAlertAction(title: "설정으로 이동", style: .default) { _ in
+            if let appSettings = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(appSettings, options: [:], completionHandler: nil)
+            }
+        }
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
+        alertController.addAction(settingsAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+}
+
 // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
 
 extension ProfileAViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -77,56 +131,64 @@ extension ProfileAViewController: UIImagePickerControllerDelegate, UINavigationC
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let albumAction = UIAlertAction(title: "앨범에서 선택", style: .default) { _ in
-            self.openLibrary()
+            self.checkLibraryPermissionStatus()
         }
-        
         alertController.addAction(albumAction)
         
         let cameraAction = UIAlertAction(title: "카메라로 촬영", style: .default) { _ in
-            self.openCamera()
+            self.checkCameraPermissionStatus()
         }
-        
         alertController.addAction(cameraAction)
         
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-        
         alertController.addAction(cancelAction)
         
         present(alertController, animated: true, completion: nil)
     }
     
-    func openLibrary(sourceType: UIImagePickerController.SourceType) {
-        guard UIImagePickerController.isSourceTypeAvailable(sourceType) else {
-            return
+    func checkLibraryPermissionStatus() {
+        requestPhotoLibraryPermission { granted in
+            if granted {
+                self.openLibrary()
+            } else {
+                self.showPermissionAlert(message: "프로필 사진등록, 편집을 위해 앨범 접근 권한이 필요합니다.")
+            }
         }
-        
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = sourceType
-
-        present(imagePicker, animated: true, completion: nil)
     }
     
+    func checkCameraPermissionStatus() {
+        requestCameraPermission { granted in
+            if granted {
+                self.openCamera()
+            } else {
+                self.showPermissionAlert(message: "프로필 사진등록, 편집을 위해 카메라 접근 권한이 필요합니다.")
+            }
+        }
+    }
+
     func openLibrary() {
-        let imagePickerController = UIImagePickerController()
-        
-        imagePickerController.delegate = self
-        imagePickerController.sourceType = .photoLibrary
-        imagePickerController.allowsEditing = true
-        
-        present(imagePickerController, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let imagePickerController = UIImagePickerController()
+            
+            imagePickerController.delegate = self
+            imagePickerController.sourceType = .photoLibrary
+            imagePickerController.allowsEditing = true
+            
+            self.present(imagePickerController, animated: true, completion: nil)
+        }
     }
     
     func openCamera() {
-        guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
-            return
+        DispatchQueue.main.async {
+            guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
+                return
+            }
+            let picker = UIImagePickerController()
+            picker.delegate = self
+            picker.sourceType = .camera
+            
+            self.present(picker, animated: true, completion: nil)
         }
-        
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        picker.sourceType = .camera
-        
-        present(picker, animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
