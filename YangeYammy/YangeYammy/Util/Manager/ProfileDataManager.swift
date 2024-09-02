@@ -52,9 +52,9 @@ final class ProfileDataManager {
         newProfile.birthYear = Int16(birthYear)
         newProfile.birthMonth = Int16(birthMonth)
         newProfile.weight = weight
-        newProfile.kcal = Int16(kcal)
+        newProfile.kcal = Int64(kcal)
         newProfile.neutrification = neutrification
-        newProfile.bcs = Int16(bcs)
+        newProfile.bcs = Int64(bcs)
         
         if context.hasChanges {
             do {

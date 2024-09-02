@@ -252,7 +252,7 @@ extension ProfileAViewController: UITextFieldDelegate {
         case profileAView.kcal:
             if let kcalText = textField.text,
                 let kcal = Int(kcalText) {
-                profile.kcal = Int16(kcal)
+                profile.kcal = Int64(kcal)
             }
             
         default:

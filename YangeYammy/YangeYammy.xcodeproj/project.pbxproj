@@ -14,6 +14,7 @@
 		180216A72BDA24370033AE92 /* DayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180216A62BDA24370033AE92 /* DayTableViewCell.swift */; };
 		180216AA2BDA59030033AE92 /* AlarmDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180216A92BDA59030033AE92 /* AlarmDataManager.swift */; };
 		180216B62BDDBC300033AE92 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 180216B52BDDBC300033AE92 /* SnapKit */; };
+		18037EA62C520F94003AB4AD /* AlarmListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18037EA52C520F94003AB4AD /* AlarmListViewModel.swift */; };
 		185F4B902BF7254A00DA8242 /* ProfileDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4B8F2BF7254A00DA8242 /* ProfileDataManager.swift */; };
 		185F4B932BFB314100DA8242 /* ProfileListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4B922BFB314100DA8242 /* ProfileListViewController.swift */; };
 		185F4B952BFB329000DA8242 /* ProfileListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4B942BFB329000DA8242 /* ProfileListView.swift */; };
@@ -77,6 +78,7 @@
 		180216A42BD9F3680033AE92 /* SelectDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDayView.swift; sourceTree = "<group>"; };
 		180216A62BDA24370033AE92 /* DayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTableViewCell.swift; sourceTree = "<group>"; };
 		180216A92BDA59030033AE92 /* AlarmDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmDataManager.swift; sourceTree = "<group>"; };
+		18037EA52C520F94003AB4AD /* AlarmListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AlarmListViewModel.swift; path = ../../../../../../../Documents/AlarmListViewModel.swift; sourceTree = "<group>"; };
 		185F4B8F2BF7254A00DA8242 /* ProfileDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDataManager.swift; sourceTree = "<group>"; };
 		185F4B922BFB314100DA8242 /* ProfileListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileListViewController.swift; sourceTree = "<group>"; };
 		185F4B942BFB329000DA8242 /* ProfileListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileListView.swift; sourceTree = "<group>"; };
@@ -159,8 +161,6 @@
 			children = (
 				186F8CA62BC7E20100741FF1 /* AppDelegate.swift */,
 				186F8CA82BC7E20100741FF1 /* SceneDelegate.swift */,
-				185F4BAB2C0DC75400DA8242 /* AlarmEntity+CoreDataClass.swift */,
-				185F4BAC2C0DC75400DA8242 /* AlarmEntity+CoreDataProperties.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -192,6 +192,36 @@
 				180216A12BD9EE840033AE92 /* Protocol */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		18037EA42C520F83003AB4AD /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				18037EA52C520F94003AB4AD /* AlarmListViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		18037EA72C524D3D003AB4AD /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				18F300CB2BC8ABC60065D852 /* View */,
+				18E5F4D62BC8B165004E0E27 /* Cell */,
+				18E5F4D92BC8B72C004E0E27 /* AlarmNavigationController.swift */,
+				186F8CDB2BC8A8F200741FF1 /* AlarmViewController.swift */,
+				18E5F4E52BC8E7B9004E0E27 /* CreateAlarmViewController.swift */,
+				1802169F2BD9E3770033AE92 /* SelectDayViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		18037EA82C524D82003AB4AD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				185F4BAB2C0DC75400DA8242 /* AlarmEntity+CoreDataClass.swift */,
+				185F4BAC2C0DC75400DA8242 /* AlarmEntity+CoreDataProperties.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		185F4B982BFB33CA00DA8242 /* Cell */ = {
@@ -267,12 +297,9 @@
 		186F8CDD2BC8AA3E00741FF1 /* Alarm */ = {
 			isa = PBXGroup;
 			children = (
-				18F300CB2BC8ABC60065D852 /* View */,
-				18E5F4D62BC8B165004E0E27 /* Cell */,
-				18E5F4D92BC8B72C004E0E27 /* AlarmNavigationController.swift */,
-				186F8CDB2BC8A8F200741FF1 /* AlarmViewController.swift */,
-				18E5F4E52BC8E7B9004E0E27 /* CreateAlarmViewController.swift */,
-				1802169F2BD9E3770033AE92 /* SelectDayViewController.swift */,
+				18037EA82C524D82003AB4AD /* Models */,
+				18037EA42C520F83003AB4AD /* ViewModels */,
+				18037EA72C524D3D003AB4AD /* Controllers */,
 			);
 			path = Alarm;
 			sourceTree = "<group>";
@@ -483,6 +510,7 @@
 				186F8CDC2BC8A8F200741FF1 /* AlarmViewController.swift in Sources */,
 				188423D32BF1F13700956EEE /* SetRepeatAgainTableViewCell.swift in Sources */,
 				18E5F4DD2BC8C48B004E0E27 /* ReuseIdentifying.swift in Sources */,
+				18037EA62C520F94003AB4AD /* AlarmListViewModel.swift in Sources */,
 				18E5F4F12BD62215004E0E27 /* ProfileNavigationController.swift in Sources */,
 				185F4B952BFB329000DA8242 /* ProfileListView.swift in Sources */,
 				188423C32BE6F2AD00956EEE /* YangeYammy.xcdatamodeld in Sources */,

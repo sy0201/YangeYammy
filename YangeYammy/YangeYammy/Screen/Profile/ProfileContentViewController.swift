@@ -144,9 +144,9 @@ private extension ProfileContentViewController {
                         profileData.birthYear = Int16(birthYear)
                         profileData.birthMonth = Int16(birthMonth)
                         profileData.weight = weight
-                        profileData.kcal = Int16(kcal)
+                        profileData.kcal = Int64(kcal)
                         profileData.neutrification = neutrification
-                        profileData.bcs = Int16(bcs)
+                        profileData.bcs = Int64(bcs)
                         
                         profileDataManager.updateProfile(profile: profileData) {
                             DispatchQueue.main.async {

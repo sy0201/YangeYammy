@@ -8,16 +8,8 @@
 import UIKit
 
 final class AlarmViewController: UIViewController {
-    var alarmManager = AlarmDataManager.shared
     weak var delegate: AlarmDelegate?
-    var switchOnOff: Bool = true
-
-    var alarmData: [AlarmEntity] {
-        get {
-            return sortAlarmData()
-        }
-    }
-    
+    var alarmListViewModel = AlarmListViewModel()
     let alarmView = AlarmView()
     
     override func loadView() {
@@ -26,44 +18,9 @@ final class AlarmViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupNavigationBar()
         setupTableView()
-    }
-
-    func sortAlarmData() -> [AlarmEntity] {
-        let sortedArray = alarmManager.getAlarmList().sorted { (prev, next) -> Bool in
-            var prevTime = "\(prev.time!)"
-            var nextTime = "\(next.time!)"
-            
-            let prevTimeArray = prevTime.split(separator: " ")
-            let nextTimeArray = nextTime.split(separator: " ")
-            
-            prevTime = "\(prevTimeArray[1])"
-            nextTime = "\(nextTimeArray[1])"
-            
-            let prevTimeHourAndMinute = prevTime.split(separator: ":")
-            let nextTimeHourAndMinute = nextTime.split(separator: ":")
-            
-            let prevTimeInt = prevTimeHourAndMinute.map { str in
-                return Int(str)!
-            }
-            
-            let nextTimeInt = nextTimeHourAndMinute.map { str in
-                return Int(str)!
-            }
-            
-            if (prevTimeInt[0] < nextTimeInt[0]) {
-                return true
-            } else if (prevTimeInt[0] > nextTimeInt[0]) {
-                return false
-            } else if (prevTimeInt[0] == nextTimeInt[0] && prevTimeInt[1] < nextTimeInt[1]) {
-                return true
-            } else {
-                return false
-            }
-        }
-        
-        return sortedArray
     }
     
     func createAlarm(at time: String, title: String) {
@@ -72,7 +29,7 @@ final class AlarmViewController: UIViewController {
         guard let date = dateFormatter.date(from: time) else { 
             return }
         
-        alarmManager.saveAlarm(isOn: true,
+        alarmListViewModel.alarmManager.saveAlarm(isOn: true,
                                time: date,
                                label: title,
                                isAgain: true,
@@ -88,7 +45,7 @@ final class AlarmViewController: UIViewController {
                                                             subTitle: "추천 알람", 
                                                             repeatDays: nil,
                                                             notificationId: notificationId,
-                                                            dataIndex: alarmManager.getAlarmList().count,
+                                                            dataIndex: alarmListViewModel.getAlarmListCount(),
                                                             updateTarget: nil)
     }
 }
@@ -138,17 +95,16 @@ private extension AlarmViewController {
 
 extension AlarmViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        alarmManager.getAlarmList().count
+        alarmListViewModel.getAlarmListCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AlarmTableViewCell.reuseIdentifier, for: indexPath) as? AlarmTableViewCell else {
             return UITableViewCell() }
         
-        let alarmList = alarmManager.getAlarmList()[indexPath.row]
-        cell.alarmData = alarmList
+        cell.alarmData = alarmListViewModel.getAlarmList()[indexPath.row]
         cell.switchDelegate = self
-        cell.configure(with: alarmList.isOn, indexPath: indexPath)
+        cell.configure(with: alarmListViewModel.switchOnOff ?? true, indexPath: indexPath)
         
         return cell
     }
@@ -160,13 +116,13 @@ extension AlarmViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
-            let removeAlarm = alarmManager.getAlarmList()[indexPath.row]
+            let removeAlarm = alarmListViewModel.getAlarmList()[indexPath.row]
             guard let time = removeAlarm.time else {
                 print("Error: removeAlarm.time is nil")
                 return
             }
             
-            alarmManager.removeAlarm(deleteTarget: removeAlarm) {
+            alarmListViewModel.alarmManager.removeAlarm(deleteTarget: removeAlarm) {
                 let deletedAlarmId = String(describing: time)
                 let repeatDays = removeAlarm.repeatDays?.components(separatedBy: ",")
                 
@@ -190,7 +146,7 @@ extension AlarmViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedAlarm = alarmManager.getAlarmList()[indexPath.row]
+        let selectedAlarm = alarmListViewModel.getAlarmList()[indexPath.row]
         
         let createAlarmVC = CreateAlarmViewController()
         createAlarmVC.alarmData = selectedAlarm
@@ -214,10 +170,10 @@ extension AlarmViewController: AlarmDelegate {
 extension AlarmViewController: SwitchValueDelegate {
     func switchValueChanged(isOn: Bool) {
         guard let selectedIndexPath = alarmView.tableView.indexPathForSelectedRow else { return }
-        let selectedAlarm = alarmManager.getAlarmList()[selectedIndexPath.row]
+        let selectedAlarm = alarmListViewModel.getAlarmList()[selectedIndexPath.row]
         selectedAlarm.isOn = isOn
         
-        alarmManager.updateAlarm(targetId: selectedAlarm.time ?? Date(), newData: selectedAlarm) {
+        alarmListViewModel.alarmManager.updateAlarm(targetId: selectedAlarm.time ?? Date(), newData: selectedAlarm) {
             self.delegate?.updateAlarm(selectedAlarm)
             DispatchQueue.main.async {
                 self.alarmView.tableView.reloadRows(at: [selectedIndexPath], with: .none)
@@ -225,15 +181,15 @@ extension AlarmViewController: SwitchValueDelegate {
         }
         
         if !isOn {
-            let alarmData = alarmManager.getAlarmList()[selectedIndexPath.row]
+            let alarmData = alarmListViewModel.getAlarmList()[selectedIndexPath.row]
             let notificationId = "\(alarmData.time ?? Date())"
             let repeatDays = alarmData.repeatDays?.components(separatedBy: ",")
             NotificationService.shared.removeNotification(withIdentifier: notificationId, repeatDays: repeatDays)
         } else {
-            let alarmData = alarmManager.getAlarmList()[selectedIndexPath.row]
+            let alarmData = alarmListViewModel.alarmManager.getAlarmList()[selectedIndexPath.row]
             let notificationId = "\(alarmData.time ?? Date())"
             let repeatDays = alarmData.repeatDays?.components(separatedBy: ",")
-            NotificationService.shared.requestAlarmNotification(date: alarmData.time, title: "냥이야미", subTitle: "오늘도 맛있는 밥을 먹을게요", repeatDays: repeatDays, notificationId: notificationId, dataIndex: alarmManager.getAlarmList().count, updateTarget: nil)
+            NotificationService.shared.requestAlarmNotification(date: alarmData.time, title: "냥이야미", subTitle: "오늘도 맛있는 밥을 먹을게요", repeatDays: repeatDays, notificationId: notificationId, dataIndex: alarmListViewModel.getAlarmListCount(), updateTarget: nil)
         }
     }
 }

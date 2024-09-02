@@ -17,6 +17,8 @@ final class CreateAlarmViewController: UIViewController {
     var alarmData: AlarmEntity?
     var notificationId: String = ""
     
+    //var alarmViewModel = AlarmViewModel()
+    
     let createAlarmView = CreateAlarmView()
 
     override func loadView() {
