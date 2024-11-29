@@ -57,4 +57,4 @@
 
 ### 👉 [Local Notification](https://silk-puffin-258.notion.site/Local-Notification-c265d1f4e8214a849ac84ae3dd42af94?pvs=4)
 
-### test2
+### git config --global user.name 변경
